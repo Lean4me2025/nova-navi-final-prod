@@ -10,6 +10,7 @@
       --nova-bg: #f9fafb;
       --nova-card-bg: #ffffff;
       --nova-teal: #14b8a6;
+      --nova-teal-soft: #ecfeff;
       --nova-teal-dark: #0f766e;
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
@@ -86,13 +87,20 @@
       border: 1px solid var(--nova-border);
       padding: 22px 20px;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
+                  border-color 0.18s ease;
       box-shadow: var(--nova-shadow-soft);
     }
 
     .cat-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 26px 55px rgba(15,118,110,0.16);
+    }
+
+    .cat-card.selected {
+      background: var(--nova-teal-soft);
+      border-color: rgba(20,184,166,0.7);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.22);
     }
 
     .cat-name {
@@ -178,8 +186,8 @@
       <div class="cat-step">Step · Categories</div>
       <h1 class="cat-title">Choose the Category That Fits You</h1>
       <p class="cat-subtitle">
-        These categories help Nova understand your natural direction —
-        the type of world you're drawn to and the environment where your gifts shine.
+        These categories help Nova understand your natural direction — the type of world
+        you're drawn to and the environment where your gifts shine.
       </p>
     </header>
 
@@ -190,6 +198,7 @@
         <span class="chevron-left">‹</span> Back to Welcome
       </a>
 
+      <!-- Direct link to subcategories -->
       <a href="subcategories.html" class="btn btn-primary">
         Continue <span class="chevron-right">›</span>
       </a>
@@ -200,15 +209,15 @@
     const categories = [
       {
         name: "Business & Leadership",
-        note: "People, operations, strategy, and helping things grow."
+        note: "People, operations, strategy, communication, and helping things grow."
       },
       {
         name: "Technology & Systems",
         note: "Building tools, platforms, automations, and smarter systems."
       },
       {
-        name: "Creative & Communication",
-        note: "Messaging, media, writing, visuals, and storytelling."
+        name: "Creative & Design",
+        note: "Art, visuals, design, imagination, expression, and shaping experiences."
       },
       {
         name: "People & Community",
@@ -225,29 +234,45 @@
     ];
 
     const grid = document.getElementById("categoriesGrid");
+    let selectedCategory = localStorage.getItem("novaSelectedCategory") || null;
 
-    categories.forEach(cat => {
-      const card = document.createElement("div");
-      card.className = "cat-card";
+    function renderCategories() {
+      categories.forEach(cat => {
+        const card = document.createElement("div");
+        card.className = "cat-card";
+        card.dataset.categoryName = cat.name;
 
-      const title = document.createElement("div");
-      title.className = "cat-name";
-      title.textContent = cat.name;
+        const title = document.createElement("div");
+        title.className = "cat-name";
+        title.textContent = cat.name;
 
-      const note = document.createElement("div");
-      note.className = "cat-note";
-      note.textContent = cat.note;
+        const note = document.createElement("div");
+        note.className = "cat-note";
+        note.textContent = cat.note;
 
-      card.appendChild(title);
-      card.appendChild(note);
+        card.appendChild(title);
+        card.appendChild(note);
 
-      card.addEventListener("click", () => {
-        localStorage.setItem("novaSelectedCategory", cat.name);
-        window.location.href = "subcategories.html";
+        card.addEventListener("click", () => {
+          selectedCategory = cat.name;
+          localStorage.setItem("novaSelectedCategory", selectedCategory);
+
+          document
+            .querySelectorAll(".cat-card")
+            .forEach(el => el.classList.remove("selected"));
+
+          card.classList.add("selected");
+        });
+
+        if (selectedCategory === cat.name) {
+          card.classList.add("selected");
+        }
+
+        grid.appendChild(card);
       });
+    }
 
-      grid.appendChild(card);
-    });
+    renderCategories();
   </script>
 </body>
 </html>
