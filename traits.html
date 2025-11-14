@@ -1,44 +1,333 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NOVA • Traits</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Your Traits</title>
+
   <style>
-    :root{--teal4:#37c7bd;--teal5:#1aa5a0;--ink:#1d2538;--muted:#6b7280;--border:#e8ecf2;--shadow:0 10px 30px rgba(13,52,58,.12)}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#fff;color:var(--ink)}
-    .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-    .hero{background:linear-gradient(135deg,var(--teal4),var(--teal5));color:#fff;padding:38px 0 26px;border-bottom-left-radius:28px;border-bottom-right-radius:28px;box-shadow:var(--shadow)}
-    .hero h1{font-size:34px;font-weight:800;margin:0 0 6px;letter-spacing:-.02em}
-    .hero p{margin:0;opacity:.95}
-    a.back{color:#0e6e6c;text-decoration:none;border-bottom:1px solid #7de3d6;padding-bottom:2px}
-    .top{margin:18px 0 8px;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0 4px}
-    .chip{background:#fff;border:1px solid var(--border);padding:12px 14px;border-radius:12px;cursor:pointer;text-align:left;transition:.12s ease}
-    .chip.active{background:linear-gradient(135deg,#e6fbf7,#c8f5ee);border-color:#7de3d6}
-    .footer{display:flex;align-items:center;gap:16px;margin:18px 0 36px}
-    .btn{background:linear-gradient(135deg,var(--teal4),var(--teal5));color:#fff;border:0;border-radius:14px;padding:12px 18px;font-weight:800;cursor:pointer;opacity:.5}
-    .btn.enabled{opacity:1}
-    .empty{background:#fff;border:1px dashed #cdd9e3;border-radius:12px;padding:16px 14px;color:#5a657a;margin:12px 0}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 18px;
+      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+    }
+
+    main.traits-page {
+      max-width: 1100px;
+      margin: 36px auto 40px;
+      padding: 0 16px 48px;
+    }
+
+    @media (min-width: 768px) {
+      main.traits-page {
+        margin-top: 48px;
+      }
+    }
+
+    .traits-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .traits-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
+    }
+
+    .traits-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .traits-subtitle {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .traits-panel {
+      margin-top: 26px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 22px 18px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .traits-panel {
+        padding: 26px 26px 22px;
+      }
+    }
+
+    .traits-count {
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .traits-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nova-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .traits-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .trait-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfeff; /* soft teal background */
+      color: var(--nova-teal-dark);
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.82rem;
+      font-weight: 500;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .trait-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--nova-teal-dark);
+      margin-right: 6px;
+    }
+
+    .traits-helper {
+      margin-top: 14px;
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
+    }
+
+    .traits-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .traits-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.18s ease, color 0.18s ease,
+                  transform 0.16s ease, box-shadow 0.16s ease;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active,
+    .btn-outline:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+    }
+
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+
+    .no-traits {
+      margin-top: 18px;
+      font-size: 0.88rem;
+      color: var(--nova-text-muted);
+    }
   </style>
 </head>
+
 <body>
-  <header class="hero">
-    <div class="wrap">
-      <a class="back" href="categories.html">Back</a>
-      <h1>Select the traits that fit you</h1>
-      <p>Choose at least <strong>5</strong> traits. Click again to unselect.</p>
-    </div>
-  </header>
+  <main class="traits-page">
+    <header class="traits-header">
+      <div class="traits-step">Step 1 · Traits</div>
+      <h1 class="traits-title">Your Key Traits</h1>
+      <p class="traits-subtitle">
+        These are the traits you selected as most like you. They form the “fingerprint”
+        Nova uses to match roles, shape your purpose statement, and guide your next steps.
+      </p>
+    </header>
 
-  <!-- mount -->
-  <main id="traits" class="wrap" data-page="traits"></main>
+    <section class="traits-panel" aria-label="Selected traits">
+      <div id="traitsCount" class="traits-count"></div>
+      <div class="traits-label">You said these sound like you:</div>
 
-  <!-- scripts -->
-  <script defer src="/assets/js/DataLoader.js"></script>
-  <script defer src="/assets/js/traits.js"></script>
-  <script defer src="/assets/js/SaveReturn.js"></script> <!-- optional; safe -->
+      <div id="traitsList" class="traits-list">
+        <!-- Trait pills injected here -->
+      </div>
+
+      <p id="noTraitsMessage" class="no-traits" style="display:none;">
+        We couldn’t find any saved traits yet. You can still continue, 
+        but going back and selecting traits will give you a stronger match later.
+      </p>
+
+      <p class="traits-helper">
+        As you look at this list, notice which traits feel most true, which surprise you,
+        and which you’d like to lean into more in this next season.
+      </p>
+    </section>
+
+    <nav class="traits-actions" aria-label="Traits navigation">
+      <a href="subcategories.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span>
+        <span>Back to Subcategories</span>
+      </a>
+
+      <a href="roles.html" class="btn btn-primary">
+        <span>Continue to Roles</span>
+        <span class="chevron-right">›</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    // Default traits in case nothing is stored yet.
+    const defaultTraits = [
+      "Strategic Thinker",
+      "Problem Solver",
+      "Encourager",
+      "Detail-Aware",
+      "Big-Picture Vision",
+      "People-Focused",
+      "Systems Builder",
+      "Persistent"
+    ];
+
+    function loadTraits() {
+      const traitsListEl = document.getElementById("traitsList");
+      const countEl = document.getElementById("traitsCount");
+      const noTraitsEl = document.getElementById("noTraitsMessage");
+
+      if (!traitsListEl || !countEl) return;
+
+      let traits = null;
+
+      // Look for commonly used keys from earlier flows
+      const possibleKeys = [
+        "novaSelectedTraits",
+        "selectedTraits",
+        "traitsSelection"
+      ];
+
+      for (let key of possibleKeys) {
+        const stored = localStorage.getItem(key);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              traits = parsed;
+              break;
+            }
+          } catch (e) {
+            console.warn("Could not parse traits from", key, e);
+          }
+        }
+      }
+
+      if (!traits) {
+        traits = defaultTraits;
+        noTraitsEl.style.display = "block";
+      }
+
+      traitsListEl.innerHTML = "";
+
+      traits.forEach((trait) => {
+        const pill = document.createElement("span");
+        pill.className = "trait-pill";
+
+        const dot = document.createElement("span");
+        dot.className = "dot";
+
+        const label = document.createElement("span");
+        label.textContent = trait;
+
+        pill.appendChild(dot);
+        pill.appendChild(label);
+
+        traitsListEl.appendChild(pill);
+      });
+
+      countEl.textContent = `You selected ${traits.length} key traits.`;
+    }
+
+    document.addEventListener("DOMContentLoaded", loadTraits);
+  </script>
+
+  <!-- If you have a Save/Return or shared JS file, you can still include it here:
+       <script src="assets/js/SaveReturn.js"></script>
+  -->
 </body>
 </html>
