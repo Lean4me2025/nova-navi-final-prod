@@ -10,6 +10,7 @@
       --nova-bg: #f9fafb;
       --nova-card-bg: #ffffff;
       --nova-teal: #14b8a6;
+      --nova-teal-soft: #ecfeff;
       --nova-teal-dark: #0f766e;
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
@@ -86,13 +87,20 @@
       border: 1px solid var(--nova-border);
       padding: 22px 20px;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
+                  border-color 0.18s ease;
       box-shadow: var(--nova-shadow-soft);
     }
 
     .cat-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 26px 55px rgba(15,118,110,0.16);
+    }
+
+    .cat-card.selected {
+      background: var(--nova-teal-soft);
+      border-color: rgba(20,184,166,0.7);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.22);
     }
 
     .cat-name {
@@ -178,8 +186,8 @@
       <div class="cat-step">Step · Categories</div>
       <h1 class="cat-title">Choose the Category That Fits You</h1>
       <p class="cat-subtitle">
-        These categories help Nova understand your natural direction —
-        the type of world you're drawn to and the environment where your gifts shine.
+        These categories help Nova understand your natural direction — the type of world
+        you're drawn to and the environment where your gifts shine.
       </p>
     </header>
 
@@ -190,9 +198,9 @@
         <span class="chevron-left">‹</span> Back to Welcome
       </a>
 
-      <a href="subcategories.html" class="btn btn-primary">
+      <button id="continueBtn" class="btn btn-primary" type="button">
         Continue <span class="chevron-right">›</span>
-      </a>
+      </button>
     </nav>
   </main>
 
@@ -225,29 +233,62 @@
     ];
 
     const grid = document.getElementById("categoriesGrid");
+    const continueBtn = document.getElementById("continueBtn");
 
-    categories.forEach(cat => {
-      const card = document.createElement("div");
-      card.className = "cat-card";
+    let selectedCategory = null;
 
-      const title = document.createElement("div");
-      title.className = "cat-name";
-      title.textContent = cat.name;
+    function renderCategories() {
+      const stored = localStorage.getItem("novaSelectedCategory");
+      if (stored) {
+        selectedCategory = stored;
+      }
 
-      const note = document.createElement("div");
-      note.className = "cat-note";
-      note.textContent = cat.note;
+      categories.forEach(cat => {
+        const card = document.createElement("div");
+        card.className = "cat-card";
+        card.dataset.categoryName = cat.name;
 
-      card.appendChild(title);
-      card.appendChild(note);
+        const title = document.createElement("div");
+        title.className = "cat-name";
+        title.textContent = cat.name;
 
-      card.addEventListener("click", () => {
-        localStorage.setItem("novaSelectedCategory", cat.name);
-        window.location.href = "subcategories.html";
+        const note = document.createElement("div");
+        note.className = "cat-note";
+        note.textContent = cat.note;
+
+        card.appendChild(title);
+        card.appendChild(note);
+
+        card.addEventListener("click", () => {
+          selectedCategory = cat.name;
+          localStorage.setItem("novaSelectedCategory", selectedCategory);
+
+          // Clear selection style from others
+          document
+            .querySelectorAll(".cat-card")
+            .forEach(el => el.classList.remove("selected"));
+
+          card.classList.add("selected");
+        });
+
+        // If this matches previously selected, mark as selected
+        if (selectedCategory === cat.name) {
+          card.classList.add("selected");
+        }
+
+        grid.appendChild(card);
       });
+    }
 
-      grid.appendChild(card);
+    continueBtn.addEventListener("click", () => {
+      if (!selectedCategory) {
+        alert("Please choose a category before continuing.");
+        return;
+      }
+      window.location.href = "subcategories.html";
     });
+
+    renderCategories();
   </script>
 </body>
 </html>
