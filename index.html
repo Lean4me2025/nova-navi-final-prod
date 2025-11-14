@@ -2,131 +2,535 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nova — Start Your Purpose</title>
-
-  <!-- Inline favicon -->
-  <link rel="icon" type="image/svg+xml"
-    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect rx="10" ry="10" width="48" height="48" fill="%231f72ea"/><path d="M14 34V14h4l12 14V14h4v20h-4L18 20v14h-4z" fill="white"/></svg>'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Discover Your Purpose</title>
 
   <style>
-    :root{
-      --bg:#f7f9fc;
-      --surface:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --brand:#1f72ea;
-      --brand-2:#71a7ff;
-      --ring:rgba(31,114,234,.25);
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-soft: #99f6e4;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 22px;
+      --nova-radius-pill: 999px;
+      --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui, Arial, sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(1200px 600px at 100% -10%, #dfeeff 0%, transparent 60%),
-        radial-gradient(900px 500px at -10% 110%, #eaf2ff 0%, transparent 60%),
-        var(--bg);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-    }
-    .card{
-      width:min(760px,100%);
-      background:var(--surface);
-      border-radius:20px;
-      box-shadow:0 12px 40px rgba(2,6,23,.08);
-      padding:28px clamp(24px,4vw,40px);
-      outline:1px solid rgba(15,23,42,.05);
-      animation:pop .5s ease-out both;
-    }
-    @keyframes pop{from{transform:translateY(8px);opacity:.0}to{transform:none;opacity:1}}
 
-    .brand{display:flex; gap:12px; align-items:center; margin-bottom:10px}
-    .brand__name{font-weight:800; font-size:1.15rem}
-    h1{
-      margin:18px 0 10px;
-      font-size:clamp(1.85rem, 2.2rem + .6vw, 2.6rem);
-      line-height:1.12;
-      color:var(--ink);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+      display: flex;
+      justify-content: center;
     }
-    .stat{
-      display:inline-block;
-      background:linear-gradient(90deg, var(--brand), var(--brand-2));
-      color:#fff;
-      border-radius:999px;
-      padding:8px 14px;
-      font-weight:700;
-      font-size:.95rem;
-      box-shadow:0 6px 16px var(--ring);
-      margin-bottom:16px;
+
+    .page-wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 32px auto 40px;
+      padding: 0 16px 40px;
     }
-    p{
-      color:var(--muted);
-      font-size:1.05rem;
-      line-height:1.55rem;
-      margin-bottom:24px;
+
+    @media (min-width: 768px) {
+      .page-wrap {
+        margin-top: 40px;
+        padding-bottom: 60px;
+      }
     }
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{
-      appearance:none; border:none; cursor:pointer;
-      background:var(--brand); color:#fff;
-      font-weight:700; padding:14px 18px;
-      border-radius:12px; font-size:1.05rem;
-      box-shadow:0 10px 22px var(--ring);
-      transition:.15s transform, .15s background;
+
+    /* Header */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
     }
-    .btn:hover{transform:translateY(-1px); background:#2a7bf0}
-    .btn--ghost{
-      background:transparent; color:var(--brand);
-      border:2px solid rgba(31,114,234,.25);
-      box-shadow:none;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .fine{margin-top:10px; color:var(--muted); font-size:.95rem}
-    footer{margin-top:22px; font-size:.9rem; color:var(--muted)}
-    a.inline{color:var(--brand); text-decoration:none}
-    a.inline:hover{text-decoration:underline}
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: linear-gradient(135deg,#a5f3fc,#14b8a6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 12px 28px rgba(20,184,166,0.35);
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--nova-teal-dark);
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--nova-text-muted);
+    }
+
+    /* Hero layout */
+    .hero {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+        align-items: stretch;
+      }
+    }
+
+    .hero-left {
+      padding-right: 4px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px 3px 4px;
+      border-radius: var(--nova-radius-pill);
+      border: 1px solid rgba(20,184,166,0.25);
+      background: rgba(240,253,250,0.95);
+      margin-bottom: 12px;
+    }
+
+    .hero-kicker-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: #14b8a6;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .hero-kicker-text {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal-dark);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 10px;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(120deg,#14b8a6,#0ea5e9);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-89 {
+      margin: 10px 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--nova-radius-pill);
+      padding: 6px 12px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--nova-teal-dark);
+    }
+
+    .hero-89 span.percent {
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .hero-body {
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--nova-radius-pill);
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      gap: 8px;
+      transition: background 0.18s ease, color 0.18s ease,
+                  transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 18px 34px rgba(20,184,166,0.5);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 20px 40px rgba(15,118,110,0.55);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--nova-teal-dark);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 26px rgba(15,23,42,0.08);
+      transform: translateY(-1px);
+    }
+
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--nova-text-muted);
+    }
+
+    /* How it works */
+    .how {
+      margin-top: 26px;
+      max-width: 640px;
+    }
+
+    .how-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--nova-text-muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .how-steps {
+      display: grid;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--nova-text-muted);
+    }
+
+    .how-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .how-step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: #ccfbf1;
+      color: var(--nova-teal-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .how-step-text {
+      line-height: 1.5;
+    }
+
+    /* Right panel (PIN) */
+    .hero-right {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .pin-card {
+      width: 100%;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 22px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 880px) {
+      .pin-card {
+        padding: 26px 24px 26px;
+      }
+    }
+
+    .pin-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pin-sub {
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      margin-bottom: 16px;
+    }
+
+    .pin-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--nova-text-muted);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .pin-input-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .pin-input {
+      flex: 1;
+      padding: 9px 12px;
+      border-radius: var(--nova-radius-pill);
+      border: 1px solid var(--nova-border);
+      font-size: 0.95rem;
+      outline: none;
+      color: var(--nova-text-main);
+      background: #f9fafb;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pin-input:focus {
+      border-color: var(--nova-teal);
+      box-shadow: 0 0 0 1px rgba(20,184,166,0.3);
+      background: #ffffff;
+    }
+
+    .pin-btn {
+      white-space: nowrap;
+      font-size: 0.9rem;
+      padding: 9px 16px;
+      border-radius: var(--nova-radius-pill);
+      border: none;
+      background: var(--nova-teal);
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(20,184,166,0.45);
+      transition: background 0.18s ease, transform 0.16s ease,
+                  box-shadow 0.16s ease;
+    }
+
+    .pin-btn:hover {
+      background: var(--nova-teal-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(15,118,110,0.5);
+    }
+
+    .pin-help {
+      font-size: 0.78rem;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .pin-footer {
+      font-size: 0.78rem;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
+      border-top: 1px dashed var(--nova-border);
+      padding-top: 10px;
+      margin-top: 8px;
+    }
   </style>
 </head>
+
 <body>
-  <main class="card" role="main" aria-labelledby="title">
-
-    <div class="brand" aria-label="Nova brand">
-      <svg width="44" height="44" viewBox="0 0 48 48">
-        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#71a7ff"/><stop offset="1" stop-color="#1f72ea"/>
-        </linearGradient></defs>
-        <rect rx="10" ry="10" width="48" height="48" fill="url(#g)"/>
-        <path d="M14 34V14h4l12 14V14h4v20h-4L18 20v14h-4z" fill="#fff"/>
-      </svg>
-      <div>
-        <div class="brand__name">Nova</div>
+  <div class="page-wrap">
+    <!-- Top brand row -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div>
+          <div class="brand-title">Nova</div>
+          <div class="brand-sub">Purpose · Traits · Roles</div>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <div class="stat">89% of people do not know their purpose.</div>
+    <!-- Hero layout -->
+    <section class="hero">
+      <!-- Left: main welcome -->
+      <div class="hero-left">
+        <div class="hero-kicker">
+          <div class="hero-kicker-pill">✦</div>
+          <div class="hero-kicker-text">Welcome to Nova</div>
+        </div>
 
-    <h1 id="title">You won't be one of them.</h1>
+        <h1 class="hero-title">
+          Help for the <span class="hero-highlight">89%</span> who don’t know why they’re here.
+        </h1>
 
-    <p>
-      Nova helps you <strong>find</strong> and <strong>define</strong> the purpose already inside you —
-      and align your life and career with who you were created to be.
-    </p>
+        <div class="hero-89">
+          <span class="percent">89%</span>
+          <span>of people say they don’t know their true purpose.</span>
+        </div>
 
-    <div class="cta-row">
-      <button class="btn" onclick="location.href='categories.html'">Start Discovery</button>
-      <button class="btn btn--ghost" onclick="location.href='categories.html'">Skip Intro</button>
-    </div>
+        <p class="hero-body">
+          Nova is a guided experience that helps you discover how God actually designed you,
+          see work that fits your wiring, and map clear next steps. No fluff, no vague labels —
+          just traits, roles, and a path that makes sense.
+        </p>
 
-    <div class="fine">Takes about 3–5 minutes.</div>
+        <div class="hero-actions">
+          <button id="startJourneyBtn" class="btn btn-primary">
+            <span>Start My Journey</span>
+            <span class="chevron-right">›</span>
+          </button>
 
-    <footer>
-      Already exploring? <a class="inline" href="categories.html">Continue</a>
-    </footer>
+          <button id="havePinScrollBtn" class="btn btn-secondary" type="button">
+            I already have a PIN
+          </button>
+        </div>
 
-  </main>
+        <div class="hero-note">
+          You can stop at any time. Your answers stay private and are used only to guide your journey.
+        </div>
+
+        <!-- How it works -->
+        <section class="how" aria-label="How Nova works">
+          <div class="how-title">How Nova Works</div>
+          <div class="how-steps">
+            <div class="how-step">
+              <div class="how-step-num">1</div>
+              <div class="how-step-text">
+                Choose your <strong>Category</strong> and focus areas that feel most like your world.
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-num">2</div>
+              <div class="how-step-text">
+                Select your <strong>Traits</strong>, then review <strong>Roles</strong> that fit your design and see your <strong>Purpose Reveal</strong>.
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-step-num">3</div>
+              <div class="how-step-text">
+                Decide how deeply you want to go and <strong>Invest in yourself</strong> with Nova + Navi tools and support.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right: PIN card -->
+      <aside class="hero-right" aria-label="PIN access">
+        <div class="pin-card">
+          <div>
+            <h2 class="pin-title">Have a Nova PIN?</h2>
+            <p class="pin-sub">
+              If you’ve been given a PIN for a session, event, or coaching program,
+              enter it here to continue where you left off.
+            </p>
+
+            <div class="pin-label">Enter PIN</div>
+            <div class="pin-input-row">
+              <input
+                id="pinInput"
+                class="pin-input"
+                type="text"
+                placeholder="e.g., NOVA-1234"
+                autocomplete="off"
+              />
+              <button id="pinSubmitBtn" class="pin-btn" type="button">
+                Enter
+              </button>
+            </div>
+
+            <p class="pin-help">
+              You can also start a new journey without a PIN. We’ll use your answers to guide
+              your traits, roles, and purpose reveal.
+            </p>
+          </div>
+
+          <div class="pin-footer">
+            If something doesn’t feel accurate along the way, you can always go back, adjust
+            your choices, and watch your matches update.
+          </div>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <script>
+    // Start journey → go to categories
+    document.getElementById("startJourneyBtn")?.addEventListener("click", function () {
+      window.location.href = "categories.html";
+    });
+
+    // Scroll to PIN card if user clicks "I already have a PIN"
+    document.getElementById("havePinScrollBtn")?.addEventListener("click", function () {
+      const pinCard = document.querySelector(".pin-card");
+      if (pinCard && pinCard.scrollIntoView) {
+        pinCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+
+    // Handle PIN entry
+    document.getElementById("pinSubmitBtn")?.addEventListener("click", function () {
+      const pinInput = document.getElementById("pinInput");
+      if (!pinInput) return;
+      const value = pinInput.value.trim();
+      if (value.length > 0) {
+        // Save for later use if needed
+        localStorage.setItem("novaPIN", value);
+      }
+      // For now, send them into the flow at Categories.
+      window.location.href = "categories.html";
+    });
+  </script>
 </body>
 </html>
