@@ -87,8 +87,7 @@
       border: 1px solid var(--nova-border);
       padding: 22px 20px;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
-                  border-color 0.18s ease;
+      transition: 0.18s ease;
       box-shadow: var(--nova-shadow-soft);
     }
 
@@ -144,8 +143,7 @@
       cursor: pointer;
       border: none;
       gap: 8px;
-      transition: background 0.18s ease, color 0.18s ease,
-                  transform 0.16s ease, box-shadow 0.16s ease;
+      transition: 0.16s ease;
     }
 
     .btn-outline {
@@ -186,8 +184,8 @@
       <div class="cat-step">Step · Categories</div>
       <h1 class="cat-title">Choose the Category That Fits You</h1>
       <p class="cat-subtitle">
-        These categories help Nova understand your natural direction — the type of world
-        you're drawn to and the environment where your gifts shine.
+        These categories help Nova understand your natural direction —
+        the type of world you're drawn to.
       </p>
     </header>
 
@@ -198,8 +196,8 @@
         <span class="chevron-left">‹</span> Back to Welcome
       </a>
 
-      <!-- Direct link to subcategories -->
-      <a href="subcategories.html" class="btn btn-primary">
+      <!-- 🔥 Guaranteed working redirect -->
+      <a href="/subcategories.html" class="btn btn-primary">
         Continue <span class="chevron-right">›</span>
       </a>
     </nav>
@@ -217,7 +215,7 @@
       },
       {
         name: "Creative & Design",
-        note: "Art, visuals, design, imagination, expression, and shaping experiences."
+        note: "Art, visuals, design, imagination, and creative expression."
       },
       {
         name: "People & Community",
@@ -274,5 +272,6 @@
 
     renderCategories();
   </script>
+
 </body>
 </html>
