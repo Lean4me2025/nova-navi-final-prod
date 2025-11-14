@@ -1,50 +1,286 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>NOVA • Reveal</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Your Purpose Revealed</title>
+
+  <!-- If you already have a global stylesheet, you can keep its link here -->
+  <!-- <link rel="stylesheet" href="assets/styles.css" /> -->
+
+  <style>
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 22px;
+      --nova-shadow-soft: 0 24px 60px rgba(15, 118, 110, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    main.reveal-page {
+      width: 100%;
+      max-width: 900px;
+      margin: 36px auto 40px;
+      padding: 0 16px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      main.reveal-page {
+        margin-top: 48px;
+        padding-bottom: 56px;
+      }
+    }
+
+    .reveal-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .reveal-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
+    }
+
+    .reveal-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .reveal-subtitle {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .reveal-card {
+      margin: 28px auto 0;
+      max-width: 760px;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 26px 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .reveal-card {
+        padding: 32px 38px 30px;
+      }
+    }
+
+    .reveal-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(240, 253, 250, 0.95);
+      border: 1px solid rgba(20, 184, 166, 0.25);
+      color: var(--nova-teal-dark);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+
+    .reveal-chip span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--nova-teal-dark);
+    }
+
+    .purpose-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--nova-text-main);
+      margin-bottom: 16px;
+    }
+
+    .purpose-text strong {
+      font-weight: 700;
+      color: var(--nova-teal-dark);
+    }
+
+    .reveal-note {
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .reveal-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .reveal-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.18s ease, color 0.18s ease,
+                  transform 0.16s ease, box-shadow 0.16s ease;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active,
+    .btn-outline:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+    }
+
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="brand">NOVA</div>
-      <nav class="nav">
-        <a href="roles.html">Back</a>
-      </nav>
+  <main class="reveal-page">
+    <header class="reveal-header">
+      <div class="reveal-step">Step 3 · Reveal</div>
+      <h1 class="reveal-title">Your Purpose Revealed</h1>
+      <p class="reveal-subtitle">
+        Based on your choices, patterns, and traits, Nova has assembled a picture
+        of how you are uniquely wired to show up in the world.
+      </p>
     </header>
 
-    <div class="kicker">Step 4 of 5</div>
-    <h1>Your reveal & reflection</h1>
-
-    <section class="card stack">
-      <h3 class="h3">Your Direction</h3>
-      <p class="p"><strong>Focus:</strong> <span id="focusNames">—</span></p>
-      <p class="p"><strong>Sub-areas:</strong> <span id="subNames">—</span></p>
-      <p class="p"><strong>Top traits:</strong> <span id="topTraits">—</span></p>
-    </section>
-
-    <section class="stack">
-      <h3 class="h3">Top Roles</h3>
-      <div id="topRoles" class="grid-2"></div>
-    </section>
-
-    <section class="card stack">
-      <h3 class="h3">Reflection (optional but powerful)</h3>
-      <p class="p">What stood out? How does this align with what others notice about you?</p>
-      <textarea id="notes" rows="6" class="input"></textarea>
-      <div class="bar">
-        <a class="link" href="roles.html">← Back</a>
-        <div class="spacer"></div>
-        <a class="btn" href="invest.html">Invest in yourself →</a>
+    <section class="reveal-card" aria-labelledby="purpose-heading">
+      <div class="reveal-chip">
+        <span class="dot"></span>
+        <span>Your Nova Snapshot</span>
       </div>
+
+      <h2 id="purpose-heading" class="sr-only">Your Purpose Statement</h2>
+
+      <!-- This is where the purpose text will be displayed -->
+      <p id="purposeText" class="purpose-text">
+        You are designed to bring <strong>clarity, structure, and hope</strong> into the spaces
+        you touch. You thrive when you are solving real problems for real people,
+        building systems that last, and helping others step into their potential.
+      </p>
+
+      <p class="reveal-note">
+        Take a breath and read this slowly. Sit with it. Highlight the phrases
+        that feel the most true. This is not a final label; it's a starting
+        mirror for how God has woven together your gifts, wiring, and desires.
+      </p>
     </section>
 
-    <footer class="footer">© NOVA</footer>
-  </div>
+    <nav class="reveal-actions" aria-label="Reveal navigation">
+      <a href="roles.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span>
+        <span>Back to Roles</span>
+      </a>
 
-  <script src="assets/app.js"></script>
-  <script>renderReveal();</script>
+      <a href="invest.html" class="btn btn-primary">
+        <span>Continue to Invest</span>
+        <span class="chevron-right">›</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    // Try to pull a purpose statement from localStorage if your flow already saves one.
+    // This won't break anything if the keys don't exist.
+    (function () {
+      var purposeEl = document.getElementById('purposeText');
+      if (!purposeEl) return;
+
+      var possibleKeys = [
+        'novaPurpose',
+        'novaFinalSummary',
+        'novaRevealText',
+        'purposeSummary'
+      ];
+
+      for (var i = 0; i < possibleKeys.length; i++) {
+        var value = localStorage.getItem(possibleKeys[i]);
+        if (value && value.trim().length > 0) {
+          purposeEl.textContent = value;
+          break;
+        }
+      }
+    })();
+  </script>
+
+  <!-- If you have existing JS files that handle Save/Return or reveal logic,
+       you can include them here as well, e.g.:
+       <script src="assets/js/SaveReturn.js"></script>
+       <script src="assets/js/app.js"></script>
+  -->
 </body>
 </html>
