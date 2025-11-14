@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Choose Your Category</title>
+
+  <style>
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-soft: #ecfeff;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 22px;
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+    }
+
+    main.cat-page {
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      padding: 0 16px;
+    }
+
+    .cat-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .cat-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
+    }
+
+    .cat-title {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cat-subtitle {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .cat-grid {
+      margin-top: 32px;
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media (min-width: 640px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 960px) {
+      .cat-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .cat-card {
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      box-shadow: var(--nova-shadow-soft);
+    }
+
+    .cat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.16);
+    }
+
+    .cat-card.selected {
+      background: var(--nova-teal-soft);
+      border-color: rgba(20,184,166,0.7);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.22);
+    }
+
+    .cat-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--nova-teal-dark);
+      margin-bottom: 6px;
+    }
+
+    .cat-note {
+      font-size: 0.9rem;
+      color: var(--nova-text-muted);
+      line-height: 1.45;
+    }
+
+    .cat-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .cat-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      gap: 8px;
+      transition: 0.16s ease;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 38px rgba(15,118,110,0.5);
+      transform: translateY(-1px);
+    }
+
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="cat-page">
+    <header class="cat-header">
+      <div class="cat-step">Step · Categories</div>
+      <h1 class="cat-title">Choose the Category That Fits You</h1>
+      <p class="cat-subtitle">
+        These categories help Nova understand your natural direction —
+        the type of world you're drawn to.
+      </p>
+    </header>
+
+    <section id="categoriesGrid" class="cat-grid"></section>
+
+    <nav class="cat-actions">
+      <a href="index.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span> Back to Welcome
+      </a>
+
+      <button id="continueBtn" class="btn btn-primary" type="button">
+        Continue <span class="chevron-right">›</span>
+      </button>
+    </nav>
+  </main>
+
+  <script>
+    const categories = [
+      {
+        name: "Business & Leadership",
+        note: "People, operations, strategy, communication, and helping things grow."
+      },
+      {
+        name: "Technology & Systems",
+        note: "Building tools, platforms, automations, and smarter systems."
+      },
+      {
+        name: "Creative & Design",
+        note: "Art, visuals, design, imagination, expression, and shaping experiences."
+      },
+      {
+        name: "People & Community",
+        note: "Serving, coaching, developing, and supporting others."
+      },
+      {
+        name: "Analysis & Research",
+        note: "Digging deep, problem solving, uncovering patterns."
+      },
+      {
+        name: "Hands-On & Field Work",
+        note: "Practical, real-world work that solves immediate problems."
+      }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("categoriesGrid");
+      const continueBtn = document.getElementById("continueBtn");
+      let selectedCategory = localStorage.getItem("novaSelectedCategory") || null;
+
+      function renderCategories() {
+        categories.forEach(cat => {
+          const card = document.createElement("div");
+          card.className = "cat-card";
+
+          const title = document.createElement("div");
+          title.className = "cat-name";
+          title.textContent = cat.name;
+
+          const note = document.createElement("div");
+          note.className = "cat-note";
+          note.textContent = cat.note;
+
+          card.appendChild(title);
+          card.appendChild(note);
+
+          card.addEventListener("click", () => {
+            selectedCategory = cat.name;
+            localStorage.setItem("novaSelectedCategory", selectedCategory);
+
+            document
+              .querySelectorAll(".cat-card")
+              .forEach(el => el.classList.remove("selected"));
+
+            card.classList.add("selected");
+          });
+
+          if (selectedCategory === cat.name) {
+            card.classList.add("selected");
+          }
+
+          grid.appendChild(card);
+        });
+      }
+
+      function goToSubcategories() {
+        if (!selectedCategory) {
+          alert("Please choose a category first.");
+          return;
+        }
+        window.location.href = "subcategories.html";
+      }
+
+      renderCategories();
+      continueBtn.addEventListener("click", goToSubcategories);
+    });
+  </script>
+</body>
+</html>
