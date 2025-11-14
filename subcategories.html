@@ -1,38 +1,341 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>NOVA • Refine</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Focus Areas</title>
+
+  <style>
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 18px;
+      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+    }
+
+    main.subcategories-page {
+      max-width: 1100px;
+      margin: 36px auto 40px;
+      padding: 0 16px 48px;
+    }
+
+    @media (min-width: 768px) {
+      main.subcategories-page {
+        margin-top: 48px;
+      }
+    }
+
+    .sub-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .sub-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
+    }
+
+    .sub-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sub-subtitle {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .sub-panel {
+      margin-top: 26px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 22px 18px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .sub-panel {
+        padding: 26px 26px 22px;
+      }
+    }
+
+    .sub-count {
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .sub-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nova-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .sub-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sub-chip {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: #ecfeff;
+      color: var(--nova-teal-dark);
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.25;
+      min-width: 140px;
+    }
+
+    .sub-chip-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .sub-chip-note {
+      font-size: 0.78rem;
+      color: var(--nova-text-muted);
+    }
+
+    .sub-helper {
+      margin-top: 14px;
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
+    }
+
+    .no-subcategories {
+      margin-top: 18px;
+      font-size: 0.88rem;
+      color: var(--nova-text-muted);
+    }
+
+    .sub-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .sub-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.18s ease, color 0.18s ease,
+                  transform 0.16s ease, box-shadow 0.16s ease;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active,
+    .btn-outline:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+    }
+
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="brand">NOVA</div>
-      <nav class="nav">
-        <a href="categories.html">Back</a>
-      </nav>
+  <main class="subcategories-page">
+    <header class="sub-header">
+      <div class="sub-step">Step 0 · Focus Areas</div>
+      <h1 class="sub-title">Focus Areas Under Your Category</h1>
+      <p class="sub-subtitle">
+        Within the category you chose, these are the focus areas (subcategories)
+        that stood out to you. They help narrow how you want to apply your
+        gifts in real work and real environments.
+      </p>
     </header>
 
-    <div class="kicker">Step 1.5 of 5</div>
-    <h1>Refine your focus</h1>
-    <p class="p">Pick up to <strong>3</strong> sub-areas across these families. This helps tailor your trait list.</p>
+    <section class="sub-panel" aria-label="Selected focus areas">
+      <div id="subCount" class="sub-count"></div>
+      <div class="sub-label">You said you’re drawn to:</div>
 
-    <div class="bar">
-      <span>Selected: <span id="subCount">0</span> / 3</span>
-      <div class="spacer"></div>
-      <button id="subsContinue" class="btn" disabled>Continue → Traits</button>
-      <a id="clearSubs" class="link" href="#">Clear</a>
-    </div>
+      <div id="subList" class="sub-list">
+        <!-- Subcategory chips injected here -->
+      </div>
 
-    <!-- Grouped by family labels (Create, Analyze, Guide, Care, Story, Protect) -->
-    <div id="subcatWrap" class="stack"></div>
+      <p id="noSubMessage" class="no-subcategories" style="display:none;">
+        We didn’t find any saved focus areas yet. You can still continue,
+        but choosing a category and focus areas will sharpen your matches later.
+      </p>
 
-    <footer class="footer">© NOVA</footer>
-  </div>
+      <p class="sub-helper">
+        Look at how these focus areas cluster. Are they more people-facing,
+        idea-facing, problem-facing, or system-facing? That pattern matters.
+      </p>
+    </section>
 
-  <script src="assets/app.js"></script>
-  <script>renderSubcategories();</script>
+    <nav class="sub-actions" aria-label="Subcategory navigation">
+      <a href="categories.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span>
+        <span>Back to Categories</span>
+      </a>
+
+      <a href="traits.html" class="btn btn-primary">
+        <span>Continue to Traits</span>
+        <span class="chevron-right">›</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    // Default focus areas (used if nothing stored).
+    const defaultSubcategories = [
+      { name: "Process & Systems", note: "Improving how things run day to day." },
+      { name: "People & Coaching", note: "Helping people grow, learn, and change." },
+      { name: "Technology & Data", note: "Using tools, platforms, and data to solve problems." },
+      { name: "Strategy & Vision", note: "Shaping direction, priorities, and big-picture moves." }
+    ];
+
+    function loadSubcategories() {
+      const subListEl = document.getElementById("subList");
+      const countEl = document.getElementById("subCount");
+      const noSubEl = document.getElementById("noSubMessage");
+
+      if (!subListEl || !countEl) return;
+
+      let subs = null;
+
+      const possibleKeys = [
+        "novaSubcategories",
+        "selectedSubcategories",
+        "focusAreas"
+      ];
+
+      for (let key of possibleKeys) {
+        const stored = localStorage.getItem(key);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              // Normalize into {name, note}
+              subs = parsed.map((item) => {
+                if (typeof item === "string") {
+                  return { name: item, note: "" };
+                }
+                return {
+                  name: item.name || item.title || "Focus Area",
+                  note: item.note || item.description || ""
+                };
+              });
+              break;
+            }
+          } catch (e) {
+            console.warn("Could not parse subcategories from", key, e);
+          }
+        }
+      }
+
+      if (!subs) {
+        subs = defaultSubcategories;
+        noSubEl.style.display = "block";
+      }
+
+      subListEl.innerHTML = "";
+
+      subs.forEach((sub) => {
+        const chip = document.createElement("div");
+        chip.className = "sub-chip";
+
+        const title = document.createElement("div");
+        title.className = "sub-chip-title";
+        title.textContent = sub.name;
+
+        const note = document.createElement("div");
+        note.className = "sub-chip-note";
+        note.textContent = sub.note || "";
+
+        chip.appendChild(title);
+        if (note.textContent.trim().length > 0) {
+          chip.appendChild(note);
+        }
+
+        subListEl.appendChild(chip);
+      });
+
+      countEl.textContent = `You highlighted ${subs.length} key focus area(s).`;
+    }
+
+    document.addEventListener("DOMContentLoaded", loadSubcategories);
+  </script>
 </body>
 </html>
