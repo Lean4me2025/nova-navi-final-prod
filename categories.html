@@ -203,7 +203,6 @@
       categories.forEach(cat => {
         const card = document.createElement("div");
         card.className = "cat-card";
-        card.dataset.categoryName = cat.name;
 
         const title = document.createElement("div");
         title.className = "cat-name";
@@ -217,9 +216,7 @@
         card.appendChild(note);
 
         card.addEventListener("click", () => {
-          // Save the chosen category
           localStorage.setItem("novaSelectedCategory", cat.name);
-          // Immediately move to Focus Areas
           window.location.href = "subcategories.html";
         });
 
