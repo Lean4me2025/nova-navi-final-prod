@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA – Focus Areas</title>
+
+  <style>
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 18px;
+      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
+    }
+
+    main.subcategories-page {
+      max-width: 1100px;
+      margin: 36px auto 40px;
+      padding: 0 16px 48px;
+    }
+
+    @media (min-width: 768px) {
+      main.subcategories-page {
+        margin-top: 48px;
+      }
+    }
+
+    .sub-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .sub-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
+    }
+
+    .sub-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sub-subtitle {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+      color: var(--nova-text-muted);
+      line-height: 1.5;
+    }
+
+    .sub-panel {
+      margin-top: 26px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 22px 18px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .sub-panel {
+        padding: 26px 26px 22px;
+      }
+    }
+
+    .sub-count {
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .sub-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nova-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .sub-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sub-chip {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: #ecfeff;
+      color: var(--nova-teal-dark);
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.25;
+      min-width: 160px;
+    }
+
+    .sub-chip-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .sub-chip-note {
+      font-size: 0.78rem;
+      color: var(--nova-text-muted);
+    }
+
+    .sub-helper {
+      margin-top: 14px;
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
+    }
+
+    .sub-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .sub-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: 0.18s ease;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
+      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+    }
+
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="subcategories-page">
+    <header class="sub-header">
+      <div class="sub-step">Step · Focus Areas</div>
+      <h1 class="sub-title">Focus Areas Under Your Category</h1>
+      <p class="sub-subtitle" id="subIntro">
+        Within the category you chose, these are the focus areas (subcategories)
+        that help narrow how you want to apply your gifts in real work and real environments.
+      </p>
+    </header>
+
+    <section class="sub-panel" aria-label="Selected focus areas">
+      <div id="subCount" class="sub-count"></div>
+      <div class="sub-label">You’re drawn toward:</div>
+
+      <div id="subList" class="sub-list"></div>
+
+      <p class="sub-helper">
+        Notice how these focus areas cluster. Are they more people-facing, idea-facing,
+        problem-facing, or system-facing? That pattern matters.
+      </p>
+    </section>
+
+    <nav class="sub-actions" aria-label="Subcategory navigation">
+      <a href="categories.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span>
+        <span>Back to Categories</span>
+      </a>
+
+      <a href="traits.html" class="btn btn-primary">
+        <span>Continue to Traits</span>
+        <span class="chevron-right">›</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    const subcategoriesByCategory = {
+      "Business & Leadership": [
+        { name: "Process & Systems", note: "Improving how things run day to day." },
+        { name: "People & Culture", note: "Leading teams, developing people, and shaping culture." },
+        { name: "Strategy & Vision", note: "Deciding direction, priorities, and big-picture moves." },
+        { name: "Change & Transformation", note: "Guiding organizations through change." }
+      ],
+      "Technology & Systems": [
+        { name: "Technology & Data", note: "Using tools, platforms, and data to solve problems." },
+        { name: "Automation & Workflow", note: "Building smart, repeatable processes." },
+        { name: "Systems Design", note: "Connecting tools so everything works together." },
+        { name: "Cyber & Reliability", note: "Keeping systems secure, stable, and available." }
+      ],
+      "Creative & Design": [
+        { name: "Art & Visuals", note: "Creating images, graphics, and visual stories." },
+        { name: "Content & Media", note: "Video, audio, writing, and digital creative work." },
+        { name: "Design & Experience", note: "Shaping how things look, feel, and flow." },
+        { name: "Teaching & Workshops", note: "Sharing ideas and skills in creative settings." }
+      ],
+      "People & Community": [
+        { name: "People & Coaching", note: "Helping people grow, learn, and change." },
+        { name: "Care & Support", note: "Walking with people through real life challenges." },
+        { name: "Community Building", note: "Creating spaces where people feel seen and connected." },
+        { name: "Training & Facilitation", note: "Guiding groups toward growth and decisions." }
+      ],
+      "Analysis & Research": [
+        { name: "Data & Insights", note: "Finding patterns and stories in the numbers." },
+        { name: "Risk & Evaluation", note: "Studying what could go wrong and how to prevent it." },
+        { name: "Policy & Compliance", note: "Making sure things align with rules and standards." },
+        { name: "Market & Trends", note: "Researching where things are headed next." }
+      ],
+      "Hands-On & Field Work": [
+        { name: "Field Operations", note: "Coordinating work where it actually happens." },
+        { name: "Safety & Compliance", note: "Keeping people and environments safe." },
+        { name: "Logistics & Delivery", note: "Moving people, tools, or materials where they’re needed." },
+        { name: "Installation & Maintenance", note: "Hands-on work that keeps things running." }
+      ]
+    };
+
+    const defaultSubcategories = [
+      { name: "Process & Systems", note: "Improving how things run day to day." },
+      { name: "People & Coaching", note: "Helping people grow, learn, and change." },
+      { name: "Technology & Data", note: "Using tools, platforms, and data to solve problems." },
+      { name: "Strategy & Vision", note: "Shaping direction, priorities, and big-picture moves." }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const subListEl = document.getElementById("subList");
+      const countEl = document.getElementById("subCount");
+      const introEl = document.getElementById("subIntro");
+
+      const selectedCategory = localStorage.getItem("novaSelectedCategory");
+      let subs = defaultSubcategories;
+
+      if (selectedCategory && subcategoriesByCategory[selectedCategory]) {
+        subs = subcategoriesByCategory[selectedCategory];
+        if (introEl) {
+          introEl.textContent =
+            `Within the category “${selectedCategory}”, these are the focus areas that help narrow how you want to apply your gifts in real work and real environments.`;
+        }
+      }
+
+      subListEl.innerHTML = "";
+
+      subs.forEach((sub) => {
+        const chip = document.createElement("div");
+        chip.className = "sub-chip";
+
+        const title = document.createElement("div");
+        title.className = "sub-chip-title";
+        title.textContent = sub.name;
+
+        const note = document.createElement("div");
+        note.className = "sub-chip-note";
+        note.textContent = sub.note || "";
+
+        chip.appendChild(title);
+        if (note.textContent.trim().length > 0) {
+          chip.appendChild(note);
+        }
+
+        subListEl.appendChild(chip);
+      });
+
+      countEl.textContent = `You’re looking at ${subs.length} key focus area(s) for this category.`;
+    });
+  </script>
+</body>
+</html>
