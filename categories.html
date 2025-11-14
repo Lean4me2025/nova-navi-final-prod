@@ -198,9 +198,10 @@
         <span class="chevron-left">‹</span> Back to Welcome
       </a>
 
-      <button id="continueBtn" class="btn btn-primary" type="button">
+      <!-- Direct link to subcategories -->
+      <a href="subcategories.html" class="btn btn-primary">
         Continue <span class="chevron-right">›</span>
-      </button>
+      </a>
     </nav>
   </main>
 
@@ -208,15 +209,15 @@
     const categories = [
       {
         name: "Business & Leadership",
-        note: "People, operations, strategy, and helping things grow."
+        note: "People, operations, strategy, communication, and helping things grow."
       },
       {
         name: "Technology & Systems",
         note: "Building tools, platforms, automations, and smarter systems."
       },
       {
-        name: "Creative & Communication",
-        note: "Messaging, media, writing, visuals, and storytelling."
+        name: "Creative & Design",
+        note: "Art, visuals, design, imagination, expression, and shaping experiences."
       },
       {
         name: "People & Community",
@@ -233,16 +234,9 @@
     ];
 
     const grid = document.getElementById("categoriesGrid");
-    const continueBtn = document.getElementById("continueBtn");
-
-    let selectedCategory = null;
+    let selectedCategory = localStorage.getItem("novaSelectedCategory") || null;
 
     function renderCategories() {
-      const stored = localStorage.getItem("novaSelectedCategory");
-      if (stored) {
-        selectedCategory = stored;
-      }
-
       categories.forEach(cat => {
         const card = document.createElement("div");
         card.className = "cat-card";
@@ -263,7 +257,6 @@
           selectedCategory = cat.name;
           localStorage.setItem("novaSelectedCategory", selectedCategory);
 
-          // Clear selection style from others
           document
             .querySelectorAll(".cat-card")
             .forEach(el => el.classList.remove("selected"));
@@ -271,7 +264,6 @@
           card.classList.add("selected");
         });
 
-        // If this matches previously selected, mark as selected
         if (selectedCategory === cat.name) {
           card.classList.add("selected");
         }
@@ -279,14 +271,6 @@
         grid.appendChild(card);
       });
     }
-
-    continueBtn.addEventListener("click", () => {
-      if (!selectedCategory) {
-        alert("Please choose a category before continuing.");
-        return;
-      }
-      window.location.href = "subcategories.html";
-    });
 
     renderCategories();
   </script>
