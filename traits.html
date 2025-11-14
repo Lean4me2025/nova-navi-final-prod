@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Your Traits</title>
+  <title>NOVA – Key Traits</title>
 
   <style>
     :root {
@@ -15,7 +15,7 @@
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
       --nova-radius-lg: 18px;
-      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+      --nova-shadow-soft: 0 20px 50px rgba(15,118,110,0.10);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +30,7 @@
     main.traits-page {
       max-width: 1100px;
       margin: 36px auto 40px;
-      padding: 0 16px 48px;
+      padding: 0 16px 56px;
     }
 
     @media (min-width: 768px) {
@@ -60,18 +60,35 @@
     }
 
     .traits-subtitle {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
+    .traits-category-label {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--nova-text-muted);
+    }
+
+    .traits-category-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.45);
+      font-size: 0.86rem;
+      color: var(--nova-teal-dark);
+      font-weight: 500;
+    }
+
     .traits-panel {
       margin-top: 26px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
       background: var(--nova-card-bg);
       border-radius: var(--nova-radius-lg);
       border: 1px solid var(--nova-border);
@@ -81,7 +98,7 @@
 
     @media (min-width: 768px) {
       .traits-panel {
-        padding: 26px 26px 22px;
+        padding: 26px 26px 24px;
       }
     }
 
@@ -96,35 +113,83 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--nova-text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
-    .traits-list {
+    .traits-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .traits-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .trait-card {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--nova-border);
+      background: #ffffff;
+      cursor: pointer;
+      transition: 0.16s ease;
     }
 
-    .trait-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #ecfeff; /* soft teal background */
-      color: var(--nova-teal-dark);
-      border: 1px solid rgba(20,184,166,0.35);
+    .trait-card:hover {
+      box-shadow: 0 14px 30px rgba(15,23,42,0.08);
+      transform: translateY(-1px);
+    }
+
+    .trait-card.selected {
+      border-color: rgba(20,184,166,0.75);
+      background: #ecfeff;
+      box-shadow: 0 18px 42px rgba(15,118,110,0.25);
+    }
+
+    .trait-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid var(--nova-border);
+      margin-top: 2px;
+      flex-shrink: 0;
+      position: relative;
+      background: #ffffff;
+    }
+
+    .trait-card.selected .trait-checkbox {
+      border-color: var(--nova-teal);
+      background: var(--nova-teal);
+    }
+
+    .trait-card.selected .trait-checkbox::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 4px;
+      background: #ffffff;
+    }
+
+    .trait-text {
+      flex: 1;
+    }
+
+    .trait-name {
+      font-size: 0.96rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+      color: var(--nova-text-main);
+    }
+
+    .trait-desc {
       font-size: 0.82rem;
-      font-weight: 500;
-      line-height: 1.2;
-      white-space: nowrap;
-    }
-
-    .trait-pill span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--nova-teal-dark);
-      margin-right: 6px;
+      color: var(--nova-text-muted);
+      line-height: 1.4;
     }
 
     .traits-helper {
@@ -135,7 +200,7 @@
     }
 
     .traits-actions {
-      margin-top: 26px;
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -161,8 +226,7 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: background 0.18s ease, color 0.18s ease,
-                  transform 0.16s ease, box-shadow 0.16s ease;
+      transition: 0.18s ease;
       gap: 8px;
     }
 
@@ -174,26 +238,20 @@
 
     .btn-outline:hover {
       background: #ffffff;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
       transform: translateY(-1px);
     }
 
     .btn-primary {
       background: var(--nova-teal);
       color: #ffffff;
-      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
     }
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      box-shadow: 0 18px 36px rgba(15,118,110,0.5);
       transform: translateY(-1px);
-    }
-
-    .btn-primary:active,
-    .btn-outline:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
     }
 
     .chevron-left,
@@ -202,10 +260,10 @@
       line-height: 0;
     }
 
-    .no-traits {
-      margin-top: 18px;
-      font-size: 0.88rem;
+    .limit-note {
+      font-size: 0.8rem;
       color: var(--nova-text-muted);
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -213,121 +271,354 @@
 <body>
   <main class="traits-page">
     <header class="traits-header">
-      <div class="traits-step">Step 1 · Traits</div>
-      <h1 class="traits-title">Your Key Traits</h1>
-      <p class="traits-subtitle">
-        These are the traits you selected as most like you. They form the “fingerprint”
-        Nova uses to match roles, shape your purpose statement, and guide your next steps.
+      <div class="traits-step">Step · Key Traits</div>
+      <h1 class="traits-title">Which Traits Sound Most Like You?</h1>
+      <p class="traits-subtitle" id="traitsIntro">
+        Pick the traits that feel most natural for how you already move in the world.
+        We’ll use these to shape the roles Nova reveals next.
       </p>
+      <div class="traits-category-label">
+        Based on your category:
+        <span class="traits-category-pill">
+          <span>Category:</span>
+          <span id="selectedCategoryLabel">Loading…</span>
+        </span>
+      </div>
     </header>
 
-    <section class="traits-panel" aria-label="Selected traits">
+    <section class="traits-panel" aria-label="Traits for this category">
       <div id="traitsCount" class="traits-count"></div>
-      <div class="traits-label">You said these sound like you:</div>
+      <div class="traits-label">Tap to select your key traits</div>
+      <p class="limit-note">(You can pick up to 6 traits that really fit you.)</p>
 
-      <div id="traitsList" class="traits-list">
-        <!-- Trait pills injected here -->
-      </div>
-
-      <p id="noTraitsMessage" class="no-traits" style="display:none;">
-        We couldn’t find any saved traits yet. You can still continue, 
-        but going back and selecting traits will give you a stronger match later.
-      </p>
+      <div id="traitsGrid" class="traits-grid"></div>
 
       <p class="traits-helper">
-        As you look at this list, notice which traits feel most true, which surprise you,
-        and which you’d like to lean into more in this next season.
+        Don’t overthink it. Choose the traits that describe how you
+        naturally think, act, and show up most of the time — not who
+        you wish you were on your best day.
       </p>
     </section>
 
-    <nav class="traits-actions" aria-label="Traits navigation">
+    <nav class="traits-actions" aria-label="Trait navigation">
       <a href="subcategories.html" class="btn btn-outline">
         <span class="chevron-left">‹</span>
-        <span>Back to Subcategories</span>
+        <span>Back to Focus Areas</span>
       </a>
 
-      <a href="roles.html" class="btn btn-primary">
+      <button id="continueTraitsBtn" class="btn btn-primary" type="button">
         <span>Continue to Roles</span>
         <span class="chevron-right">›</span>
-      </a>
+      </button>
     </nav>
   </main>
 
   <script>
-    // Default traits in case nothing is stored yet.
-    const defaultTraits = [
-      "Strategic Thinker",
-      "Problem Solver",
-      "Encourager",
-      "Detail-Aware",
-      "Big-Picture Vision",
-      "People-Focused",
-      "Systems Builder",
-      "Persistent"
-    ];
-
-    function loadTraits() {
-      const traitsListEl = document.getElementById("traitsList");
-      const countEl = document.getElementById("traitsCount");
-      const noTraitsEl = document.getElementById("noTraitsMessage");
-
-      if (!traitsListEl || !countEl) return;
-
-      let traits = null;
-
-      // Look for commonly used keys from earlier flows
-      const possibleKeys = [
-        "novaSelectedTraits",
-        "selectedTraits",
-        "traitsSelection"
-      ];
-
-      for (let key of possibleKeys) {
-        const stored = localStorage.getItem(key);
-        if (stored) {
-          try {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              traits = parsed;
-              break;
-            }
-          } catch (e) {
-            console.warn("Could not parse traits from", key, e);
-          }
+    // 🔹 All traits are UNIQUE across the entire mapping (no duplicated names)
+    const traitsByCategory = {
+      "Business & Leadership": [
+        {
+          name: "Strategic Visionary",
+          desc: "You naturally think several moves ahead and see long-range direction."
+        },
+        {
+          name: "Organizational Architect",
+          desc: "You like structuring people, processes, and resources so things run smoothly."
+        },
+        {
+          name: "Influential Communicator",
+          desc: "You’re able to rally others around ideas, goals, and change."
+        },
+        {
+          name: "Team Mobilizer",
+          desc: "You help people move from talk into coordinated action."
+        },
+        {
+          name: "Decision Confident",
+          desc: "You can weigh options and choose a path without staying stuck."
+        },
+        {
+          name: "Growth-Oriented Planner",
+          desc: "You think in terms of targets, milestones, and improvement."
+        },
+        {
+          name: "Change Champion",
+          desc: "You lean into change and help others move through it."
+        },
+        {
+          name: "Outcome Driver",
+          desc: "You are focused on results and finishing what you start."
         }
+      ],
+
+      "Technology & Systems": [
+        {
+          name: "Systems Optimizer",
+          desc: "You see how tools and processes can be tightened and improved."
+        },
+        {
+          name: "Technical Troubleshooter",
+          desc: "You enjoy getting into the details to fix what’s broken."
+        },
+        {
+          name: "Logic-Driven Thinker",
+          desc: "You lean on logic and clear reasoning to solve problems."
+        },
+        {
+          name: "Workflow Streamliner",
+          desc: "You like removing friction and extra steps from how work gets done."
+        },
+        {
+          name: "Data Structure Builder",
+          desc: "You’re drawn to organizing data, files, or systems in clear ways."
+        },
+        {
+          name: "Integration Orchestrator",
+          desc: "You think about how different tools or systems connect together."
+        },
+        {
+          name: "Reliability Guardian",
+          desc: "You care that systems stay up, stable, and dependable."
+        },
+        {
+          name: "Automation Designer",
+          desc: "You look for ways to automate repetitive or manual work."
+        }
+      ],
+
+      "Creative & Design": [
+        {
+          name: "Imaginative Creator",
+          desc: "You generate new ideas, concepts, and possibilities with ease."
+        },
+        {
+          name: "Visual Storycrafter",
+          desc: "You like communicating through images, layouts, or visual themes."
+        },
+        {
+          name: "Concept Explorer",
+          desc: "You enjoy exploring different creative angles and directions."
+        },
+        {
+          name: "Brand Stylist",
+          desc: "You think in terms of look, feel, and consistent identity."
+        },
+        {
+          name: "Experience Shaper",
+          desc: "You care about how people feel as they move through an experience."
+        },
+        {
+          name: "Idea Illustrator",
+          desc: "You help bring abstract ideas into concrete, visual form."
+        },
+        {
+          name: "Narrative Designer",
+          desc: "You enjoy shaping the story behind messages, products, or work."
+        },
+        {
+          name: "Aesthetic Curator",
+          desc: "You’re sensitive to color, layout, and overall aesthetic harmony."
+        }
+      ],
+
+      "People & Community": [
+        {
+          name: "Heart-Centered Encourager",
+          desc: "You naturally build others up and help them not give up."
+        },
+        {
+          name: "Compassionate Listener",
+          desc: "You make space for people to be heard and understood."
+        },
+        {
+          name: "Trust-Builder",
+          desc: "People feel safe opening up or partnering with you."
+        },
+        {
+          name: "Group Uplifter",
+          desc: "You help groups stay positive, hopeful, or energized."
+        },
+        {
+          name: "Conflict Bridge-Builder",
+          desc: "You look for common ground when tensions rise."
+        },
+        {
+          name: "Support Advocate",
+          desc: "You stand up for people who need help or protection."
+        },
+        {
+          name: "Growth Coach",
+          desc: "You enjoy helping others grow, learn, or heal."
+        },
+        {
+          name: "Community Connector",
+          desc: "You like introducing people and building networks."
+        }
+      ],
+
+      "Analysis & Research": [
+        {
+          name: "Insight Miner",
+          desc: "You dig below the surface to find what’s really going on."
+        },
+        {
+          name: "Pattern Analyst",
+          desc: "You notice trends, repetitions, and relationships in information."
+        },
+        {
+          name: "Evidence Evaluator",
+          desc: "You like weighing proof, pros and cons, and data quality."
+        },
+        {
+          name: "Risk Mapper",
+          desc: "You see where things could go wrong and how to prevent it."
+        },
+        {
+          name: "Detail Verifier",
+          desc: "You care that facts, numbers, or statements are correct."
+        },
+        {
+          name: "Hypothesis Tester",
+          desc: "You think in terms of testing ideas and seeing what holds up."
+        },
+        {
+          name: "Trend Watcher",
+          desc: "You track how things are changing over time."
+        },
+        {
+          name: "Precision Planner",
+          desc: "You like plans that are specific, documented, and clear."
+        }
+      ],
+
+      "Hands-On & Field Work": [
+        {
+          name: "On-Site Problem Solver",
+          desc: "You prefer solving issues where the work actually happens."
+        },
+        {
+          name: "Practical Implementer",
+          desc: "You like turning plans into real action and results."
+        },
+        {
+          name: "Safety Steward",
+          desc: "You’re attentive to safety, risk, and real-world conditions."
+        },
+        {
+          name: "Reliable Operator",
+          desc: "You can be counted on to keep things running day to day."
+        },
+        {
+          name: "Condition Observer",
+          desc: "You notice what’s off in the environment or setup."
+        },
+        {
+          name: "Task Finisher",
+          desc: "You take satisfaction in completing hands-on work."
+        },
+        {
+          name: "Field Adaptor",
+          desc: "You adjust quickly when conditions or needs change."
+        },
+        {
+          name: "Tools & Tactics Expert",
+          desc: "You’re comfortable working with tools, equipment, or gear."
+        }
+      ]
+    };
+
+    const MAX_SELECTED = 6;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const category = localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
+
+      const traitsForCategory = traitsByCategory[category] || traitsByCategory["Business & Leadership"];
+
+      const categoryLabelEl = document.getElementById("selectedCategoryLabel");
+      const traitsIntroEl = document.getElementById("traitsIntro");
+      const traitsGridEl = document.getElementById("traitsGrid");
+      const traitsCountEl = document.getElementById("traitsCount");
+      const continueBtn = document.getElementById("continueTraitsBtn");
+
+      categoryLabelEl.textContent = category;
+      traitsIntroEl.textContent =
+        `Based on your category “${category}”, pick the traits that sound most like how you already show up. ` +
+        `Nova will use these to highlight roles that fit the way you’re wired.`;
+
+      traitsGridEl.innerHTML = "";
+
+      const previouslySelected = JSON.parse(localStorage.getItem("novaSelectedTraits") || "[]");
+      const selectedNames = new Set(previouslySelected);
+
+      function updateCountLabel() {
+        const count = selectedNames.size;
+        traitsCountEl.textContent =
+          count === 0
+            ? "You haven’t selected any traits yet."
+            : `You’ve selected ${count} trait${count === 1 ? "" : "s"} so far.`;
       }
 
-      if (!traits) {
-        traits = defaultTraits;
-        noTraitsEl.style.display = "block";
-      }
+      traitsForCategory.forEach(trait => {
+        const card = document.createElement("div");
+        card.className = "trait-card";
 
-      traitsListEl.innerHTML = "";
+        const checkbox = document.createElement("div");
+        checkbox.className = "trait-checkbox";
 
-      traits.forEach((trait) => {
-        const pill = document.createElement("span");
-        pill.className = "trait-pill";
+        const textWrap = document.createElement("div");
+        textWrap.className = "trait-text";
 
-        const dot = document.createElement("span");
-        dot.className = "dot";
+        const nameEl = document.createElement("div");
+        nameEl.className = "trait-name";
+        nameEl.textContent = trait.name;
 
-        const label = document.createElement("span");
-        label.textContent = trait;
+        const descEl = document.createElement("div");
+        descEl.className = "trait-desc";
+        descEl.textContent = trait.desc || "";
 
-        pill.appendChild(dot);
-        pill.appendChild(label);
+        textWrap.appendChild(nameEl);
+        textWrap.appendChild(descEl);
 
-        traitsListEl.appendChild(pill);
+        card.appendChild(checkbox);
+        card.appendChild(textWrap);
+
+        if (selectedNames.has(trait.name)) {
+          card.classList.add("selected");
+        }
+
+        card.addEventListener("click", () => {
+          const isSelected = selectedNames.has(trait.name);
+
+          if (!isSelected && selectedNames.size >= MAX_SELECTED) {
+            alert(`You can select up to ${MAX_SELECTED} traits. Deselect one to choose another.`);
+            return;
+          }
+
+          if (isSelected) {
+            selectedNames.delete(trait.name);
+            card.classList.remove("selected");
+          } else {
+            selectedNames.add(trait.name);
+            card.classList.add("selected");
+          }
+
+          localStorage.setItem("novaSelectedTraits", JSON.stringify(Array.from(selectedNames)));
+          updateCountLabel();
+        });
+
+        traitsGridEl.appendChild(card);
       });
 
-      countEl.textContent = `You selected ${traits.length} key traits.`;
-    }
+      updateCountLabel();
 
-    document.addEventListener("DOMContentLoaded", loadTraits);
+      continueBtn.addEventListener("click", () => {
+        if (selectedNames.size === 0) {
+          const goOn = confirm("You haven’t selected any traits. Do you still want to continue?");
+          if (!goOn) return;
+        }
+        window.location.href = "roles.html";
+      });
+    });
   </script>
-
-  <!-- If you have a Save/Return or shared JS file, you can still include it here:
-       <script src="assets/js/SaveReturn.js"></script>
-  -->
 </body>
 </html>
