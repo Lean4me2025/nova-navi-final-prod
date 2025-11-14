@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Focus Areas</title>
+  <title>NOVA – Choose Your Category</title>
 
   <style>
     :root {
@@ -14,11 +14,11 @@
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
-      --nova-radius-lg: 18px;
-      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+      --nova-radius-lg: 22px;
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -27,24 +27,18 @@
       color: var(--nova-text-main);
     }
 
-    main.subcategories-page {
+    main.cat-page {
       max-width: 1100px;
-      margin: 36px auto 40px;
-      padding: 0 16px 48px;
+      margin: 40px auto 60px;
+      padding: 0 16px;
     }
 
-    @media (min-width: 768px) {
-      main.subcategories-page {
-        margin-top: 48px;
-      }
-    }
-
-    .sub-header {
+    .cat-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
-    .sub-step {
+    .cat-step {
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -53,98 +47,69 @@
       margin-bottom: 6px;
     }
 
-    .sub-title {
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
-      font-weight: 700;
+    .cat-title {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+      font-weight: 800;
       margin-bottom: 8px;
     }
 
-    .sub-subtitle {
-      max-width: 640px;
+    .cat-subtitle {
+      max-width: 620px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
-    .sub-panel {
-      margin-top: 26px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      background: var(--nova-card-bg);
-      border-radius: var(--nova-radius-lg);
-      border: 1px solid var(--nova-border);
-      box-shadow: var(--nova-shadow-soft);
-      padding: 22px 18px 20px;
+    .cat-grid {
+      margin-top: 32px;
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(1, 1fr);
     }
 
-    @media (min-width: 768px) {
-      .sub-panel {
-        padding: 26px 26px 22px;
+    @media (min-width: 640px) {
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    .sub-count {
-      font-size: 0.86rem;
-      color: var(--nova-text-muted);
-      margin-bottom: 8px;
+    @media (min-width: 960px) {
+      .cat-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    .sub-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--nova-text-muted);
+    .cat-card {
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: var(--nova-shadow-soft);
+    }
+
+    .cat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.16);
+    }
+
+    .cat-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--nova-teal-dark);
       margin-bottom: 6px;
     }
 
-    .sub-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .sub-chip {
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10px 14px;
-      border-radius: 16px;
-      background: #ecfeff;
-      color: var(--nova-teal-dark);
-      border: 1px solid rgba(20,184,166,0.35);
-      font-size: 0.85rem;
-      font-weight: 500;
-      line-height: 1.25;
-      min-width: 140px;
-    }
-
-    .sub-chip-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .sub-chip-note {
-      font-size: 0.78rem;
+    .cat-note {
+      font-size: 0.9rem;
       color: var(--nova-text-muted);
+      line-height: 1.45;
     }
 
-    .sub-helper {
-      margin-top: 14px;
-      font-size: 0.86rem;
-      color: var(--nova-text-muted);
-      line-height: 1.4;
-    }
-
-    .no-subcategories {
-      margin-top: 18px;
-      font-size: 0.88rem;
-      color: var(--nova-text-muted);
-    }
-
-    .sub-actions {
-      margin-top: 26px;
+    .cat-actions {
+      margin-top: 36px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -153,7 +118,7 @@
     }
 
     @media (min-width: 640px) {
-      .sub-actions {
+      .cat-actions {
         flex-direction: row;
         justify-content: space-between;
       }
@@ -170,9 +135,9 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
+      gap: 8px;
       transition: background 0.18s ease, color 0.18s ease,
                   transform 0.16s ease, box-shadow 0.16s ease;
-      gap: 8px;
     }
 
     .btn-outline {
@@ -183,26 +148,20 @@
 
     .btn-outline:hover {
       background: #ffffff;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
       transform: translateY(-1px);
     }
 
     .btn-primary {
       background: var(--nova-teal);
       color: #ffffff;
-      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
     }
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      box-shadow: 0 18px 38px rgba(15,118,110,0.5);
       transform: translateY(-1px);
-    }
-
-    .btn-primary:active,
-    .btn-outline:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
     }
 
     .chevron-left,
@@ -214,128 +173,81 @@
 </head>
 
 <body>
-  <main class="subcategories-page">
-    <header class="sub-header">
-      <div class="sub-step">Step 0 · Focus Areas</div>
-      <h1 class="sub-title">Focus Areas Under Your Category</h1>
-      <p class="sub-subtitle">
-        Within the category you chose, these are the focus areas (subcategories)
-        that stood out to you. They help narrow how you want to apply your
-        gifts in real work and real environments.
+  <main class="cat-page">
+    <header class="cat-header">
+      <div class="cat-step">Step · Categories</div>
+      <h1 class="cat-title">Choose the Category That Fits You</h1>
+      <p class="cat-subtitle">
+        These categories help Nova understand your natural direction —
+        the type of world you're drawn to and the environment where your gifts shine.
       </p>
     </header>
 
-    <section class="sub-panel" aria-label="Selected focus areas">
-      <div id="subCount" class="sub-count"></div>
-      <div class="sub-label">You said you’re drawn to:</div>
+    <section id="categoriesGrid" class="cat-grid"></section>
 
-      <div id="subList" class="sub-list">
-        <!-- Subcategory chips injected here -->
-      </div>
-
-      <p id="noSubMessage" class="no-subcategories" style="display:none;">
-        We didn’t find any saved focus areas yet. You can still continue,
-        but choosing a category and focus areas will sharpen your matches later.
-      </p>
-
-      <p class="sub-helper">
-        Look at how these focus areas cluster. Are they more people-facing,
-        idea-facing, problem-facing, or system-facing? That pattern matters.
-      </p>
-    </section>
-
-    <nav class="sub-actions" aria-label="Subcategory navigation">
-      <a href="categories.html" class="btn btn-outline">
-        <span class="chevron-left">‹</span>
-        <span>Back to Categories</span>
+    <nav class="cat-actions">
+      <a href="index.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span> Back to Welcome
       </a>
 
-      <a href="traits.html" class="btn btn-primary">
-        <span>Continue to Traits</span>
-        <span class="chevron-right">›</span>
+      <a href="subcategories.html" class="btn btn-primary">
+        Continue <span class="chevron-right">›</span>
       </a>
     </nav>
   </main>
 
   <script>
-    // Default focus areas (used if nothing stored).
-    const defaultSubcategories = [
-      { name: "Process & Systems", note: "Improving how things run day to day." },
-      { name: "People & Coaching", note: "Helping people grow, learn, and change." },
-      { name: "Technology & Data", note: "Using tools, platforms, and data to solve problems." },
-      { name: "Strategy & Vision", note: "Shaping direction, priorities, and big-picture moves." }
+    const categories = [
+      {
+        name: "Business & Leadership",
+        note: "People, operations, strategy, and helping things grow."
+      },
+      {
+        name: "Technology & Systems",
+        note: "Building tools, platforms, automations, and smarter systems."
+      },
+      {
+        name: "Creative & Communication",
+        note: "Messaging, media, writing, visuals, and storytelling."
+      },
+      {
+        name: "People & Community",
+        note: "Serving, coaching, developing, and supporting others."
+      },
+      {
+        name: "Analysis & Research",
+        note: "Digging deep, problem solving, uncovering patterns."
+      },
+      {
+        name: "Hands-On & Field Work",
+        note: "Practical, real-world work that solves immediate problems."
+      }
     ];
 
-    function loadSubcategories() {
-      const subListEl = document.getElementById("subList");
-      const countEl = document.getElementById("subCount");
-      const noSubEl = document.getElementById("noSubMessage");
+    const grid = document.getElementById("categoriesGrid");
 
-      if (!subListEl || !countEl) return;
+    categories.forEach(cat => {
+      const card = document.createElement("div");
+      card.className = "cat-card";
 
-      let subs = null;
+      const title = document.createElement("div");
+      title.className = "cat-name";
+      title.textContent = cat.name;
 
-      const possibleKeys = [
-        "novaSubcategories",
-        "selectedSubcategories",
-        "focusAreas"
-      ];
+      const note = document.createElement("div");
+      note.className = "cat-note";
+      note.textContent = cat.note;
 
-      for (let key of possibleKeys) {
-        const stored = localStorage.getItem(key);
-        if (stored) {
-          try {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              // Normalize into {name, note}
-              subs = parsed.map((item) => {
-                if (typeof item === "string") {
-                  return { name: item, note: "" };
-                }
-                return {
-                  name: item.name || item.title || "Focus Area",
-                  note: item.note || item.description || ""
-                };
-              });
-              break;
-            }
-          } catch (e) {
-            console.warn("Could not parse subcategories from", key, e);
-          }
-        }
-      }
+      card.appendChild(title);
+      card.appendChild(note);
 
-      if (!subs) {
-        subs = defaultSubcategories;
-        noSubEl.style.display = "block";
-      }
-
-      subListEl.innerHTML = "";
-
-      subs.forEach((sub) => {
-        const chip = document.createElement("div");
-        chip.className = "sub-chip";
-
-        const title = document.createElement("div");
-        title.className = "sub-chip-title";
-        title.textContent = sub.name;
-
-        const note = document.createElement("div");
-        note.className = "sub-chip-note";
-        note.textContent = sub.note || "";
-
-        chip.appendChild(title);
-        if (note.textContent.trim().length > 0) {
-          chip.appendChild(note);
-        }
-
-        subListEl.appendChild(chip);
+      card.addEventListener("click", () => {
+        localStorage.setItem("novaSelectedCategory", cat.name);
+        window.location.href = "subcategories.html";
       });
 
-      countEl.textContent = `You highlighted ${subs.length} key focus area(s).`;
-    }
-
-    document.addEventListener("DOMContentLoaded", loadSubcategories);
+      grid.appendChild(card);
+    });
   </script>
 </body>
 </html>
