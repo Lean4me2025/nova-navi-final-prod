@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Your Purpose Revealed</title>
-
-  <!-- If you already have a global stylesheet, you can keep its link here -->
-  <!-- <link rel="stylesheet" href="assets/styles.css" /> -->
+  <title>NOVA – Your Purpose Snapshot</title>
 
   <style>
     :root {
@@ -18,7 +15,10 @@
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
       --nova-radius-lg: 22px;
-      --nova-shadow-soft: 0 24px 60px rgba(15, 118, 110, 0.10);
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
+      --badge-blue: #2563eb;
+      --badge-green: #16a34a;
+      --badge-amber: #d97706;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,31 +28,23 @@
       min-height: 100vh;
       background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
       color: var(--nova-text-main);
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
     }
 
     main.reveal-page {
-      width: 100%;
-      max-width: 900px;
-      margin: 36px auto 40px;
-      padding: 0 16px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      max-width: 1100px;
+      margin: 36px auto 56px;
+      padding: 0 16px;
     }
 
     @media (min-width: 768px) {
       main.reveal-page {
         margin-top: 48px;
-        padding-bottom: 56px;
       }
     }
 
     .reveal-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .reveal-step {
@@ -71,74 +63,152 @@
     }
 
     .reveal-subtitle {
-      max-width: 600px;
+      max-width: 720px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
+    .reveal-meta {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 640px) {
+      .reveal-meta {
+        flex-direction: row;
+      }
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.4);
+      font-size: 0.86rem;
+      color: var(--nova-teal-dark);
+      font-weight: 500;
+    }
+
+    .meta-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nova-text-muted);
+    }
+
+    .selected-role {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .selected-role-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .selected-role-meta {
+      font-size: 0.88rem;
+      color: var(--nova-text-muted);
+    }
+
+    .selected-role-meta span {
+      margin-right: 10px;
+    }
+
+    .section-grid {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 900px) {
+      .section-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
     .reveal-card {
-      margin: 28px auto 0;
-      max-width: 760px;
       background: var(--nova-card-bg);
       border-radius: var(--nova-radius-lg);
       border: 1px solid var(--nova-border);
       box-shadow: var(--nova-shadow-soft);
-      padding: 26px 22px 24px;
-      position: relative;
-      overflow: hidden;
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    @media (min-width: 768px) {
-      .reveal-card {
-        padding: 32px 38px 30px;
-      }
-    }
-
-    .reveal-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(240, 253, 250, 0.95);
-      border: 1px solid rgba(20, 184, 166, 0.25);
-      color: var(--nova-teal-dark);
-      font-size: 0.78rem;
-      font-weight: 600;
+    .reveal-card-header {
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 16px;
-    }
-
-    .reveal-chip span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--nova-teal-dark);
-    }
-
-    .purpose-text {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--nova-text-main);
-      margin-bottom: 16px;
-    }
-
-    .purpose-text strong {
-      font-weight: 700;
+      letter-spacing: 0.1em;
       color: var(--nova-teal-dark);
+      font-weight: 700;
     }
 
-    .reveal-note {
-      font-size: 0.86rem;
+    .reveal-card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .reveal-card-body {
+      font-size: 0.9rem;
       color: var(--nova-text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .reveal-bullets {
+      margin-top: 8px;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      color: var(--nova-text-muted);
+    }
+
+    .reveal-bullets li + li {
+      margin-top: 4px;
+    }
+
+    .small-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--nova-text-muted);
+      margin-top: 10px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.78rem;
+      color: var(--nova-teal-dark);
+      font-weight: 500;
     }
 
     .reveal-actions {
-      margin-top: 26px;
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -164,8 +234,7 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: background 0.18s ease, color 0.18s ease,
-                  transform 0.16s ease, box-shadow 0.16s ease;
+      transition: 0.18s ease;
       gap: 8px;
     }
 
@@ -177,26 +246,20 @@
 
     .btn-outline:hover {
       background: #ffffff;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
       transform: translateY(-1px);
     }
 
     .btn-primary {
       background: var(--nova-teal);
       color: #ffffff;
-      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
     }
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      box-shadow: 0 18px 36px rgba(15,118,110,0.5);
       transform: translateY(-1px);
-    }
-
-    .btn-primary:active,
-    .btn-outline:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
     }
 
     .chevron-left,
@@ -210,34 +273,64 @@
 <body>
   <main class="reveal-page">
     <header class="reveal-header">
-      <div class="reveal-step">Step 3 · Reveal</div>
-      <h1 class="reveal-title">Your Purpose Revealed</h1>
+      <div class="reveal-step">Step 3 · Purpose Snapshot</div>
+      <h1 class="reveal-title">How Your Design Connects to Real Work</h1>
       <p class="reveal-subtitle">
-        Based on your choices, patterns, and traits, Nova has assembled a picture
-        of how you are uniquely wired to show up in the world.
+        Based on your category, traits, and the role you selected, Nova has pulled together a
+        purpose snapshot that blends who you are with where you’re likely to thrive.
       </p>
-    </header>
 
-    <section class="reveal-card" aria-labelledby="purpose-heading">
-      <div class="reveal-chip">
-        <span class="dot"></span>
-        <span>Your Nova Snapshot</span>
+      <div class="reveal-meta">
+        <div class="meta-pill">
+          <span class="meta-label">Category</span>
+          <span id="metaCategory">Loading…</span>
+        </div>
+        <div class="meta-pill">
+          <span class="meta-label">Traits Selected</span>
+          <span id="metaTraitCount">0</span>
+        </div>
       </div>
 
-      <h2 id="purpose-heading" class="sr-only">Your Purpose Statement</h2>
+      <div class="selected-role">
+        <div class="selected-role-title" id="selectedRoleTitle">Your Selected Role</div>
+        <div class="selected-role-meta" id="selectedRoleMeta"></div>
+      </div>
+    </header>
 
-      <!-- This is where the purpose text will be displayed -->
-      <p id="purposeText" class="purpose-text">
-        You are designed to bring <strong>clarity, structure, and hope</strong> into the spaces
-        you touch. You thrive when you are solving real problems for real people,
-        building systems that last, and helping others step into their potential.
-      </p>
+    <section class="section-grid">
+      <!-- Who You Are -->
+      <article class="reveal-card" id="whoYouAreCard">
+        <div class="reveal-card-header">Section 1</div>
+        <div class="reveal-card-title">Who You Are</div>
+        <div class="reveal-card-body" id="whoYouAreText">
+          Loading your strengths…
+        </div>
+        <div class="small-label">Core traits highlighted</div>
+        <div class="tag-row" id="whoYouAreTraits"></div>
+      </article>
 
-      <p class="reveal-note">
-        Take a breath and read this slowly. Sit with it. Highlight the phrases
-        that feel the most true. This is not a final label; it's a starting
-        mirror for how God has woven together your gifts, wiring, and desires.
-      </p>
+      <!-- Why This Role Fits You -->
+      <article class="reveal-card" id="whyRoleCard">
+        <div class="reveal-card-header">Section 2</div>
+        <div class="reveal-card-title">Why This Role Fits You</div>
+        <div class="reveal-card-body" id="whyRoleText">
+          Loading your role alignment…
+        </div>
+        <ul class="reveal-bullets" id="roleBullets"></ul>
+        <div class="small-label">Role insights (salary & outlook)</div>
+        <div class="tag-row" id="roleInfoTags"></div>
+      </article>
+
+      <!-- Where You Thrive Next -->
+      <article class="reveal-card" id="whereThriveCard">
+        <div class="reveal-card-header">Section 3</div>
+        <div class="reveal-card-title">Where You Thrive Next</div>
+        <div class="reveal-card-body" id="whereThriveText">
+          Loading your ideal environments…
+        </div>
+        <div class="small-label">Environments & directions</div>
+        <div class="tag-row" id="whereThriveTags"></div>
+      </article>
     </section>
 
     <nav class="reveal-actions" aria-label="Reveal navigation">
@@ -246,41 +339,394 @@
         <span>Back to Roles</span>
       </a>
 
-      <a href="invest.html" class="btn btn-primary">
+      <button id="continueRevealBtn" class="btn btn-primary" type="button">
         <span>Continue to Invest</span>
         <span class="chevron-right">›</span>
-      </a>
+      </button>
     </nav>
   </main>
 
   <script>
-    // Try to pull a purpose statement from localStorage if your flow already saves one.
-    // This won't break anything if the keys don't exist.
-    (function () {
-      var purposeEl = document.getElementById('purposeText');
-      if (!purposeEl) return;
+    // Same structure as roles.html so Reveal can reconstruct the role details
+    const rolesByCategory = {
+      "Business & Leadership": [
+        {
+          title: "Operations & Process Improvement Lead",
+          salary: "$80,000 – $120,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You analyze how work gets done, identify bottlenecks, and design better processes so teams and systems run smoother.",
+        },
+        {
+          title: "Strategy & Business Consultant",
+          salary: "$90,000 – $140,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You diagnose business challenges and guide leaders toward clear, strategic decisions.",
+        },
+        {
+          title: "Program / Project Manager",
+          salary: "$75,000 – $115,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You coordinate people, timelines, and resources to bring ideas into reality.",
+        },
+        {
+          title: "Nonprofit / Program Director",
+          salary: "$70,000 – $110,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You lead mission-driven work that balances impact, budgets, and teams.",
+        },
+        {
+          title: "Product Owner / Delivery Lead",
+          salary: "$95,000 – $135,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You translate vision into deliverables and prioritize what gets built next.",
+        }
+      ],
+      "Technology & Systems": [
+        {
+          title: "Systems Analyst & Designer",
+          salary: "$80,000 – $120,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You map how information and tools move so work can run smoothly and reliably.",
+        },
+        {
+          title: "Automation / Workflow Engineer",
+          salary: "$85,000 – $130,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You turn manual processes into smart, automated workflows.",
+        },
+        {
+          title: "Data & Reporting Specialist",
+          salary: "$75,000 – $115,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You structure and visualize data so teams can see what’s really happening.",
+        },
+        {
+          title: "IT Service & Operations Manager",
+          salary: "$85,000 – $125,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You coordinate people and tools to keep critical systems available.",
+        },
+        {
+          title: "Cyber & Reliability Coordinator",
+          salary: "$90,000 – $135,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You focus on stability, security, and risk in technology environments.",
+        }
+      ],
+      "Creative & Design": [
+        {
+          title: "Visual / Brand Designer",
+          salary: "$65,000 – $105,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You shape the look and feel of brands, products, and experiences.",
+        },
+        {
+          title: "UX / Experience Designer",
+          salary: "$85,000 – $125,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You design flows, layouts, and interactions that feel natural to people.",
+        },
+        {
+          title: "Content Creator / Storyteller",
+          salary: "$55,000 – $90,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You communicate through words, visuals, or media that move people.",
+        },
+        {
+          title: "Multimedia Producer",
+          salary: "$60,000 – $95,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You plan, shoot, and edit multimedia projects that tell a story.",
+        },
+        {
+          title: "Creative Director (Associate / Junior)",
+          salary: "$90,000 – $135,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You guide creative direction and align work with a larger vision.",
+        }
+      ],
+      "People & Community": [
+        {
+          title: "People Development & Training Specialist",
+          salary: "$65,000 – $100,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You design and deliver learning that helps people grow and succeed.",
+        },
+        {
+          title: "Life / Career Coach",
+          salary: "$60,000 – $110,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You walk with individuals as they navigate decisions, transitions, and purpose.",
+        },
+        {
+          title: "Community Outreach Coordinator",
+          salary: "$55,000 – $85,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You organize events, partnerships, and services that reach people where they are.",
+        },
+        {
+          title: "HR Business Partner",
+          salary: "$80,000 – $120,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You bridge the needs of people and the goals of the organization.",
+        },
+        {
+          title: "Student Success / Support Advisor",
+          salary: "$55,000 – $80,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You help students or learners stay on track, resourced, and encouraged.",
+        }
+      ],
+      "Analysis & Research": [
+        {
+          title: "Research & Insights Analyst",
+          salary: "$75,000 – $115,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You dig into data and stories to surface what’s really true.",
+        },
+        {
+          title: "Policy / Compliance Analyst",
+          salary: "$70,000 – $110,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You ensure decisions and processes line up with standards and rules.",
+        },
+        {
+          title: "Market Research Specialist",
+          salary: "$70,000 – $105,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You study customers, markets, and trends to guide strategy.",
+        },
+        {
+          title: "Risk & Controls Analyst",
+          salary: "$80,000 – $120,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You identify where things could go wrong and how to protect against it.",
+        },
+        {
+          title: "Business Intelligence Analyst",
+          salary: "$85,000 – $125,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You turn raw data into dashboards and insights leaders can act on.",
+        }
+      ],
+      "Hands-On & Field Work": [
+        {
+          title: "Field Service Technician",
+          salary: "$60,000 – $90,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You troubleshoot and resolve issues on-site where work is happening.",
+        },
+        {
+          title: "Operations Field Coordinator",
+          salary: "$65,000 – $100,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You coordinate people, equipment, and schedules in the field.",
+        },
+        {
+          title: "Facilities & Maintenance Lead",
+          salary: "$60,000 – $95,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You keep spaces, buildings, or sites functioning day to day.",
+        },
+        {
+          title: "Safety & Compliance Specialist",
+          salary: "$65,000 – $105,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You focus on safety, procedures, and standards in real environments.",
+        },
+        {
+          title: "Logistics & Delivery Supervisor",
+          salary: "$65,000 – $100,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You oversee how people, tools, or materials move where they’re needed.",
+        }
+      ]
+    };
 
-      var possibleKeys = [
-        'novaPurpose',
-        'novaFinalSummary',
-        'novaRevealText',
-        'purposeSummary'
+    const environmentByCategory = {
+      "Business & Leadership": {
+        text: "You thrive in environments where decisions are being made, priorities are being set, and teams are moving. You do well in spaces that value structure, clarity, and continuous improvement.",
+        tags: ["Leadership environments", "Cross-functional teams", "Change & transformation", "Goal-driven culture"]
+      },
+      "Technology & Systems": {
+        text: "You thrive where systems matter — tools, data, and processes that keep organizations running. You do well in environments that value logic, reliability, and thoughtful design.",
+        tags: ["Tech-centered teams", "Process-focused work", "Automation & data", "Reliability & stability"]
+      },
+      "Creative & Design": {
+        text: "You thrive where ideas, visuals, and experiences are being crafted. You do well in environments that value imagination, exploration, and thoughtful expression.",
+        tags: ["Design studios", "Creative teams", "Content & media", "Experience-focused work"]
+      },
+      "People & Community": {
+        text: "You thrive where people are growing, healing, or connecting. You do well in environments that value empathy, encouragement, and real human stories.",
+        tags: ["Coaching & support", "Community spaces", "Training & development", "Relationship-centered work"]
+      },
+      "Analysis & Research": {
+        text: "You thrive where questions are being asked and truth needs to be clarified. You do well in environments that value depth, accuracy, and careful decision-making.",
+        tags: ["Research teams", "Risk & compliance", "Strategy & insights", "Data-informed decisions"]
+      },
+      "Hands-On & Field Work": {
+        text: "You thrive where work is tangible, real, and happening on the ground. You do well in environments that value practicality, reliability, and visible results.",
+        tags: ["On-site operations", "Field work", "Safety & compliance", "Hands-on problem solving"]
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const category = localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
+      const traits = JSON.parse(localStorage.getItem("novaSelectedTraits") || "[]");
+      const selectedRoleTitle = localStorage.getItem("novaSelectedRole") || null;
+
+      const metaCategory = document.getElementById("metaCategory");
+      const metaTraitCount = document.getElementById("metaTraitCount");
+      const selectedRoleTitleEl = document.getElementById("selectedRoleTitle");
+      const selectedRoleMetaEl = document.getElementById("selectedRoleMeta");
+
+      metaCategory.textContent = category;
+      metaTraitCount.textContent = traits.length.toString();
+
+      const rolesForCategory = rolesByCategory[category] || rolesByCategory["Business & Leadership"];
+
+      let roleObj = null;
+      if (selectedRoleTitle) {
+        roleObj = rolesForCategory.find(r => r.title === selectedRoleTitle) || null;
+      }
+      if (!roleObj) {
+        // Fallback to first role in the category if none selected or not found
+        roleObj = rolesForCategory[0];
+      }
+
+      selectedRoleTitleEl.textContent = roleObj.title;
+      selectedRoleMetaEl.innerHTML =
+        `<span><strong>Estimated Range:</strong> ${roleObj.salary}</span>` +
+        `<span><strong>Outlook:</strong> ${roleObj.outlook}</span>`;
+
+      // SECTION 1: WHO YOU ARE
+      const whoYouAreText = document.getElementById("whoYouAreText");
+      const whoYouAreTraits = document.getElementById("whoYouAreTraits");
+
+      const topTraits = traits.slice(0, 3);
+      if (topTraits.length === 0) {
+        whoYouAreText.textContent =
+          "You are someone who brings value through the way you think, show up, and serve others — even if you didn’t select specific traits, your pattern still points toward real strengths.";
+      } else {
+        whoYouAreText.textContent =
+          `You are wired to make a difference through the way you move, think, and relate. ` +
+          `Traits like ${topTraits.join(", ")} point to a design that is not random — ` +
+          `it’s a combination of strengths that naturally lean toward the kind of work you selected.`;
+      }
+
+      whoYouAreTraits.innerHTML = "";
+      (topTraits.length ? topTraits : traits.slice(0, 6)).forEach(t => {
+        const pill = document.createElement("span");
+        pill.className = "tag-pill";
+        pill.textContent = t;
+        whoYouAreTraits.appendChild(pill);
+      });
+
+      // SECTION 2: WHY THIS ROLE FITS YOU
+      const whyRoleText = document.getElementById("whyRoleText");
+      const roleBullets = document.getElementById("roleBullets");
+      const roleInfoTags = document.getElementById("roleInfoTags");
+
+      const roleIntroPieces = [];
+      if (category === "Business & Leadership") {
+        roleIntroPieces.push("You are drawn to clarity, structure, and meaningful progress.");
+      } else if (category === "Technology & Systems") {
+        roleIntroPieces.push("You are drawn to logic, structure, and making systems work better for people.");
+      } else if (category === "Creative & Design") {
+        roleIntroPieces.push("You are drawn to ideas, visuals, and shaping experiences that impact people.");
+      } else if (category === "People & Community") {
+        roleIntroPieces.push("You are drawn to people’s stories, growth, and wellbeing.");
+      } else if (category === "Analysis & Research") {
+        roleIntroPieces.push("You are drawn to questions, patterns, and uncovering what’s really true.");
+      } else if (category === "Hands-On & Field Work") {
+        roleIntroPieces.push("You are drawn to tangible work, visible results, and solving problems on the ground.");
+      }
+
+      roleIntroPieces.push(
+        `The role of ${roleObj.title} lines up with this wiring by asking you to do in the workplace what you already do naturally.`
+      );
+
+      whyRoleText.textContent = roleIntroPieces.join(" ");
+
+      roleBullets.innerHTML = "";
+      const bulletItems = [
+        `This role typically involves work like: ${roleObj.blurb}`,
+        `Salary ranges in this field often fall around ${roleObj.salary}, depending on industry and experience.`,
+        `Labor market data shows a ${roleObj.outlook.toLowerCase()} demand for this kind of work in the coming years.`
       ];
 
-      for (var i = 0; i < possibleKeys.length; i++) {
-        var value = localStorage.getItem(possibleKeys[i]);
-        if (value && value.trim().length > 0) {
-          purposeEl.textContent = value;
-          break;
-        }
-      }
-    })();
-  </script>
+      bulletItems.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        roleBullets.appendChild(li);
+      });
 
-  <!-- If you have existing JS files that handle Save/Return or reveal logic,
-       you can include them here as well, e.g.:
-       <script src="assets/js/SaveReturn.js"></script>
-       <script src="assets/js/app.js"></script>
-  -->
+      roleInfoTags.innerHTML = "";
+      const salaryTag = document.createElement("span");
+      salaryTag.className = "tag-pill";
+      salaryTag.textContent = roleObj.salary;
+
+      const outlookTag = document.createElement("span");
+      outlookTag.className = "tag-pill";
+      outlookTag.textContent = roleObj.outlook;
+
+      roleInfoTags.appendChild(salaryTag);
+      roleInfoTags.appendChild(outlookTag);
+
+      // SECTION 3: WHERE YOU THRIVE NEXT
+      const envConfig = environmentByCategory[category] || environmentByCategory["Business & Leadership"];
+      const whereThriveText = document.getElementById("whereThriveText");
+      const whereThriveTags = document.getElementById("whereThriveTags");
+
+      whereThriveText.textContent =
+        envConfig.text +
+        " As you move forward, look for opportunities, teams, and roles that let you use these strengths more often — " +
+        "work that needs your exact mix of wiring, not someone else’s.";
+
+      whereThriveTags.innerHTML = "";
+      envConfig.tags.forEach(t => {
+        const pill = document.createElement("span");
+        pill.className = "tag-pill";
+        pill.textContent = t;
+        whereThriveTags.appendChild(pill);
+      });
+
+      // Continue → Invest
+      const continueBtn = document.getElementById("continueRevealBtn");
+      continueBtn.addEventListener("click", () => {
+        window.location.href = "invest.html";
+      });
+    });
+  </script>
 </body>
 </html>
