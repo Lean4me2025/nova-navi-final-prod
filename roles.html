@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Role Matches</title>
+  <title>NOVA – Roles That Fit Your Design</title>
 
   <style>
     :root {
@@ -14,8 +14,11 @@
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
-      --nova-radius-lg: 18px;
-      --nova-shadow-soft: 0 20px 50px rgba(15, 118, 110, 0.10);
+      --nova-radius-lg: 22px;
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
+      --badge-blue: #2563eb;
+      --badge-green: #16a34a;
+      --badge-amber: #d97706;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,8 +32,8 @@
 
     main.roles-page {
       max-width: 1100px;
-      margin: 36px auto 40px;
-      padding: 0 16px 48px;
+      margin: 36px auto 48px;
+      padding: 0 16px 56px;
     }
 
     @media (min-width: 768px) {
@@ -41,7 +44,7 @@
 
     .roles-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .roles-step {
@@ -60,27 +63,35 @@
     }
 
     .roles-subtitle {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
-    /* Grid of role cards */
+    .roles-category-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.4);
+      font-size: 0.86rem;
+      color: var(--nova-teal-dark);
+      font-weight: 500;
+    }
+
     .roles-grid {
       display: grid;
+      grid-template-columns: 1fr;
       gap: 18px;
-      margin-top: 26px;
+      margin-top: 30px;
     }
 
     @media (min-width: 768px) {
-      .roles-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (min-width: 1024px) {
       .roles-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -91,58 +102,72 @@
       border-radius: var(--nova-radius-lg);
       border: 1px solid var(--nova-border);
       box-shadow: var(--nova-shadow-soft);
-      padding: 16px 16px 18px;
+      padding: 18px 18px 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      position: relative;
     }
 
-    .role-name {
-      font-size: 1rem;
+    .role-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.18);
+    }
+
+    .role-card.selected {
+      border-color: rgba(20,184,166,0.8);
+      box-shadow: 0 28px 60px rgba(15,118,110,0.28);
+    }
+
+    .role-title {
+      font-size: 1.02rem;
       font-weight: 700;
-      color: var(--nova-text-main);
+      margin-bottom: 2px;
     }
 
-    .role-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .role-pill {
+    .role-salary {
       display: inline-flex;
       align-items: center;
-      padding: 4px 10px;
+      padding: 3px 10px;
       border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border: 1px solid rgba(20,184,166,0.25);
-      background: rgba(240,253,250,0.95);
-      color: var(--nova-teal-dark);
-    }
-
-    .role-pill.outlook {
-      border-color: rgba(59,130,246,0.25);
       background: #eff6ff;
       color: #1d4ed8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 2px;
     }
 
-    .role-summary {
+    .role-outlook {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-left: 8px;
+      color: #ffffff;
+    }
+
+    .role-outlook.blue { background: var(--badge-blue); }
+    .role-outlook.green { background: var(--badge-green); }
+    .role-outlook.amber { background: var(--badge-amber); }
+
+    .role-body {
       font-size: 0.86rem;
       color: var(--nova-text-muted);
-      line-height: 1.5;
+      line-height: 1.45;
+      margin-top: 8px;
     }
 
-    .role-traits-label {
+    .role-why-label {
+      margin-top: 10px;
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--nova-text-muted);
-      margin-top: 6px;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .role-traits {
@@ -151,17 +176,40 @@
       gap: 6px;
     }
 
-    .role-trait-chip {
-      font-size: 0.72rem;
-      padding: 3px 9px;
+    .role-trait-pill {
+      padding: 4px 9px;
       border-radius: 999px;
       background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.78rem;
       color: var(--nova-teal-dark);
-      border: 1px solid rgba(20,184,166,0.25);
+      font-weight: 500;
+    }
+
+    .role-selected-tag {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(20,184,166,0.1);
+      color: var(--nova-teal-dark);
+      border: 1px solid rgba(20,184,166,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      display: none;
+    }
+
+    .role-card.selected .role-selected-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .roles-actions {
-      margin-top: 28px;
+      margin-top: 30px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -187,8 +235,7 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: background 0.18s ease, color 0.18s ease,
-                  transform 0.16s ease, box-shadow 0.16s ease;
+      transition: 0.18s ease;
       gap: 8px;
     }
 
@@ -200,26 +247,20 @@
 
     .btn-outline:hover {
       background: #ffffff;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
       transform: translateY(-1px);
     }
 
     .btn-primary {
       background: var(--nova-teal);
       color: #ffffff;
-      box-shadow: 0 16px 32px rgba(20, 184, 166, 0.45);
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
     }
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 18px 36px rgba(15, 118, 110, 0.5);
+      box-shadow: 0 18px 36px rgba(15,118,110,0.5);
       transform: translateY(-1px);
-    }
-
-    .btn-primary:active,
-    .btn-outline:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
     }
 
     .chevron-left,
@@ -228,11 +269,11 @@
       line-height: 0;
     }
 
-    .no-roles {
-      margin-top: 22px;
-      text-align: center;
-      font-size: 0.9rem;
+    .roles-helper {
+      margin-top: 10px;
+      font-size: 0.86rem;
       color: var(--nova-text-muted);
+      text-align: center;
     }
   </style>
 </head>
@@ -242,158 +283,396 @@
     <header class="roles-header">
       <div class="roles-step">Step 2 · Roles</div>
       <h1 class="roles-title">Roles That Fit Your Design</h1>
-      <p class="roles-subtitle">
-        Based on the traits and preferences you selected, here are roles where
-        you are likely to thrive. Look for patterns in salary, outlook, and
-        type of work that resonate with your story.
+      <p class="roles-subtitle" id="rolesSubtitle">
+        Based on the category and traits you selected, here are roles where you’re likely to thrive.
+        Look for patterns in salary, outlook, and type of work that resonate with your story.
       </p>
+      <div class="roles-category-pill">
+        <span>Category:</span>
+        <span id="rolesCategoryLabel">Loading…</span>
+      </div>
     </header>
 
-    <section id="rolesGrid" class="roles-grid" aria-label="Suggested roles">
-      <!-- Cards will be injected here by JavaScript -->
-    </section>
+    <section id="rolesGrid" class="roles-grid" aria-label="Suggested roles"></section>
 
-    <p id="noRolesMessage" class="no-roles" style="display:none;">
-      We weren’t able to load any role matches yet. You can go back to adjust your
-      traits, or continue forward and use this as a reflection point.
+    <p class="roles-helper">
+      You don’t have to “marry” a single title. These roles point toward a direction:
+      the kind of work, environment, and responsibility level where your gifts shine.
     </p>
 
-    <nav class="roles-actions" aria-label="Roles navigation">
+    <nav class="roles-actions" aria-label="Role navigation">
       <a href="traits.html" class="btn btn-outline">
         <span class="chevron-left">‹</span>
         <span>Back to Traits</span>
       </a>
 
-      <a href="reveal.html" class="btn btn-primary">
+      <button id="continueRolesBtn" class="btn btn-primary" type="button">
         <span>Continue to Reveal</span>
         <span class="chevron-right">›</span>
-      </a>
+      </button>
     </nav>
   </main>
 
   <script>
-    // Default placeholder roles (used if nothing is in localStorage).
-    const defaultRoles = [
-      {
-        title: "Operations & Process Improvement Lead",
-        salary: "$80,000 – $120,000",
-        outlook: "Faster than average",
-        whyFit: "You thrive when making complex systems simpler, more efficient, and more humane.",
-        traits: ["Analytical", "System Builder", "Problem Solver"]
-      },
-      {
-        title: "Program / Project Manager",
-        salary: "$75,000 – $115,000",
-        outlook: "Steady demand",
-        whyFit: "You enjoy coordinating people, timelines, and resources to bring ideas into reality.",
-        traits: ["Organizer", "Communicator", "Finisher"]
-      },
-      {
-        title: "People Development & Training Specialist",
-        salary: "$65,000 – $100,000",
-        outlook: "Growing",
-        whyFit: "You carry a natural desire to teach, coach, and help others grow into their potential.",
-        traits: ["Encourager", "Teacher", "Empathetic"]
-      }
-    ];
+    const rolesByCategory = {
+      "Business & Leadership": [
+        {
+          title: "Operations & Process Improvement Lead",
+          salary: "$80,000 – $120,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You thrive when making complex systems simpler, more efficient, and more humane.",
+          traits: ["Strategic Visionary", "Organizational Architect", "Outcome Driver"]
+        },
+        {
+          title: "Strategy & Business Consultant",
+          salary: "$90,000 – $140,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You enjoy diagnosing business challenges and guiding leaders toward clear decisions.",
+          traits: ["Growth-Oriented Planner", "Change Champion", "Influential Communicator"]
+        },
+        {
+          title: "Program / Project Manager",
+          salary: "$75,000 – $115,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You enjoy coordinating people, timelines, and resources to bring ideas into reality.",
+          traits: ["Team Mobilizer", "Organizational Architect", "Decision Confident"]
+        },
+        {
+          title: "Nonprofit / Program Director",
+          salary: "$70,000 – $110,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You like leading mission-driven work that balances impact, budgets, and teams.",
+          traits: ["Trust-Builder", "Growth-Oriented Planner", "Outcome Driver"]
+        },
+        {
+          title: "Product Owner / Delivery Lead",
+          salary: "$95,000 – $135,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You enjoy translating vision into deliverables and prioritizing what gets built next.",
+          traits: ["Strategic Visionary", "Decision Confident", "Team Mobilizer"]
+        }
+      ],
 
-    function loadRoles() {
-      let roles = null;
+      "Technology & Systems": [
+        {
+          title: "Systems Analyst & Designer",
+          salary: "$80,000 – $120,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You like mapping how information and tools flow so work can run smoothly.",
+          traits: ["Systems Optimizer", "Data Structure Builder", "Logic-Driven Thinker"]
+        },
+        {
+          title: "Automation / Workflow Engineer",
+          salary: "$85,000 – $130,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You enjoy turning manual processes into smart, automated workflows.",
+          traits: ["Automation Designer", "Workflow Streamliner", "Reliability Guardian"]
+        },
+        {
+          title: "Data & Reporting Specialist",
+          salary: "$75,000 – $115,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You help teams see what’s happening by structuring and visualizing data.",
+          traits: ["Data Structure Builder", "Logic-Driven Thinker", "Systems Optimizer"]
+        },
+        {
+          title: "IT Service & Operations Manager",
+          salary: "$85,000 – $125,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You coordinate people and tools to keep critical systems available.",
+          traits: ["Reliability Guardian", "Workflow Streamliner", "Technical Troubleshooter"]
+        },
+        {
+          title: "Cyber & Reliability Coordinator",
+          salary: "$90,000 – $135,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You focus on stability, security, and risk in technology environments.",
+          traits: ["Reliability Guardian", "Logic-Driven Thinker", "Systems Optimizer"]
+        }
+      ],
 
-      // Try to pull from localStorage if your flow already saves it.
-      const possibleKeys = ["novaRoles", "novaRoleMatches", "roleResults"];
-      for (let key of possibleKeys) {
-        const stored = localStorage.getItem(key);
-        if (stored) {
-          try {
-            const parsed = JSON.parse(stored);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              roles = parsed;
-              break;
-            }
-          } catch (e) {
-            console.warn("Could not parse stored roles for key:", key, e);
+      "Creative & Design": [
+        {
+          title: "Visual / Brand Designer",
+          salary: "$65,000 – $105,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You shape the look and feel of brands, products, and experiences.",
+          traits: ["Aesthetic Curator", "Visual Storycrafter", "Brand Stylist"]
+        },
+        {
+          title: "UX / Experience Designer",
+          salary: "$85,000 – $125,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You design flows, layouts, and interactions that feel natural to people.",
+          traits: ["Experience Shaper", "Concept Explorer", "Imaginative Creator"]
+        },
+        {
+          title: "Content Creator / Storyteller",
+          salary: "$55,000 – $90,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You communicate through words, visuals, or media that move people.",
+          traits: ["Narrative Designer", "Idea Illustrator", "Imaginative Creator"]
+        },
+        {
+          title: "Multimedia Producer",
+          salary: "$60,000 – $95,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You enjoy planning, shooting, and editing video or audio projects.",
+          traits: ["Visual Storycrafter", "Experience Shaper", "Concept Explorer"]
+        },
+        {
+          title: "Creative Director (Associate / Junior)",
+          salary: "$90,000 – $135,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You guide creative direction and help align projects to a larger vision.",
+          traits: ["Brand Stylist", "Narrative Designer", "Imaginative Creator"]
+        }
+      ],
+
+      "People & Community": [
+        {
+          title: "People Development & Training Specialist",
+          salary: "$65,000 – $100,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You help people grow through teaching, coaching, and structured learning.",
+          traits: ["Growth Coach", "Group Uplifter", "Community Connector"]
+        },
+        {
+          title: "Life / Career Coach",
+          salary: "$60,000 – $110,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You walk with individuals as they navigate decisions, transitions, and purpose.",
+          traits: ["Heart-Centered Encourager", "Compassionate Listener", "Trust-Builder"]
+        },
+        {
+          title: "Community Outreach Coordinator",
+          salary: "$55,000 – $85,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You organize events, partnerships, and services that reach people where they are.",
+          traits: ["Community Connector", "Support Advocate", "Group Uplifter"]
+        },
+        {
+          title: "HR Business Partner",
+          salary: "$80,000 – $120,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You bridge the needs of people and the goals of the organization.",
+          traits: ["Trust-Builder", "Growth Coach", "Support Advocate"]
+        },
+        {
+          title: "Student Success / Support Advisor",
+          salary: "$55,000 – $80,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You help students or learners stay on track, resourced, and encouraged.",
+          traits: ["Compassionate Listener", "Heart-Centered Encourager", "Community Connector"]
+        }
+      ],
+
+      "Analysis & Research": [
+        {
+          title: "Research & Insights Analyst",
+          salary: "$75,000 – $115,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You dig into data and stories to surface what’s really true.",
+          traits: ["Insight Miner", "Pattern Analyst", "Trend Watcher"]
+        },
+        {
+          title: "Policy / Compliance Analyst",
+          salary: "$70,000 – $110,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You make sure decisions and processes line up with standards and rules.",
+          traits: ["Evidence Evaluator", "Precision Planner", "Detail Verifier"]
+        },
+        {
+          title: "Market Research Specialist",
+          salary: "$70,000 – $105,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You study customers, markets, and trends to guide strategy.",
+          traits: ["Trend Watcher", "Insight Miner", "Pattern Analyst"]
+        },
+        {
+          title: "Risk & Controls Analyst",
+          salary: "$80,000 – $120,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You identify where things could go wrong and how to protect against it.",
+          traits: ["Risk Mapper", "Evidence Evaluator", "Precision Planner"]
+        },
+        {
+          title: "Business Intelligence Analyst",
+          salary: "$85,000 – $125,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You turn raw data into dashboards and insights leaders can act on.",
+          traits: ["Pattern Analyst", "Detail Verifier", "Insight Miner"]
+        }
+      ],
+
+      "Hands-On & Field Work": [
+        {
+          title: "Field Service Technician",
+          salary: "$60,000 – $90,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You troubleshoot and resolve issues on-site where work is happening.",
+          traits: ["On-Site Problem Solver", "Practical Implementer", "Tools & Tactics Expert"]
+        },
+        {
+          title: "Operations Field Coordinator",
+          salary: "$65,000 – $100,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "amber",
+          blurb: "You coordinate people, equipment, and schedules in the field.",
+          traits: ["Field Adaptor", "Reliable Operator", "Condition Observer"]
+        },
+        {
+          title: "Facilities & Maintenance Lead",
+          salary: "$60,000 – $95,000",
+          outlook: "STEADY DEMAND",
+          outlookColor: "blue",
+          blurb: "You keep spaces, buildings, or sites functioning day to day.",
+          traits: ["Task Finisher", "Practical Implementer", "Condition Observer"]
+        },
+        {
+          title: "Safety & Compliance Specialist",
+          salary: "$65,000 – $105,000",
+          outlook: "FASTER THAN AVERAGE",
+          outlookColor: "blue",
+          blurb: "You focus on safety, procedures, and standards in real environments.",
+          traits: ["Safety Steward", "Risk Mapper", "Reliable Operator"]
+        },
+        {
+          title: "Logistics & Delivery Supervisor",
+          salary: "$65,000 – $100,000",
+          outlook: "GROWING",
+          outlookColor: "green",
+          blurb: "You oversee how people, tools, or materials move where they’re needed.",
+          traits: ["Field Adaptor", "Condition Observer", "Task Finisher"]
+        }
+      ]
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const category =
+        localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
+
+      const roles = rolesByCategory[category] || rolesByCategory["Business & Leadership"];
+
+      const rolesCategoryLabel = document.getElementById("rolesCategoryLabel");
+      const rolesGrid = document.getElementById("rolesGrid");
+      const continueBtn = document.getElementById("continueRolesBtn");
+
+      rolesCategoryLabel.textContent = category;
+
+      const previouslySelectedRole =
+        localStorage.getItem("novaSelectedRole") || null;
+      let selectedRoleTitle = previouslySelectedRole;
+
+      function renderRoles() {
+        rolesGrid.innerHTML = "";
+
+        roles.forEach(role => {
+          const card = document.createElement("article");
+          card.className = "role-card";
+
+          if (selectedRoleTitle === role.title) {
+            card.classList.add("selected");
           }
-        }
-      }
 
-      if (!roles) {
-        roles = defaultRoles;
-      }
+          const selectedTag = document.createElement("div");
+          selectedTag.className = "role-selected-tag";
+          selectedTag.textContent = "SELECTED";
 
-      const grid = document.getElementById("rolesGrid");
-      const noRolesMsg = document.getElementById("noRolesMessage");
+          const titleEl = document.createElement("h2");
+          titleEl.className = "role-title";
+          titleEl.textContent = role.title;
 
-      if (!grid) return;
+          const metaRow = document.createElement("div");
 
-      if (!roles || roles.length === 0) {
-        noRolesMsg.style.display = "block";
-        return;
-      }
+          const salaryEl = document.createElement("span");
+          salaryEl.className = "role-salary";
+          salaryEl.textContent = role.salary;
 
-      grid.innerHTML = "";
+          const outlookEl = document.createElement("span");
+          outlookEl.className = "role-outlook " + (role.outlookColor || "blue");
+          outlookEl.textContent = role.outlook;
 
-      roles.forEach((role) => {
-        const card = document.createElement("article");
-        card.className = "role-card";
+          metaRow.appendChild(salaryEl);
+          metaRow.appendChild(outlookEl);
 
-        const nameEl = document.createElement("h2");
-        nameEl.className = "role-name";
-        nameEl.textContent = role.title || "Role";
+          const bodyEl = document.createElement("p");
+          bodyEl.className = "role-body";
+          bodyEl.textContent = role.blurb;
 
-        const metaRow = document.createElement("div");
-        metaRow.className = "role-meta";
+          const whyLabel = document.createElement("div");
+          whyLabel.className = "role-why-label";
+          whyLabel.textContent = "Why this fits you";
 
-        if (role.salary) {
-          const salaryPill = document.createElement("span");
-          salaryPill.className = "role-pill";
-          salaryPill.textContent = role.salary;
-          metaRow.appendChild(salaryPill);
-        }
+          const traitsWrap = document.createElement("div");
+          traitsWrap.className = "role-traits";
 
-        if (role.outlook) {
-          const outlookPill = document.createElement("span");
-          outlookPill.className = "role-pill outlook";
-          outlookPill.textContent = role.outlook;
-          metaRow.appendChild(outlookPill);
-        }
-
-        const summaryEl = document.createElement("p");
-        summaryEl.className = "role-summary";
-        summaryEl.textContent =
-          role.whyFit ||
-          "This role aligns with key traits you selected and the way you naturally show up.";
-
-        card.appendChild(nameEl);
-        card.appendChild(metaRow);
-        card.appendChild(summaryEl);
-
-        // Traits chips
-        const traits = role.traits || role.keyTraits || [];
-        if (traits && traits.length > 0) {
-          const traitsLabel = document.createElement("div");
-          traitsLabel.className = "role-traits-label";
-          traitsLabel.textContent = "Why this fits you";
-
-          const traitsRow = document.createElement("div");
-          traitsRow.className = "role-traits";
-
-          traits.forEach((t) => {
-            const chip = document.createElement("span");
-            chip.className = "role-trait-chip";
-            chip.textContent = t;
-            traitsRow.appendChild(chip);
+          (role.traits || []).forEach(t => {
+            const pill = document.createElement("span");
+            pill.className = "role-trait-pill";
+            pill.textContent = t;
+            traitsWrap.appendChild(pill);
           });
 
-          card.appendChild(traitsLabel);
-          card.appendChild(traitsRow);
+          card.appendChild(selectedTag);
+          card.appendChild(titleEl);
+          card.appendChild(metaRow);
+          card.appendChild(bodyEl);
+          card.appendChild(whyLabel);
+          card.appendChild(traitsWrap);
+
+          card.addEventListener("click", () => {
+            selectedRoleTitle = role.title;
+            localStorage.setItem("novaSelectedRole", selectedRoleTitle);
+
+            document
+              .querySelectorAll(".role-card")
+              .forEach(el => el.classList.remove("selected"));
+            card.classList.add("selected");
+          });
+
+          rolesGrid.appendChild(card);
+        });
+      }
+
+      renderRoles();
+
+      continueBtn.addEventListener("click", () => {
+        if (!selectedRoleTitle) {
+          const proceed = confirm(
+            "You haven’t selected a role yet. Do you still want to continue?"
+          );
+          if (!proceed) return;
         }
-
-        grid.appendChild(card);
+        window.location.href = "reveal.html";
       });
-    }
-
-    document.addEventListener("DOMContentLoaded", loadRoles);
+    });
   </script>
 </body>
 </html>
