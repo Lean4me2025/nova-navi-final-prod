@@ -175,9 +175,7 @@
       background: #ffffff;
     }
 
-    .trait-text {
-      flex: 1;
-    }
+    .trait-text { flex: 1; }
 
     .trait-name {
       font-size: 0.96rem;
@@ -314,216 +312,66 @@
   </main>
 
   <script>
-    // 🔹 All traits are UNIQUE across the entire mapping (no duplicated names)
     const traitsByCategory = {
       "Business & Leadership": [
-        {
-          name: "Strategic Visionary",
-          desc: "You naturally think several moves ahead and see long-range direction."
-        },
-        {
-          name: "Organizational Architect",
-          desc: "You like structuring people, processes, and resources so things run smoothly."
-        },
-        {
-          name: "Influential Communicator",
-          desc: "You’re able to rally others around ideas, goals, and change."
-        },
-        {
-          name: "Team Mobilizer",
-          desc: "You help people move from talk into coordinated action."
-        },
-        {
-          name: "Decision Confident",
-          desc: "You can weigh options and choose a path without staying stuck."
-        },
-        {
-          name: "Growth-Oriented Planner",
-          desc: "You think in terms of targets, milestones, and improvement."
-        },
-        {
-          name: "Change Champion",
-          desc: "You lean into change and help others move through it."
-        },
-        {
-          name: "Outcome Driver",
-          desc: "You are focused on results and finishing what you start."
-        }
+        { name: "Strategic Visionary", desc: "You naturally think several moves ahead and see long-range direction." },
+        { name: "Organizational Architect", desc: "You like structuring people, processes, and resources so things run smoothly." },
+        { name: "Influential Communicator", desc: "You’re able to rally others around ideas, goals, and change." },
+        { name: "Team Mobilizer", desc: "You help people move from talk into coordinated action." },
+        { name: "Decision Confident", desc: "You can weigh options and choose a path without staying stuck." },
+        { name: "Growth-Oriented Planner", desc: "You think in terms of targets, milestones, and improvement." },
+        { name: "Change Champion", desc: "You lean into change and help others move through it." },
+        { name: "Outcome Driver", desc: "You are focused on results and finishing what you start." }
       ],
-
       "Technology & Systems": [
-        {
-          name: "Systems Optimizer",
-          desc: "You see how tools and processes can be tightened and improved."
-        },
-        {
-          name: "Technical Troubleshooter",
-          desc: "You enjoy getting into the details to fix what’s broken."
-        },
-        {
-          name: "Logic-Driven Thinker",
-          desc: "You lean on logic and clear reasoning to solve problems."
-        },
-        {
-          name: "Workflow Streamliner",
-          desc: "You like removing friction and extra steps from how work gets done."
-        },
-        {
-          name: "Data Structure Builder",
-          desc: "You’re drawn to organizing data, files, or systems in clear ways."
-        },
-        {
-          name: "Integration Orchestrator",
-          desc: "You think about how different tools or systems connect together."
-        },
-        {
-          name: "Reliability Guardian",
-          desc: "You care that systems stay up, stable, and dependable."
-        },
-        {
-          name: "Automation Designer",
-          desc: "You look for ways to automate repetitive or manual work."
-        }
+        { name: "Systems Optimizer", desc: "You see how tools and processes can be tightened and improved." },
+        { name: "Technical Troubleshooter", desc: "You enjoy getting into the details to fix what’s broken." },
+        { name: "Logic-Driven Thinker", desc: "You lean on logic and clear reasoning to solve problems." },
+        { name: "Workflow Streamliner", desc: "You like removing friction and extra steps from how work gets done." },
+        { name: "Data Structure Builder", desc: "You’re drawn to organizing data, files, or systems in clear ways." },
+        { name: "Integration Orchestrator", desc: "You think about how different tools or systems connect together." },
+        { name: "Reliability Guardian", desc: "You care that systems stay up, stable, and dependable." },
+        { name: "Automation Designer", desc: "You look for ways to automate repetitive or manual work." }
       ],
-
       "Creative & Design": [
-        {
-          name: "Imaginative Creator",
-          desc: "You generate new ideas, concepts, and possibilities with ease."
-        },
-        {
-          name: "Visual Storycrafter",
-          desc: "You like communicating through images, layouts, or visual themes."
-        },
-        {
-          name: "Concept Explorer",
-          desc: "You enjoy exploring different creative angles and directions."
-        },
-        {
-          name: "Brand Stylist",
-          desc: "You think in terms of look, feel, and consistent identity."
-        },
-        {
-          name: "Experience Shaper",
-          desc: "You care about how people feel as they move through an experience."
-        },
-        {
-          name: "Idea Illustrator",
-          desc: "You help bring abstract ideas into concrete, visual form."
-        },
-        {
-          name: "Narrative Designer",
-          desc: "You enjoy shaping the story behind messages, products, or work."
-        },
-        {
-          name: "Aesthetic Curator",
-          desc: "You’re sensitive to color, layout, and overall aesthetic harmony."
-        }
+        { name: "Imaginative Creator", desc: "You generate new ideas, concepts, and possibilities with ease." },
+        { name: "Visual Storycrafter", desc: "You like communicating through images, layouts, or visual themes." },
+        { name: "Concept Explorer", desc: "You enjoy exploring different creative angles and directions." },
+        { name: "Brand Stylist", desc: "You think in terms of look, feel, and consistent identity." },
+        { name: "Experience Shaper", desc: "You care about how people feel as they move through an experience." },
+        { name: "Idea Illustrator", desc: "You help bring abstract ideas into concrete, visual form." },
+        { name: "Narrative Designer", desc: "You enjoy shaping the story behind messages, products, or work." },
+        { name: "Aesthetic Curator", desc: "You’re sensitive to color, layout, and overall aesthetic harmony." }
       ],
-
       "People & Community": [
-        {
-          name: "Heart-Centered Encourager",
-          desc: "You naturally build others up and help them not give up."
-        },
-        {
-          name: "Compassionate Listener",
-          desc: "You make space for people to be heard and understood."
-        },
-        {
-          name: "Trust-Builder",
-          desc: "People feel safe opening up or partnering with you."
-        },
-        {
-          name: "Group Uplifter",
-          desc: "You help groups stay positive, hopeful, or energized."
-        },
-        {
-          name: "Conflict Bridge-Builder",
-          desc: "You look for common ground when tensions rise."
-        },
-        {
-          name: "Support Advocate",
-          desc: "You stand up for people who need help or protection."
-        },
-        {
-          name: "Growth Coach",
-          desc: "You enjoy helping others grow, learn, or heal."
-        },
-        {
-          name: "Community Connector",
-          desc: "You like introducing people and building networks."
-        }
+        { name: "Heart-Centered Encourager", desc: "You naturally build others up and help them not give up." },
+        { name: "Compassionate Listener", desc: "You make space for people to be heard and understood." },
+        { name: "Trust-Builder", desc: "People feel safe opening up or partnering with you." },
+        { name: "Group Uplifter", desc: "You help groups stay positive, hopeful, or energized." },
+        { name: "Conflict Bridge-Builder", desc: "You look for common ground when tensions rise." },
+        { name: "Support Advocate", desc: "You stand up for people who need help or protection." },
+        { name: "Growth Coach", desc: "You enjoy helping others grow, learn, or heal." },
+        { name: "Community Connector", desc: "You like introducing people and building networks." }
       ],
-
       "Analysis & Research": [
-        {
-          name: "Insight Miner",
-          desc: "You dig below the surface to find what’s really going on."
-        },
-        {
-          name: "Pattern Analyst",
-          desc: "You notice trends, repetitions, and relationships in information."
-        },
-        {
-          name: "Evidence Evaluator",
-          desc: "You like weighing proof, pros and cons, and data quality."
-        },
-        {
-          name: "Risk Mapper",
-          desc: "You see where things could go wrong and how to prevent it."
-        },
-        {
-          name: "Detail Verifier",
-          desc: "You care that facts, numbers, or statements are correct."
-        },
-        {
-          name: "Hypothesis Tester",
-          desc: "You think in terms of testing ideas and seeing what holds up."
-        },
-        {
-          name: "Trend Watcher",
-          desc: "You track how things are changing over time."
-        },
-        {
-          name: "Precision Planner",
-          desc: "You like plans that are specific, documented, and clear."
-        }
+        { name: "Insight Miner", desc: "You dig below the surface to find what’s really going on." },
+        { name: "Pattern Analyst", desc: "You notice trends, repetitions, and relationships in information." },
+        { name: "Evidence Evaluator", desc: "You like weighing proof, pros and cons, and data quality." },
+        { name: "Risk Mapper", desc: "You see where things could go wrong and how to prevent it." },
+        { name: "Detail Verifier", desc: "You care that facts, numbers, or statements are correct." },
+        { name: "Hypothesis Tester", desc: "You think in terms of testing ideas and seeing what holds up." },
+        { name: "Trend Watcher", desc: "You track how things are changing over time." },
+        { name: "Precision Planner", desc: "You like plans that are specific, documented, and clear." }
       ],
-
       "Hands-On & Field Work": [
-        {
-          name: "On-Site Problem Solver",
-          desc: "You prefer solving issues where the work actually happens."
-        },
-        {
-          name: "Practical Implementer",
-          desc: "You like turning plans into real action and results."
-        },
-        {
-          name: "Safety Steward",
-          desc: "You’re attentive to safety, risk, and real-world conditions."
-        },
-        {
-          name: "Reliable Operator",
-          desc: "You can be counted on to keep things running day to day."
-        },
-        {
-          name: "Condition Observer",
-          desc: "You notice what’s off in the environment or setup."
-        },
-        {
-          name: "Task Finisher",
-          desc: "You take satisfaction in completing hands-on work."
-        },
-        {
-          name: "Field Adaptor",
-          desc: "You adjust quickly when conditions or needs change."
-        },
-        {
-          name: "Tools & Tactics Expert",
-          desc: "You’re comfortable working with tools, equipment, or gear."
-        }
+        { name: "On-Site Problem Solver", desc: "You prefer solving issues where the work actually happens." },
+        { name: "Practical Implementer", desc: "You like turning plans into real action and results." },
+        { name: "Safety Steward", desc: "You’re attentive to safety, risk, and real-world conditions." },
+        { name: "Reliable Operator", desc: "You can be counted on to keep things running day to day." },
+        { name: "Condition Observer", desc: "You notice what’s off in the environment or setup." },
+        { name: "Task Finisher", desc: "You take satisfaction in completing hands-on work." },
+        { name: "Field Adaptor", desc: "You adjust quickly when conditions or needs change." },
+        { name: "Tools & Tactics Expert", desc: "You’re comfortable working with tools, equipment, or gear." }
       ]
     };
 
@@ -531,7 +379,6 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       const category = localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
-
       const traitsForCategory = traitsByCategory[category] || traitsByCategory["Business & Leadership"];
 
       const categoryLabelEl = document.getElementById("selectedCategoryLabel");
@@ -545,10 +392,17 @@
         `Based on your category “${category}”, pick the traits that sound most like how you already show up. ` +
         `Nova will use these to highlight roles that fit the way you’re wired.`;
 
-      traitsGridEl.innerHTML = "";
+      // 🔹 Clean up any old/invalid saved traits so we don’t get “ghost” selections
+      const rawSaved = JSON.parse(localStorage.getItem("novaSelectedTraits") || "[]");
+      const validNames = new Set(traitsForCategory.map(t => t.name));
+      const cleanedSaved = rawSaved.filter(name => validNames.has(name));
+      let selectedNames = new Set(cleanedSaved.slice(0, MAX_SELECTED));
 
-      const previouslySelected = JSON.parse(localStorage.getItem("novaSelectedTraits") || "[]");
-      const selectedNames = new Set(previouslySelected);
+      if (selectedNames.size !== rawSaved.length) {
+        localStorage.setItem("novaSelectedTraits", JSON.stringify(Array.from(selectedNames)));
+      }
+
+      traitsGridEl.innerHTML = "";
 
       function updateCountLabel() {
         const count = selectedNames.size;
