@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your NOVA Purpose Reveal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     :root {
+      --nova-bg: #f9fafb;
       --nova-card-bg: #ffffff;
       --nova-teal: #14b8a6;
       --nova-teal-dark: #0f766e;
@@ -13,69 +15,72 @@
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
       --nova-radius-lg: 22px;
-      --nova-radius-pill: 999px;
-      --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
+      --badge-blue: #2563eb;
+      --badge-green: #16a34a;
+      --badge-amber: #d97706;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #ecfeff 0%, #f9fafb 45%, #f9fafb 100%);
-      color: var(--nova-text-main);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
+      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      color: var(--nova-text-main);
     }
 
-    .page-wrap {
-      width: 100%;
-      max-width: 1120px;
-      margin: 32px auto 40px;
-      padding: 0 16px 40px;
+    main.reveal-page {
+      max-width: 1100px;
+      margin: 36px auto 48px;
+      padding: 0 16px 56px;
     }
 
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
+    @media (min-width: 768px) {
+      main.reveal-page {
+        margin-top: 48px;
+      }
     }
 
-    .top-bar h1 {
-      font-size: 26px;
-      color: var(--nova-teal-dark);
+    .reveal-header {
+      margin-bottom: 28px;
     }
 
-    .reveal-card {
-      background: var(--nova-card-bg);
-      border-radius: var(--nova-radius-lg);
-      box-shadow: var(--nova-shadow-soft);
-      padding: 28px 28px 30px;
+    .reveal-step {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: var(--nova-teal);
+      margin-bottom: 6px;
     }
 
     .reveal-title {
-      font-size: 28px;
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
       font-weight: 700;
-      color: var(--nova-teal-dark);
       margin-bottom: 10px;
     }
 
     .reveal-subtitle {
-      font-size: 15px;
+      max-width: 720px;
+      font-size: 0.98rem;
       color: var(--nova-text-muted);
-      margin-bottom: 20px;
+      line-height: 1.5;
     }
 
-    .section {
-      margin-top: 18px;
-      margin-bottom: 12px;
+    .reveal-section {
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      border: 1px solid var(--nova-border);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 18px 20px 20px;
+      margin-top: 20px;
     }
 
-    .section h2 {
-      font-size: 18px;
-      margin-bottom: 6px;
-      color: var(--nova-text-main);
+    .reveal-section h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
     .pill-row {
@@ -83,248 +88,303 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 6px;
-      margin-bottom: 8px;
     }
 
     .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 12px;
-      border-radius: var(--nova-radius-pill);
-      background: #e0f2fe;
-      color: #0f172a;
-      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #ecfeff;
+      border: 1px solid rgba(20,184,166,0.35);
+      font-size: 0.82rem;
+      color: var(--nova-teal-dark);
       font-weight: 500;
     }
 
-    .pill-empty {
-      font-size: 13px;
-      color: #9ca3af;
-    }
-
-    .role-line {
-      font-size: 20px;
-      font-weight: 600;
+    .role-title {
+      font-size: 1.05rem;
+      font-weight: 700;
       margin-bottom: 4px;
-      color: var(--nova-teal-dark);
     }
 
     .role-meta {
-      font-size: 13px;
+      font-size: 0.86rem;
       color: var(--nova-text-muted);
       margin-bottom: 8px;
     }
 
     .role-summary {
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--nova-text-main);
+      line-height: 1.5;
     }
 
-    .purpose-block {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 14px;
+    .purpose-lenses {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .purpose-lenses {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .purpose-card {
+      border-radius: 16px;
       border: 1px solid var(--nova-border);
       background: #f9fafb;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
-    .purpose-heading {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+    .purpose-card h3 {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--nova-teal-dark);
+      margin-bottom: 6px;
     }
 
-    .purpose-line-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 8px;
-      margin-bottom: 2px;
-      color: var(--nova-teal-dark);
-    }
-
-    .purpose-line-text {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--nova-text-main);
-    }
-
-    .btn-row {
+    .reveal-actions {
+      margin-top: 28px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .reveal-actions {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: 0.18s ease;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--nova-text-main);
+      border: 1px solid var(--nova-border);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
+      transform: translateY(-1px);
     }
 
     .btn-primary {
       background: var(--nova-teal);
       color: #ffffff;
-      border: none;
-      padding: 11px 20px;
-      border-radius: var(--nova-radius-pill);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
+      box-shadow: 0 16px 32px rgba(20,184,166,0.45);
     }
 
-    .btn-secondary {
-      background: #e5f3f7;
-      color: var(--nova-teal-dark);
-      border: none;
-      padding: 11px 18px;
-      border-radius: var(--nova-radius-pill);
-      font-size: 15px;
-      cursor: pointer;
+    .btn-primary:hover {
+      background: var(--nova-teal-dark);
+      box-shadow: 0 18px 36px rgba(15,118,110,0.5);
+      transform: translateY(-1px);
     }
 
-    .note {
-      margin-top: 10px;
-      font-size: 12px;
+    .chevron-left,
+    .chevron-right {
+      font-size: 1.1rem;
+      line-height: 0;
+    }
+
+    .empty-text {
+      font-size: 0.88rem;
       color: var(--nova-text-muted);
-    }
-
-    @media (max-width: 640px) {
-      .reveal-card { padding: 22px 18px 24px; }
-      .btn-row { flex-direction: column; }
     }
   </style>
 </head>
+
 <body>
-  <div class="page-wrap">
-    <div class="top-bar">
-      <h1>NOVA</h1>
-    </div>
+  <main class="reveal-page">
+    <header class="reveal-header">
+      <div class="reveal-step">Your NOVA Purpose Reveal</div>
+      <h1 class="reveal-title">Here’s the profile NOVA has identified.</h1>
+      <p class="reveal-subtitle">
+        NOVA has identified the categories, traits, and role that fit how you are wired.
+        This is your starting point for building a clear, purpose-aligned career strategy.
+      </p>
+    </header>
 
-    <div class="reveal-card">
-      <div class="reveal-title">Your NOVA Purpose Reveal</div>
-      <div class="reveal-subtitle">
-        NOVA has identified the categories, traits, and role that fit how you are wired. This is your starting point for a purpose-aligned career strategy.
+    <section class="reveal-section" id="categoriesSection">
+      <h2>Categories You Selected</h2>
+      <div id="categoriesContent" class="pill-row"></div>
+    </section>
+
+    <section class="reveal-section" id="traitsSection">
+      <h2>Your Top Traits</h2>
+      <div id="traitsContent" class="pill-row"></div>
+    </section>
+
+    <section class="reveal-section" id="roleSection">
+      <h2>Recommended Role</h2>
+      <div id="roleContent"></div>
+    </section>
+
+    <section class="reveal-section">
+      <h2>Your Purpose in Three Lenses</h2>
+      <div class="purpose-lenses">
+        <div class="purpose-card">
+          <h3>Why You</h3>
+          <p id="whyYouText"></p>
+        </div>
+        <div class="purpose-card">
+          <h3>Why This Role</h3>
+          <p id="whyRoleText"></p>
+        </div>
+        <div class="purpose-card">
+          <h3>Why Now</h3>
+          <p id="whyNowText"></p>
+        </div>
       </div>
+    </section>
 
-      <!-- Categories -->
-      <div class="section">
-        <h2>Categories You Selected</h2>
-        <div id="categoriesPills" class="pill-row"></div>
-      </div>
+    <nav class="reveal-actions" aria-label="Reveal navigation">
+      <a href="roles.html" class="btn btn-outline">
+        <span class="chevron-left">‹</span>
+        <span>Back to Roles</span>
+      </a>
 
-      <!-- Traits -->
-      <div class="section">
-        <h2>Your Top Traits</h2>
-        <div id="traitsPills" class="pill-row"></div>
-      </div>
+      <button id="continueRevealBtn" class="btn btn-primary" type="button">
+        <span>Continue – Invest in Yourself</span>
+        <span class="chevron-right">›</span>
+      </button>
+    </nav>
+  </main>
 
-      <!-- Role -->
-      <div class="section">
-        <h2>Recommended Role</h2>
-        <div id="roleTitle" class="role-line"></div>
-        <div id="roleMeta" class="role-meta"></div>
-        <div id="roleSummary" class="role-summary"></div>
-      </div>
-
-      <!-- Purpose lenses -->
-      <div class="purpose-block">
-        <div class="purpose-heading">Your Purpose in Three Lenses</div>
-
-        <div class="purpose-line-title">Why You</div>
-        <div id="whyYouLine" class="purpose-line-text"></div>
-
-        <div class="purpose-line-title">Why This Role</div>
-        <div id="whyRoleLine" class="purpose-line-text"></div>
-
-        <div class="purpose-line-title">Why Now</div>
-        <div id="whyNowLine" class="purpose-line-text"></div>
-      </div>
-
-      <div class="btn-row">
-        <button type="button" class="btn-primary" id="continueInvestBtn">
-          Continue – Invest in Yourself
-        </button>
-        <button type="button" class="btn-secondary" id="backToRolesBtn">
-          Back to Roles
-        </button>
-      </div>
-
-      <div class="note">
-        When you continue, NOVA will send this profile into NAVI so you can build your resume, cover letters, and career strategy without re-entering your answers.
-      </div>
-    </div>
-  </div>
-
-  <script src="nova-profile-helpers.js"></script>
+  <script src="nova-profile-helper.js"></script>
 
   <script>
-    function renderPills(containerId, items, emptyMessage) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-
-      if (!items || !items.length) {
-        const span = document.createElement('span');
-        span.className = 'pill-empty';
-        span.textContent = emptyMessage;
-        container.appendChild(span);
-        return;
-      }
-
-      items.forEach(item => {
-        const pill = document.createElement('div');
-        pill.className = 'pill';
-        if (typeof item === 'string') {
-          pill.textContent = item;
-        } else if (item.name) {
-          pill.textContent = item.name;
-        } else if (item.label) {
-          pill.textContent = item.label;
-        } else {
-          pill.textContent = String(item);
-        }
-        container.appendChild(pill);
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", () => {
       const profile = loadNovaProfile();
 
-      const categories = profile.categories && profile.categories.length
-        ? profile.categories
-        : (profile.categoryIds || []).map(id => ({ id, name: id }));
+      // ----- Categories -----
+      const categoriesContainer = document.getElementById("categoriesContent");
+      if (profile.categories && profile.categories.length) {
+        profile.categories.forEach(cat => {
+          const pill = document.createElement("span");
+          pill.className = "pill";
+          pill.textContent = cat.name || "Category";
+          categoriesContainer.appendChild(pill);
+        });
+      } else {
+        const span = document.createElement("span");
+        span.className = "empty-text";
+        span.textContent = "No data found. Try restarting NOVA.";
+        categoriesContainer.appendChild(span);
+      }
 
-      const traits = profile.traits && profile.traits.length
-        ? profile.traits
-        : (profile.traitIds || []).map(id => ({ id, label: id }));
+      // ----- Traits -----
+      const traitsContainer = document.getElementById("traitsContent");
+      if (profile.traits && profile.traits.length) {
+        profile.traits.forEach(name => {
+          const pill = document.createElement("span");
+          pill.className = "pill";
+          pill.textContent = name;
+          traitsContainer.appendChild(pill);
+        });
+      } else {
+        const span = document.createElement("span");
+        span.className = "empty-text";
+        span.textContent = "No traits found yet.";
+        traitsContainer.appendChild(span);
+      }
 
-      renderPills('categoriesPills', categories, 'No categories found. Try restarting NOVA.');
-      renderPills('traitsPills', traits, 'No traits found. Try restarting NOVA.');
-
+      // ----- Role -----
+      const roleContent = document.getElementById("roleContent");
       const role = profile.role || {};
 
-      document.getElementById('roleTitle').textContent =
-        role.title || 'No role selected yet';
+      if (role.title) {
+        const titleEl = document.createElement("div");
+        titleEl.className = "role-title";
+        titleEl.textContent = role.title;
 
-      document.getElementById('roleMeta').textContent = [
-        role.socCode,
-        role.salaryRange,
-        role.outlook
-      ].filter(Boolean).join(' · ');
+        const metaEl = document.createElement("div");
+        metaEl.className = "role-meta";
+        const salary = role.salaryRange || "";
+        const outlook = role.outlook || "";
+        const pieces = [];
+        if (role.socCode) pieces.push(role.socCode);
+        if (salary) pieces.push(salary);
+        if (outlook) pieces.push(outlook);
+        metaEl.textContent = pieces.join(" · ");
 
-      document.getElementById('roleSummary').textContent = role.summary || '';
+        const summaryEl = document.createElement("div");
+        summaryEl.className = "role-summary";
+        summaryEl.textContent =
+          role.summary ||
+          "This role aligns with your natural wiring, giving you room to grow and make a meaningful impact.";
+
+        roleContent.appendChild(titleEl);
+        if (metaEl.textContent) roleContent.appendChild(metaEl);
+        roleContent.appendChild(summaryEl);
+      } else {
+        const span = document.createElement("span");
+        span.className = "empty-text";
+        span.textContent = "No role selected yet.";
+        roleContent.appendChild(span);
+      }
+
+      // ----- Purpose lenses -----
+      const traitsText = (profile.traits || []).join(", ");
+      const primaryCategory =
+        profile.categories && profile.categories.length
+          ? profile.categories[0].name
+          : "your category";
+
+      const whyYouDefault = traitsText
+        ? `You are wired with strengths like ${traitsText}. These show up again and again in how you think, serve, and solve problems.`
+        : "You carry a unique mix of strengths, experiences, and perspective that shape how you show up in the world.";
+
+      const whyRoleDefault = role.title
+        ? `This role lets you use those strengths in a focused way — stewarding your design in a space that needs what you naturally bring.`
+        : "The right role for you will give you room to use your strengths in environments that value what you naturally bring.";
+
+      const whyNowDefault = `You’re at an inflection point. Clarifying your purpose and direction now helps you make wiser choices about where to invest your time, energy, and training in this next season.`;
 
       const purpose = profile.purpose || {};
-      document.getElementById('whyYouLine').textContent = purpose.whyYou || '';
-      document.getElementById('whyRoleLine').textContent = purpose.whyThisRole || '';
-      document.getElementById('whyNowLine').textContent = purpose.whyNow || '';
 
-      document.getElementById('continueInvestBtn')
-        .addEventListener('click', () => {
-          saveNovaProfile(profile); // ensure it’s clean
-          window.location.href = 'invest.html';
-        });
+      document.getElementById("whyYouText").textContent =
+        purpose.whyYou && purpose.whyYou.trim() ? purpose.whyYou : whyYouDefault;
 
-      document.getElementById('backToRolesBtn')
-        .addEventListener('click', () => {
-          window.location.href = 'roles.html';
-        });
+      document.getElementById("whyRoleText").textContent =
+        purpose.whyThisRole && purpose.whyThisRole.trim()
+          ? purpose.whyThisRole
+          : whyRoleDefault;
+
+      document.getElementById("whyNowText").textContent =
+        purpose.whyNow && purpose.whyNow.trim()
+          ? purpose.whyNow
+          : whyNowDefault;
+
+      // ----- Continue -----
+      const continueBtn = document.getElementById("continueRevealBtn");
+      continueBtn.addEventListener("click", () => {
+        // No major changes here yet, but keep profile consistent
+        saveNovaProfile(profile);
+        window.location.href = "invest.html";
+      });
     });
   </script>
 </body>
