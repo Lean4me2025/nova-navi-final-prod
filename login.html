@@ -83,7 +83,7 @@
   <div class="container">
     <h1>Login to NAVI</h1>
     <p class="meta">
-      Use the email and PIN associated with your investment. Once you log in, NAVI will load your NOVA snapshot and begin building your resume and career assets.
+      Use the email and PIN associated with your investment. After you sign in, you’ll land on your NAVI Dashboard, where you can build your resume, cover letters, and more.
     </p>
 
     <form id="loginForm">
@@ -99,7 +99,7 @@
       </div>
 
       <p class="helper-text">
-        Note: Authentication and membership verification can be expanded later. For now, this login grants access on this device and browser.
+        Authentication and membership verification can be expanded later. For now, this login grants access on this device and browser.
       </p>
     </form>
   </div>
@@ -127,7 +127,8 @@
         console.warn('Could not store naviUser', err);
       }
 
-      window.location.href = 'navi.html';
+      // Go to NAVI Dashboard instead of directly to resume
+      window.location.href = 'dashboard.html';
     });
 
     document.getElementById('backToInvestBtn').addEventListener('click', function () {
