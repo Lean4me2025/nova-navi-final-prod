@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --nova-bg: #f9fafb;
       --nova-card-bg: #ffffff;
       --nova-teal: #14b8a6;
       --nova-teal-dark: #0f766e;
@@ -18,11 +17,7 @@
       --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -38,13 +33,6 @@
       max-width: 1120px;
       margin: 32px auto 40px;
       padding: 0 16px 40px;
-    }
-
-    @media (min-width: 768px) {
-      .page-wrap {
-        margin-top: 48px;
-        padding-bottom: 60px;
-      }
     }
 
     .top-bar {
@@ -107,6 +95,11 @@
       color: #0f172a;
       font-size: 13px;
       font-weight: 500;
+    }
+
+    .pill-empty {
+      font-size: 13px;
+      color: #9ca3af;
     }
 
     .role-line {
@@ -192,12 +185,8 @@
     }
 
     @media (max-width: 640px) {
-      .reveal-card {
-        padding: 22px 18px 24px;
-      }
-      .btn-row {
-        flex-direction: column;
-      }
+      .reveal-card { padding: 22px 18px 24px; }
+      .btn-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -262,155 +251,80 @@
     </div>
   </div>
 
+  <script src="nova-profile-helpers.js"></script>
+
   <script>
-    // Helper to safely parse JSON and try multiple possible keys
-    function getFromStorage(possibleKeys, fallback) {
-      for (const key of possibleKeys) {
-        const raw = localStorage.getItem(key);
-        if (!raw) continue;
-        try {
-          const parsed = JSON.parse(raw);
-          if (parsed !== null && parsed !== undefined) {
-            return parsed;
-          }
-        } catch (e) {
-          // If it was a plain string, treat it appropriately
-          if (typeof raw === 'string' && raw.trim() !== '') {
-            return raw;
-          }
-        }
-      }
-      return fallback;
-    }
-
-    function ensureArray(value) {
-      if (!value) return [];
-      if (Array.isArray(value)) return value;
-      if (typeof value === 'string') return [value];
-      return [];
-    }
-
-    function renderPills(containerId, items) {
+    function renderPills(containerId, items, emptyMessage) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
+
       if (!items || !items.length) {
         const span = document.createElement('span');
-        span.textContent = 'No data found. Try restarting NOVA.';
-        span.style.fontSize = '13px';
-        span.style.color = '#9ca3af';
+        span.className = 'pill-empty';
+        span.textContent = emptyMessage;
         container.appendChild(span);
         return;
       }
-      items.forEach(txt => {
+
+      items.forEach(item => {
         const pill = document.createElement('div');
         pill.className = 'pill';
-        pill.textContent = txt;
+        if (typeof item === 'string') {
+          pill.textContent = item;
+        } else if (item.name) {
+          pill.textContent = item.name;
+        } else if (item.label) {
+          pill.textContent = item.label;
+        } else {
+          pill.textContent = String(item);
+        }
         container.appendChild(pill);
       });
     }
 
-    function loadReveal() {
-      // Try to load categories, traits, role, and purpose from any of the keys we might be using
-      const categoriesRaw = getFromStorage(
-        ['novaSelectedCategories', 'selectedCategories', 'novaCategories'],
-        []
-      );
-      const traitsRaw = getFromStorage(
-        ['novaSelectedTraits', 'selectedTraits', 'novaTraits'],
-        []
-      );
-      const role = getFromStorage(
-        ['novaSelectedRole', 'selectedRole', 'novaRole'],
-        {}
-      );
-      const purpose = getFromStorage(
-        ['novaPurposeAnswers', 'purposeAnswers'],
-        {}
-      );
-
-      const categories = ensureArray(categoriesRaw);
-      const traits = ensureArray(traitsRaw);
-
-      // Render categories and traits
-      renderPills('categoriesPills', categories);
-      renderPills('traitsPills', traits);
-
-      // Role
-      const roleTitleEl = document.getElementById('roleTitle');
-      const roleMetaEl = document.getElementById('roleMeta');
-      const roleSummaryEl = document.getElementById('roleSummary');
-
-      if (roleTitleEl) roleTitleEl.textContent = role.title || 'No role selected yet';
-      if (roleMetaEl) {
-        const parts = [];
-        if (role.socCode) parts.push(role.socCode);
-        if (role.salaryRange) parts.push(role.salaryRange);
-        if (role.outlook) parts.push(role.outlook);
-        roleMetaEl.textContent = parts.join(' · ');
-      }
-      if (roleSummaryEl) {
-        roleSummaryEl.textContent = role.summary || '';
-      }
-
-      // Purpose lines
-      const whyYouEl = document.getElementById('whyYouLine');
-      const whyRoleEl = document.getElementById('whyRoleLine');
-      const whyNowEl = document.getElementById('whyNowLine');
-
-      if (whyYouEl) {
-        whyYouEl.textContent = purpose.whyYou || '';
-      }
-      if (whyRoleEl) {
-        whyRoleEl.textContent = purpose.whyThisRole || '';
-      }
-      if (whyNowEl) {
-        whyNowEl.textContent = purpose.whyNow || '';
-      }
-
-      // Build unified novaProfile so NAVI gets a clean version
-      const novaProfile = {
-        categories,
-        traits,
-        role: {
-          title: role.title || '',
-          socCode: role.socCode || '',
-          salaryRange: role.salaryRange || '',
-          outlook: role.outlook || '',
-          summary: role.summary || ''
-        },
-        purpose: {
-          whyYou: purpose.whyYou || '',
-          whyThisRole: purpose.whyThisRole || '',
-          whyNow: purpose.whyNow || ''
-        }
-      };
-
-      try {
-        localStorage.setItem('novaProfile', JSON.stringify(novaProfile));
-      } catch (e) {
-        console.warn('Could not store novaProfile', e);
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
-      loadReveal();
+      const profile = loadNovaProfile();
 
-      const contBtn = document.getElementById('continueInvestBtn');
-      const backBtn = document.getElementById('backToRolesBtn');
+      const categories = profile.categories && profile.categories.length
+        ? profile.categories
+        : (profile.categoryIds || []).map(id => ({ id, name: id }));
 
-      if (contBtn) {
-        contBtn.addEventListener('click', function () {
-          // novaProfile is already written in loadReveal; just go forward
+      const traits = profile.traits && profile.traits.length
+        ? profile.traits
+        : (profile.traitIds || []).map(id => ({ id, label: id }));
+
+      renderPills('categoriesPills', categories, 'No categories found. Try restarting NOVA.');
+      renderPills('traitsPills', traits, 'No traits found. Try restarting NOVA.');
+
+      const role = profile.role || {};
+
+      document.getElementById('roleTitle').textContent =
+        role.title || 'No role selected yet';
+
+      document.getElementById('roleMeta').textContent = [
+        role.socCode,
+        role.salaryRange,
+        role.outlook
+      ].filter(Boolean).join(' · ');
+
+      document.getElementById('roleSummary').textContent = role.summary || '';
+
+      const purpose = profile.purpose || {};
+      document.getElementById('whyYouLine').textContent = purpose.whyYou || '';
+      document.getElementById('whyRoleLine').textContent = purpose.whyThisRole || '';
+      document.getElementById('whyNowLine').textContent = purpose.whyNow || '';
+
+      document.getElementById('continueInvestBtn')
+        .addEventListener('click', () => {
+          saveNovaProfile(profile); // ensure it’s clean
           window.location.href = 'invest.html';
         });
-      }
 
-      if (backBtn) {
-        backBtn.addEventListener('click', function () {
+      document.getElementById('backToRolesBtn')
+        .addEventListener('click', () => {
           window.location.href = 'roles.html';
         });
-      }
     });
   </script>
 </body>
