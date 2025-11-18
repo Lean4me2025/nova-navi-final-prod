@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NAVI Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      color: #1f2933;
+      margin: 0;
+      padding: 24px;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px 28px 30px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #044e54;
+      font-size: 26px;
+    }
+    .meta {
+      font-size: 14px;
+      color: #7b8794;
+      margin-bottom: 18px;
+    }
+    .banner {
+      background: #e0f7f9;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #035c64;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border-radius: 14px;
+      border: 1px solid #d8e2ec;
+      padding: 16px 16px 18px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+      color: #044e54;
+    }
+    .card p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+      color: #1f2933;
+    }
+    .chip {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #ecfeff;
+      color: #0f766e;
+      margin-bottom: 6px;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #14b5d0;
+      color: #ffffff;
+    }
+    .btn-secondary {
+      background: #e4f0f5;
+      color: #035c64;
+    }
+    .row-split {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .panel {
+      border-radius: 14px;
+      border: 1px solid #d8e2ec;
+      padding: 16px 16px 18px;
+      background: #f9fafb;
+    }
+    .panel h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+      color: #044e54;
+    }
+    .panel p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 8px;
+    }
+    .footer-row {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .footer-row small {
+      font-size: 12px;
+      color: #7b8794;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .row-split {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .container {
+        padding: 18px 16px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NAVI Dashboard</h1>
+    <p class="meta">
+      Welcome back. Your NOVA profile is loaded. Choose what you want to build today.
+    </p>
+
+    <div class="banner" id="novaBanner">
+      <strong>Loaded from NOVA.</strong>
+      <span id="novaBannerSummary">Your categories and traits are ready to power your career tools.</span>
+    </div>
+
+    <!-- MAIN TOOLS -->
+    <div class="grid">
+      <!-- Resume Builder -->
+      <div class="card">
+        <div>
+          <span class="chip">Core Tool</span>
+          <h2>Resume Builder</h2>
+          <p>
+            Turn your NOVA role, traits, and purpose into a professional resume that speaks your true identity.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-primary" id="openResumeBtn">Open Resume Builder</button>
+        </div>
+      </div>
+
+      <!-- Cover Letter -->
+      <div class="card">
+        <div>
+          <span class="chip">Coming Soon</span>
+          <h2>Cover Letter Generator</h2>
+          <p>
+            Generate purpose-aligned cover letters tailored to specific roles and companies, based on your NOVA profile.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-secondary" type="button" id="coverLetterSoonBtn">
+            Preview (Coming Soon)
+          </button>
+        </div>
+      </div>
+
+      <!-- Company Intel -->
+      <div class="card">
+        <div>
+          <span class="chip">Coming Soon</span>
+          <h2>Company Intelligence</h2>
+          <p>
+            Get snapshots of culture, salary ranges, outlook, and alignment so you target organizations that fit who you are.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-secondary" type="button" id="intelSoonBtn">
+            Preview (Coming Soon)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT AREAS -->
+    <div class="row-split">
+      <div class="panel">
+        <h2>Uploads & Documents</h2>
+        <p>
+          Upload your existing resumes or documents so you can compare, update, and keep everything in one place.
+        </p>
+        <button class="btn btn-secondary" type="button" id="uploadSoonBtn">
+          Upload (Local Only – Coming Soon)
+        </button>
+        <p style="font-size: 12px; color:#7b8794; margin-top:8px;">
+          In future versions, this area will let you securely store multiple resume versions and supporting documents.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>My Saved Drafts</h2>
+        <p id="draftStatus">
+          You can save a local draft from inside the Resume Builder. When available, they’ll show here.
+        </p>
+        <button class="btn btn-secondary" type="button" id="viewDraftBtn">
+          Check for Saved Resume Draft
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-row">
+      <small id="planInfo">Plan: (detected from your latest selection)</small>
+      <button class="btn btn-secondary" type="button" id="logoutBtn">Log Out</button>
+    </div>
+  </div>
+
+  <script>
+    // Pull basic info from novaProfile for banner
+    (function () {
+      const raw = localStorage.getItem('novaProfile');
+      const banner = document.getElementById('novaBanner');
+      const bannerSummary = document.getElementById('novaBannerSummary');
+      if (!raw || !banner || !bannerSummary) return;
+
+      try {
+        const profile = JSON.parse(raw);
+        const categories = profile.categories || [];
+        const traits = profile.traits || [];
+        const catText = categories.length ? `Categories: ${categories.join(' · ')}. ` : '';
+        const traitText = traits.length ? `Top traits: ${traits.slice(0, 4).join(', ')}.` : '';
+        bannerSummary.textContent = `${catText}${traitText}` || 'Your NOVA profile is ready to power NAVI.';
+      } catch (e) {
+        console.warn('Could not parse novaProfile on dashboard', e);
+      }
+    })();
+
+    // Plan info
+    (function () {
+      const planInfo = document.getElementById('planInfo');
+      if (!planInfo) return;
+      let planLabel = 'Not set';
+      try {
+        const plan = localStorage.getItem('novaSelectedPlan');
+        if (plan === 'starter') planLabel = 'NAVI Starter';
+        else if (plan === 'pro') planLabel = 'NAVI Pro';
+      } catch (e) {
+        console.warn('Could not read novaSelectedPlan', e);
+      }
+      planInfo.textContent = `Plan: ${planLabel}`;
+    })();
+
+    // Buttons
+    document.getElementById('openResumeBtn').addEventListener('click', function () {
+      window.location.href = 'navi.html';
+    });
+
+    document.getElementById('coverLetterSoonBtn').addEventListener('click', function () {
+      alert('Cover Letter Generator is coming soon. For now, focus on building a strong resume with NAVI.');
+    });
+
+    document.getElementById('intelSoonBtn').addEventListener('click', function () {
+      alert('Company Intelligence reports are coming soon. They will help you target roles and organizations that truly fit who you are.');
+    });
+
+    document.getElementById('uploadSoonBtn').addEventListener('click', function () {
+      alert('Uploads will be added in a later version. You’ll be able to keep multiple resume versions and documents together.');
+    });
+
+    document.getElementById('viewDraftBtn').addEventListener('click', function () {
+      const rawDraft = localStorage.getItem('naviResumeDraft');
+      const status = document.getElementById('draftStatus');
+      if (!rawDraft) {
+        if (status) status.textContent = 'No saved drafts found yet. Use "Save Draft" inside the Resume Builder to create one.';
+        alert('No saved resume draft found on this device yet.');
+        return;
+      }
+      try {
+        const draft = JSON.parse(rawDraft);
+        if (status) {
+          status.textContent = `Last resume draft saved at ${new Date(draft.savedAt).toLocaleString()}. Open the Resume Builder to continue editing.`;
+        }
+        alert('A saved resume draft was found. Open the Resume Builder to continue working on it.');
+      } catch (e) {
+        console.warn('Could not parse naviResumeDraft', e);
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      try {
+        // You may or may not want to clear naviUser; keeping novaProfile for future use
+        localStorage.removeItem('naviUser');
+      } catch (e) {
+        console.warn('Could not clear naviUser', e);
+      }
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
