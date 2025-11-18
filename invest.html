@@ -2,226 +2,322 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Invest in Your Purpose</title>
-
-  <!-- Payhip Script (required once) -->
-  <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
-
+  <title>Invest in Yourself – NOVA + NAVI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      --nova-bg: #f9fafb;
-      --nova-card-bg: #ffffff;
-      --nova-teal: #14b8a6;
-      --nova-teal-dark: #0f766e;
-      --nova-text-main: #111827;
-      --nova-text-muted: #6b7280;
-      --nova-border: #e5e7eb;
-      --nova-radius-lg: 18px;
-      --nova-shadow-soft: 0 18px 40px rgba(15, 118, 110, 0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
-      color: var(--nova-text-main);
-      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7fafc;
+      color: #102a43;
+      margin: 0;
+      padding: 24px;
     }
-
-    .invest-page {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 16px 60px;
-    }
-
-    .invest-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .invest-kicker {
-      color: var(--nova-teal);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
-
-    .invest-title {
-      font-size: 2.3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .invest-subtitle {
-      max-width: 600px;
+    .container {
+      max-width: 1080px;
       margin: 0 auto;
-      color: var(--nova-text-muted);
-      line-height: 1.48;
-      font-size: 1rem;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 28px 32px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
     }
-
-    /* Grid Layout */
-    .invest-grid {
+    h1 {
+      margin-top: 0;
+      color: #044e54;
+      font-size: 26px;
+    }
+    h2 {
+      color: #035c64;
+      margin-top: 0;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .meta {
+      font-size: 14px;
+      color: #7b8794;
+    }
+    .why-section {
+      margin-top: 18px;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      background: #f1fbfd;
+      padding: 16px 18px;
+      border-left: 4px solid #14b5d0;
+    }
+    .why-section h2 {
+      margin-bottom: 8px;
+    }
+    .plans {
       display: grid;
-      gap: 22px;
-      margin-top: 30px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+      margin-bottom: 12px;
     }
-
-    @media(min-width: 768px) {
-      .invest-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Plan Cards */
-    .plan-card {
-      background: var(--nova-card-bg);
-      border-radius: var(--nova-radius-lg);
-      padding: 22px 20px;
-      border: 1px solid var(--nova-border);
-      box-shadow: var(--nova-shadow-soft);
+    .plan {
+      border-radius: 12px;
+      border: 1px solid #d8e2ec;
+      padding: 18px 18px 20px;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
-      position: relative;
+      justify-content: space-between;
     }
-
-    .plan-badge {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      font-size: 0.75rem;
-      padding: 5px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(20,184,166,0.3);
-      background: rgba(240,253,250,0.9);
-      color: var(--nova-teal-dark);
+    .plan-header {
+      margin-bottom: 8px;
+    }
+    .plan-title {
+      font-size: 18px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      color: #044e54;
     }
-
-    .plan-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--nova-text-main);
-    }
-
     .plan-price {
-      font-size: 1.5rem;
+      font-size: 20px;
       font-weight: 700;
-      color: var(--nova-teal-dark);
-      margin-bottom: 6px;
+      color: #14b5d0;
     }
-
-    .plan-desc {
-      font-size: 0.92rem;
-      color: var(--nova-text-muted);
-      line-height: 1.45;
-      margin-bottom: 14px;
+    .plan-tagline {
+      font-size: 13px;
+      color: #7b8794;
+      margin-top: 4px;
     }
-
-    /* Spacing before Payhip embed */
-    .plan-embed {
-      margin-top: auto;
-      padding-top: 10px;
+    .plan ul {
+      padding-left: 20px;
+      margin: 10px 0 10px;
+      font-size: 14px;
+      color: #1f2933;
     }
-
-    .invest-footer-note {
-      margin-top: 28px;
+    .plan ul li + li {
+      margin-top: 4px;
+    }
+    .plan-footer {
+      margin-top: 12px;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-plan {
+      background: #14b5d0;
+      color: #ffffff;
+      width: 100%;
       text-align: center;
-      font-size: 0.85rem;
-      color: var(--nova-text-muted);
-      line-height: 1.45;
+    }
+    .btn-plan.secondary {
+      background: #e4f0f5;
+      color: #035c64;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-primary {
+      background: #14b5d0;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background: #e4f0f5;
+      color: #035c64;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .helper-text {
+      font-size: 13px;
+      color: #7b8794;
+      margin-top: 8px;
+    }
+    .highlight {
+      color: #14b5d0;
+      font-weight: 600;
+    }
+    @media (max-width: 800px) {
+      .plans {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .container {
+        padding: 18px 16px 24px;
+      }
+      .btn-row {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
-
 <body>
-  <main class="invest-page">
-    <section class="invest-header">
-      <div class="invest-kicker">Step 4 · Invest</div>
-      <h1 class="invest-title">Invest in Your Purpose</h1>
-      <p class="invest-subtitle">
-        Nova revealed who you are, how you're wired, and where you thrive.  
-        Now you choose your level of support as you step boldly into the future 
-        God authored for you.
-      </p>
-    </section>
-
-    <!-- 2x2 Grid -->
-    <section class="invest-grid">
-
-      <!-- Starter Plan -->
-      <article class="plan-card">
-        <div class="plan-badge">Monthly</div>
-        <h2 class="plan-name">Starter Plan</h2>
-        <div class="plan-price">$29.99 / month</div>
-        <p class="plan-desc">A strong foundation with Nova discovery, PDF, resume tools, and career guidance.</p>
-
-        <div class="plan-embed">
-          <a href="https://payhip.com/b/GdfU7" 
-             class="payhip-buy-button" 
-             data-theme="green" 
-             data-product="GdfU7">Buy Now</a>
-        </div>
-      </article>
-
-      <!-- Pro Plan -->
-      <article class="plan-card">
-        <div class="plan-badge">Most Popular</div>
-        <h2 class="plan-name">NAVI Pro Plan</h2>
-        <div class="plan-price">$99 / month</div>
-        <p class="plan-desc">Resume rewrites, unlimited cover letters, company intelligence, advanced filters & alerts.</p>
-
-        <div class="plan-embed">
-          <a href="https://payhip.com/b/knC1Z" 
-             class="payhip-buy-button" 
-             data-theme="green" 
-             data-product="knC1Z">Buy Now</a>
-        </div>
-      </article>
-
-      <!-- Mastery Plan -->
-      <article class="plan-card">
-        <div class="plan-badge">Deep Dive</div>
-        <h2 class="plan-name">Mastery Plan</h2>
-        <div class="plan-price">$149 / month</div>
-        <p class="plan-desc">1:1 support, career roadmap, expanded tools, masterclasses, and premium access.</p>
-
-        <div class="plan-embed">
-          <a href="https://payhip.com/b/re4Hy" 
-             class="payhip-buy-button" 
-             data-theme="green" 
-             data-product="re4Hy">Buy Now</a>
-        </div>
-      </article>
-
-      <!-- Book -->
-      <article class="plan-card">
-        <div class="plan-badge">One-Time</div>
-        <h2 class="plan-name">How to Know Your Purpose</h2>
-        <div class="plan-price">$19.99 (one-time)</div>
-        <p class="plan-desc">A guided book to walk through clarity, identity, reflection, and purpose-alignment.</p>
-
-        <div class="plan-embed">
-          <a href="https://payhip.com/b/N7LVg" 
-             class="payhip-buy-button" 
-             data-theme="green" 
-             data-product="N7LVg">Buy Now</a>
-        </div>
-      </article>
-
-    </section>
-
-    <p class="invest-footer-note">
-      <strong>Important:</strong> Your purpose is already written by God.  
-      These investments simply help you walk it out with clarity, structure, and boldness.
+  <div class="container">
+    <h1>Invest in Yourself</h1>
+    <p class="meta">
+      NOVA has revealed who you are. NAVI will help you become who you were made to be. This is the moment you invest in you.
     </p>
-  </main>
+
+    <div class="why-section">
+      <h2>Why Invest</h2>
+      <p>
+        You’ve just discovered your categories, your traits, your strengths, and a role that actually fits how you are wired.
+        But discovery is only the first step. Purpose means little if it never gets translated into decisions, documents, and doors that open.
+      </p>
+      <p>
+        NOVA shows you <strong>who you are</strong>. NAVI helps you <strong>become who you were designed to be</strong>.
+      </p>
+      <p>
+        Most people have a sense of what they want, but they don’t know how to present it, explain it, or position it in a way that makes employers say,
+        <em>“We need this person.”</em> That is the gap NAVI fills. It takes your NOVA results and turns them into a resume, cover letters, and a job search
+        strategy that actually matches your identity.
+      </p>
+      <p>
+        One new job, one promotion, or one aligned opportunity can return <span class="highlight">10x, 50x, even 500x</span> what you invest here.
+        This is not a bill. This is a key. It unlocks the next level of your life.
+      </p>
+      <p>
+        The real question is not, “Can I afford this?” The real question is, “Can I afford to keep living beneath who I am?”
+      </p>
+    </div>
+
+    <h2>Choose How You Want to Move Forward</h2>
+
+    <div class="plans">
+      <!-- STARTER PLAN -->
+      <div class="plan">
+        <div>
+          <div class="plan-header">
+            <div class="plan-title">Starter</div>
+            <div class="plan-price">$29.99 / month</div>
+            <div class="plan-tagline">For those taking their first step into purpose and career alignment.</div>
+          </div>
+          <ul>
+            <li>Full NOVA 50-trait purpose discovery experience.</li>
+            <li>Downloadable NOVA Purpose PDF summary.</li>
+            <li>Basic resume builder powered by your NOVA results.</li>
+            <li>One resume export per month.</li>
+            <li>One basic cover letter generated per month.</li>
+            <li>Standard job match suggestions based on your role and traits.</li>
+            <li>Monthly “Golden Nugget” email with insight or strategy for your journey.</li>
+          </ul>
+        </div>
+        <div class="plan-footer">
+          <!-- TODO: Attach actual Payhip/Stripe link later -->
+          <button class="btn btn-plan secondary" type="button">
+            Select Starter
+          </button>
+        </div>
+      </div>
+
+      <!-- PREMIUM PLAN -->
+      <div class="plan">
+        <div>
+          <div class="plan-header">
+            <div class="plan-title">Premium</div>
+            <div class="plan-price">$99 / month</div>
+            <div class="plan-tagline">For those ready to fully activate purpose with deeper tools and research.</div>
+          </div>
+          <ul>
+            <li>Everything in <strong>Starter</strong>, plus:</li>
+            <li>Unlimited resume versions tuned to different roles and industries.</li>
+            <li>Unlimited cover letters tailored to specific positions.</li>
+            <li>Company intelligence snapshots for targeted applications.</li>
+            <li>Role and skills mapping based on your NOVA categories and traits.</li>
+            <li>Job market comparisons and salary/outlook guidance for your role family.</li>
+            <li>Purpose-aligned career path suggestions and next-step recommendations.</li>
+            <li>Access to an expanding library of templates, scripts, and career assets.</li>
+            <li>Priority (asynchronous) support inside the platform experience.</li>
+          </ul>
+        </div>
+        <div class="plan-footer">
+          <!-- TODO: Attach actual Payhip/Stripe link later -->
+          <button class="btn btn-plan" type="button">
+            Select Premium
+          </button>
+        </div>
+      </div>
+
+      <!-- MASTER / COACHING TIER (hidden for now, kept in code for future use)
+      <div class="plan" style="display:none;">
+        <div>
+          <div class="plan-header">
+            <div class="plan-title">Mastery</div>
+            <div class="plan-price">$149 / month</div>
+            <div class="plan-tagline">For a small group of users needing deeper support and strategic guidance.</div>
+          </div>
+          <ul>
+            <li>Everything in <strong>Premium</strong>, plus:</li>
+            <li>Deeper document library and advanced tools.</li>
+            <li>Occasional live or cohort-based teaching sessions on purpose and career alignment.</li>
+            <li>Special early access to new features and experiments.</li>
+          </ul>
+        </div>
+        <div class="plan-footer">
+          <button class="btn btn-plan" type="button">
+            Select Mastery
+          </button>
+        </div>
+      </div>
+      -->
+    </div>
+
+    <p class="helper-text">
+      You can begin at Starter and upgrade to Premium later if you choose. Your NOVA snapshot will follow you into NAVI either way.
+    </p>
+
+    <div class="btn-row">
+      <button id="continueToLoginBtn" class="btn-primary" type="button">
+        Continue to Login and Access NAVI
+      </button>
+      <button id="backToRevealBtn" class="btn-secondary" type="button">
+        Back to My NOVA Reveal
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // For now, the plan buttons simply visually select a plan.
+    // You can later wire these to actual payment links or toggle selected state.
+    const starterBtn = document.querySelectorAll('.btn-plan.secondary')[0];
+    const premiumBtn = document.querySelectorAll('.btn-plan')[1];
+
+    let selectedPlan = 'starter';
+
+    if (starterBtn) {
+      starterBtn.addEventListener('click', () => {
+        selectedPlan = 'starter';
+        alert('Starter selected. You can continue to login after completing payment (to be wired).');
+      });
+    }
+
+    if (premiumBtn) {
+      premiumBtn.addEventListener('click', () => {
+        selectedPlan = 'premium';
+        alert('Premium selected. You can continue to login after completing payment (to be wired).');
+      });
+    }
+
+    document.getElementById('continueToLoginBtn').addEventListener('click', function () {
+      // Optionally store selectedPlan if you want NAVI or login to know
+      try {
+        localStorage.setItem('novaSelectedPlan', selectedPlan);
+      } catch (e) {
+        console.warn('Could not store selected plan', e);
+      }
+      window.location.href = 'login.html';
+    });
+
+    document.getElementById('backToRevealBtn').addEventListener('click', function () {
+      window.location.href = 'reveal.html';
+    });
+  </script>
 </body>
 </html>
