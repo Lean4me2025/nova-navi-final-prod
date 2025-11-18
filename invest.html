@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <title>Invest in Yourself – NOVA + NAVI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Payhip script (include once) -->
+  <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -93,22 +97,16 @@
     .plan-footer {
       margin-top: 12px;
     }
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 9px 16px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-plan {
-      background: #14b5d0;
-      color: #ffffff;
+    .payhip-buy-button {
+      display: inline-block;
       width: 100%;
       text-align: center;
-    }
-    .btn-plan.secondary {
-      background: #e4f0f5;
-      color: #035c64;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      box-sizing: border-box;
     }
     .btn-row {
       display: flex;
@@ -191,13 +189,13 @@
     <h2>Choose How You Want to Move Forward</h2>
 
     <div class="plans">
-      <!-- STARTER PLAN -->
+      <!-- NAVI STARTER PLAN -->
       <div class="plan">
         <div>
           <div class="plan-header">
-            <div class="plan-title">Starter</div>
+            <div class="plan-title">NAVI Starter</div>
             <div class="plan-price">$29.99 / month</div>
-            <div class="plan-tagline">For those taking their first step into purpose and career alignment.</div>
+            <div class="plan-tagline">Your first step into purpose-driven resumes and job search.</div>
           </div>
           <ul>
             <li>Full NOVA 50-trait purpose discovery experience.</li>
@@ -210,23 +208,29 @@
           </ul>
         </div>
         <div class="plan-footer">
-          <!-- TODO: Attach actual Payhip/Stripe link later -->
-          <button class="btn btn-plan secondary" type="button">
-            Select Starter
-          </button>
+          <!-- Payhip button for NAVI Starter (product GdfU7) -->
+          <a
+            href="https://payhip.com/b/GdfU7"
+            class="payhip-buy-button"
+            data-theme="green"
+            data-product="GdfU7"
+            data-plan="starter"
+          >
+            Get NAVI Starter
+          </a>
         </div>
       </div>
 
-      <!-- PREMIUM PLAN -->
+      <!-- NAVI PRO PLAN -->
       <div class="plan">
         <div>
           <div class="plan-header">
-            <div class="plan-title">Premium</div>
+            <div class="plan-title">NAVI Pro</div>
             <div class="plan-price">$99 / month</div>
-            <div class="plan-tagline">For those ready to fully activate purpose with deeper tools and research.</div>
+            <div class="plan-tagline">Full, content-based toolkit for resumes, research, and job strategy.</div>
           </div>
           <ul>
-            <li>Everything in <strong>Starter</strong>, plus:</li>
+            <li>Everything in <strong>NAVI Starter</strong>, plus:</li>
             <li>Unlimited resume versions tuned to different roles and industries.</li>
             <li>Unlimited cover letters tailored to specific positions.</li>
             <li>Company intelligence snapshots for targeted applications.</li>
@@ -238,10 +242,16 @@
           </ul>
         </div>
         <div class="plan-footer">
-          <!-- TODO: Attach actual Payhip/Stripe link later -->
-          <button class="btn btn-plan" type="button">
-            Select Premium
-          </button>
+          <!-- Payhip button for NAVI Pro (product knC1Z) -->
+          <a
+            href="https://payhip.com/b/knC1Z"
+            class="payhip-buy-button"
+            data-theme="green"
+            data-product="knC1Z"
+            data-plan="pro"
+          >
+            Get NAVI Pro
+          </a>
         </div>
       </div>
 
@@ -251,26 +261,30 @@
           <div class="plan-header">
             <div class="plan-title">Mastery</div>
             <div class="plan-price">$149 / month</div>
-            <div class="plan-tagline">For a small group of users needing deeper support and strategic guidance.</div>
+            <div class="plan-tagline">For a small group needing deeper, hands-on support.</div>
           </div>
           <ul>
-            <li>Everything in <strong>Premium</strong>, plus:</li>
+            <li>Everything in <strong>NAVI Pro</strong>, plus:</li>
             <li>Deeper document library and advanced tools.</li>
-            <li>Occasional live or cohort-based teaching sessions on purpose and career alignment.</li>
+            <li>Occasional live or cohort-based teaching sessions.</li>
             <li>Special early access to new features and experiments.</li>
           </ul>
         </div>
         <div class="plan-footer">
-          <button class="btn btn-plan" type="button">
-            Select Mastery
-          </button>
+          <a
+            href="#"
+            class="payhip-buy-button"
+            data-theme="green"
+          >
+            Get Mastery
+          </a>
         </div>
       </div>
       -->
     </div>
 
     <p class="helper-text">
-      You can begin at Starter and upgrade to Premium later if you choose. Your NOVA snapshot will follow you into NAVI either way.
+      You can begin with NAVI Starter and upgrade to NAVI Pro later if you choose. Your NOVA snapshot will follow you into NAVI either way.
     </p>
 
     <div class="btn-row">
@@ -284,33 +298,24 @@
   </div>
 
   <script>
-    // For now, the plan buttons simply visually select a plan.
-    // You can later wire these to actual payment links or toggle selected state.
-    const starterBtn = document.querySelectorAll('.btn-plan.secondary')[0];
-    const premiumBtn = document.querySelectorAll('.btn-plan')[1];
-
     let selectedPlan = 'starter';
 
-    if (starterBtn) {
-      starterBtn.addEventListener('click', () => {
-        selectedPlan = 'starter';
-        alert('Starter selected. You can continue to login after completing payment (to be wired).');
+    document.querySelectorAll('.payhip-buy-button[data-plan]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedPlan = btn.getAttribute('data-plan') || 'starter';
+        try {
+          localStorage.setItem('novaSelectedPlan', selectedPlan);
+        } catch (e) {
+          console.warn('Could not store selected plan', e);
+        }
       });
-    }
-
-    if (premiumBtn) {
-      premiumBtn.addEventListener('click', () => {
-        selectedPlan = 'premium';
-        alert('Premium selected. You can continue to login after completing payment (to be wired).');
-      });
-    }
+    });
 
     document.getElementById('continueToLoginBtn').addEventListener('click', function () {
-      // Optionally store selectedPlan if you want NAVI or login to know
       try {
         localStorage.setItem('novaSelectedPlan', selectedPlan);
       } catch (e) {
-        console.warn('Could not store selected plan', e);
+        console.warn('Could not store selected plan on continue', e);
       }
       window.location.href = 'login.html';
     });
