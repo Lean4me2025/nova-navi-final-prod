@@ -313,7 +313,20 @@
     </nav>
   </main>
 
+  <!-- shared helpers -->
+  <script src="nova-profile-helper.js"></script>
+
   <script>
+    // Helper to create stable IDs like "role_field_service_technician"
+    function makeIdFromText(text, prefix) {
+      if (!text) return prefix + '_unknown';
+      const slug = text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+      return prefix + '_' + slug;
+    }
+
     const rolesByCategory = {
       "Business & Leadership": [
         {
@@ -575,8 +588,26 @@
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-      const category =
-        localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
+      const profile = typeof loadNovaProfile === "function"
+        ? loadNovaProfile()
+        : {
+            categoryIds: [],
+            traitIds: [],
+            roleId: null,
+            categories: [],
+            traits: [],
+            role: {},
+            purpose: { whyYou: "", whyThisRole: "", whyNow: "" }
+          };
+
+      // Prefer category from profile; fall back to older localStorage key
+      let category = "Business & Leadership";
+      if (profile.categories && profile.categories.length && profile.categories[0].name) {
+        category = profile.categories[0].name;
+      } else {
+        const storedCat = localStorage.getItem("novaSelectedCategory");
+        if (storedCat) category = storedCat;
+      }
 
       const roles = rolesByCategory[category] || rolesByCategory["Business & Leadership"];
 
@@ -586,9 +617,13 @@
 
       rolesCategoryLabel.textContent = category;
 
-      const previouslySelectedRole =
-        localStorage.getItem("novaSelectedRole") || null;
-      let selectedRoleTitle = previouslySelectedRole;
+      const previouslySelectedRoleTitle =
+        (profile.role && profile.role.title) ||
+        localStorage.getItem("novaSelectedRole") ||
+        null;
+
+      let selectedRoleTitle = previouslySelectedRoleTitle;
+      let selectedRoleObject = (profile.role && profile.role.title) ? profile.role : null;
 
       function renderRoles() {
         rolesGrid.innerHTML = "";
@@ -655,6 +690,16 @@
               .querySelectorAll(".role-card")
               .forEach(el => el.classList.remove("selected"));
             card.classList.add("selected");
+
+            const roleId = makeIdFromText(role.title, "role");
+            selectedRoleObject = {
+              id: roleId,
+              title: role.title,
+              socCode: "",
+              salaryRange: role.salary,
+              outlook: role.outlook,
+              summary: role.blurb
+            };
           });
 
           rolesGrid.appendChild(card);
@@ -664,12 +709,28 @@
       renderRoles();
 
       continueBtn.addEventListener("click", () => {
-        if (!selectedRoleTitle) {
+        if (!selectedRoleObject || !selectedRoleObject.title) {
           const proceed = confirm(
             "You haven’t selected a role yet. Do you still want to continue?"
           );
           if (!proceed) return;
         }
+
+        const updated = loadNovaProfile();
+
+        // Make sure category is recorded in novaProfile
+        const categoryId = makeIdFromText(category, "cat");
+        if (!updated.categoryIds || !updated.categoryIds.length) {
+          updated.categoryIds = [categoryId];
+          updated.categories = [{ id: categoryId, name: category }];
+        }
+
+        if (selectedRoleObject && selectedRoleObject.title) {
+          updated.roleId = selectedRoleObject.id;
+          updated.role = selectedRoleObject;
+        }
+
+        saveNovaProfile(updated);
         window.location.href = "reveal.html";
       });
     });
