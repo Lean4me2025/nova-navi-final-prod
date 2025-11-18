@@ -1,47 +1,137 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>NOVA • Save & Return</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8" />
+  <title>NAVI Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    .form{max-width:520px;margin:0 auto}
-    .field{margin:10px 0}
-    .input{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px}
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7fafc;
+      color: #102a43;
+      margin: 0;
+      padding: 24px;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 24px 28px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #044e54;
+      font-size: 24px;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .meta {
+      font-size: 14px;
+      color: #7b8794;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #cbd2d9;
+      margin-bottom: 10px;
+    }
+    .btn-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #14b5d0;
+      color: #ffffff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background: #e4f0f5;
+      color: #035c64;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .helper-text {
+      font-size: 12px;
+      color: #7b8794;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header"><div class="brand">NOVA</div><div class="nav"><a href="invest.html">Back</a></div></div>
-    <div class="h1">Save your results to return later</div>
-    <p class="p">We store your NOVA results locally in your browser. Use your email + a 4-digit PIN to re-open them.</p>
+    <h1>Login to NAVI</h1>
+    <p class="meta">
+      Use the email and PIN associated with your investment. Once you log in, NAVI will load your NOVA snapshot and begin building your resume and career assets.
+    </p>
 
-    <section class="card form">
-      <div class="field"><div class="h3">Email</div>
-        <input id="email" class="input" type="email" placeholder="you@example.com" required/>
-      </div>
-      <div class="field"><div class="h3">PIN (4 digits)</div>
-        <input id="pin" class="input" type="password" inputmode="numeric" maxlength="4" placeholder="1234" required/>
-      </div>
-      <div class="actions">
-        <button id="save" class="btn">Save & Continue →</button>
-        <a class="btn secondary" href="navi.html">Skip</a>
-      </div>
-      <p class="p small">Note: clearing browser storage removes your save on this device.</p>
-    </section>
+    <form id="loginForm">
+      <label for="emailInput">Email</label>
+      <input type="email" id="emailInput" required placeholder="you@example.com" />
 
-    <hr/><div class="footer">© NOVA</div>
+      <label for="pinInput">PIN</label>
+      <input type="password" id="pinInput" minlength="4" required placeholder="4–6 digit PIN" />
+
+      <div class="btn-row">
+        <button type="submit" class="btn-primary">Enter NAVI</button>
+        <button type="button" class="btn-secondary" id="backToInvestBtn">Back to Invest</button>
+      </div>
+
+      <p class="helper-text">
+        Note: Authentication and membership verification can be expanded later. For now, this login grants access on this device and browser.
+      </p>
+    </form>
   </div>
+
   <script>
-    const NOVA_STATE_KEY='nova_state_v1', NOVA_PROFILE_KEY='nova_profile';
-    document.getElementById('save').addEventListener('click',()=>{
-      const email=(document.getElementById('email').value||'').trim().toLowerCase();
-      const pin=(document.getElementById('pin').value||'').trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Enter a valid email.');
-      if(!/^\d{4}$/.test(pin)) return alert('PIN must be 4 digits.');
-      const stateRaw=localStorage.getItem(NOVA_STATE_KEY)||'{}';
-      localStorage.setItem(NOVA_PROFILE_KEY, JSON.stringify({email,pin,saved_at:new Date().toISOString(),state:JSON.parse(stateRaw)}));
-      window.location.href='navi.html';
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('emailInput').value.trim();
+      const pin = document.getElementById('pinInput').value.trim();
+
+      if (!email || !pin) {
+        alert('Please enter both email and PIN.');
+        return;
+      }
+
+      // For now, simply store locally. Later, you can integrate real validation.
+      try {
+        localStorage.setItem('naviUser', JSON.stringify({
+          email,
+          pin,
+          loggedInAt: new Date().toISOString()
+        }));
+      } catch (err) {
+        console.warn('Could not store naviUser', err);
+      }
+
+      window.location.href = 'navi.html';
+    });
+
+    document.getElementById('backToInvestBtn').addEventListener('click', function () {
+      window.location.href = 'invest.html';
     });
   </script>
 </body>
