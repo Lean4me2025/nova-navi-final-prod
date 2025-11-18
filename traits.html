@@ -14,8 +14,8 @@
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
       --nova-border: #e5e7eb;
-      --nova-radius-lg: 18px;
-      --nova-shadow-soft: 0 20px 50px rgba(15,118,110,0.10);
+      --nova-radius-lg: 22px;
+      --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@
 
     main.traits-page {
       max-width: 1100px;
-      margin: 36px auto 40px;
+      margin: 36px auto 48px;
       padding: 0 16px 56px;
     }
 
@@ -41,7 +41,7 @@
 
     .traits-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .traits-step {
@@ -60,138 +60,89 @@
     }
 
     .traits-subtitle {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
-    .traits-category-label {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: var(--nova-text-muted);
-    }
-
     .traits-category-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 12px;
       padding: 6px 12px;
       border-radius: 999px;
       background: #ecfeff;
-      border: 1px solid rgba(20,184,166,0.45);
+      border: 1px solid rgba(20,184,166,0.4);
       font-size: 0.86rem;
       color: var(--nova-teal-dark);
       font-weight: 500;
     }
 
-    .traits-panel {
-      margin-top: 26px;
-      background: var(--nova-card-bg);
-      border-radius: var(--nova-radius-lg);
-      border: 1px solid var(--nova-border);
-      box-shadow: var(--nova-shadow-soft);
-      padding: 22px 18px 20px;
-    }
-
-    @media (min-width: 768px) {
-      .traits-panel {
-        padding: 26px 26px 24px;
-      }
-    }
-
-    .traits-count {
-      font-size: 0.86rem;
-      color: var(--nova-text-muted);
-      margin-bottom: 8px;
-    }
-
-    .traits-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--nova-text-muted);
-      margin-bottom: 10px;
-    }
-
     .traits-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 14px;
+      margin-top: 30px;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       .traits-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     .trait-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
       border: 1px solid var(--nova-border);
-      background: #ffffff;
+      box-shadow: var(--nova-shadow-soft);
+      padding: 14px 16px 14px;
       cursor: pointer;
-      transition: 0.16s ease;
+      transition: 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .trait-card:hover {
-      box-shadow: 0 14px 30px rgba(15,23,42,0.08);
-      transform: translateY(-1px);
+      transform: translateY(-3px);
+      box-shadow: 0 22px 50px rgba(15,118,110,0.16);
     }
 
     .trait-card.selected {
-      border-color: rgba(20,184,166,0.75);
+      border-color: rgba(20,184,166,0.9);
+      box-shadow: 0 26px 60px rgba(15,118,110,0.25);
       background: #ecfeff;
-      box-shadow: 0 18px 42px rgba(15,118,110,0.25);
     }
 
-    .trait-checkbox {
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      border: 1px solid var(--nova-border);
-      margin-top: 2px;
-      flex-shrink: 0;
-      position: relative;
-      background: #ffffff;
+    .trait-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
-
-    .trait-card.selected .trait-checkbox {
-      border-color: var(--nova-teal);
-      background: var(--nova-teal);
-    }
-
-    .trait-card.selected .trait-checkbox::after {
-      content: "";
-      position: absolute;
-      inset: 3px;
-      border-radius: 4px;
-      background: #ffffff;
-    }
-
-    .trait-text { flex: 1; }
 
     .trait-name {
-      font-size: 0.96rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .trait-chip {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,184,166,0.35);
+      color: var(--nova-teal-dark);
+      background: rgba(240,253,250,0.9);
       font-weight: 600;
-      margin-bottom: 2px;
-      color: var(--nova-text-main);
     }
 
-    .trait-desc {
-      font-size: 0.82rem;
-      color: var(--nova-text-muted);
-      line-height: 1.4;
-    }
-
-    .traits-helper {
-      margin-top: 14px;
+    .trait-body {
       font-size: 0.86rem;
       color: var(--nova-text-muted);
       line-height: 1.4;
@@ -258,10 +209,11 @@
       line-height: 0;
     }
 
-    .limit-note {
-      font-size: 0.8rem;
+    .traits-helper {
+      margin-top: 10px;
+      font-size: 0.86rem;
       color: var(--nova-text-muted);
-      margin-top: 4px;
+      text-align: center;
     }
   </style>
 </head>
@@ -269,39 +221,28 @@
 <body>
   <main class="traits-page">
     <header class="traits-header">
-      <div class="traits-step">Step · Key Traits</div>
+      <div class="traits-step">Step 1 · Key Traits</div>
       <h1 class="traits-title">Which Traits Sound Most Like You?</h1>
-      <p class="traits-subtitle" id="traitsIntro">
-        Pick the traits that feel most natural for how you already move in the world.
-        We’ll use these to shape the roles Nova reveals next.
+      <p class="traits-subtitle">
+        Tap the traits that sound most like how you already show up.
+        NOVA will use these to highlight roles that fit the way you’re wired.
       </p>
-      <div class="traits-category-label">
-        Based on your category:
-        <span class="traits-category-pill">
-          <span>Category:</span>
-          <span id="selectedCategoryLabel">Loading…</span>
-        </span>
+      <div class="traits-category-pill">
+        <span>Based on your category:</span>
+        <span id="traitsCategoryLabel">Loading…</span>
       </div>
     </header>
 
-    <section class="traits-panel" aria-label="Traits for this category">
-      <div id="traitsCount" class="traits-count"></div>
-      <div class="traits-label">Tap to select your key traits</div>
-      <p class="limit-note">(You can pick up to 6 traits that really fit you.)</p>
+    <section id="traitsGrid" class="traits-grid" aria-label="Key traits"></section>
 
-      <div id="traitsGrid" class="traits-grid"></div>
+    <p class="traits-helper">
+      You can choose up to six traits. Focus on what’s true most of the time, not just on your very best days.
+    </p>
 
-      <p class="traits-helper">
-        Don’t overthink it. Choose the traits that describe how you
-        naturally think, act, and show up most of the time — not who
-        you wish you were on your best day.
-      </p>
-    </section>
-
-    <nav class="traits-actions" aria-label="Trait navigation">
-      <a href="subcategories.html" class="btn btn-outline">
+    <nav class="traits-actions" aria-label="Traits navigation">
+      <a href="categories.html" class="btn btn-outline">
         <span class="chevron-left">‹</span>
-        <span>Back to Focus Areas</span>
+        <span>Back to Categories</span>
       </a>
 
       <button id="continueTraitsBtn" class="btn btn-primary" type="button">
@@ -311,165 +252,330 @@
     </nav>
   </main>
 
+  <script src="nova-profile-helper.js"></script>
+
   <script>
-    const traitsByCategory = {
-      "Business & Leadership": [
-        { name: "Strategic Visionary", desc: "You naturally think several moves ahead and see long-range direction." },
-        { name: "Organizational Architect", desc: "You like structuring people, processes, and resources so things run smoothly." },
-        { name: "Influential Communicator", desc: "You’re able to rally others around ideas, goals, and change." },
-        { name: "Team Mobilizer", desc: "You help people move from talk into coordinated action." },
-        { name: "Decision Confident", desc: "You can weigh options and choose a path without staying stuck." },
-        { name: "Growth-Oriented Planner", desc: "You think in terms of targets, milestones, and improvement." },
-        { name: "Change Champion", desc: "You lean into change and help others move through it." },
-        { name: "Outcome Driver", desc: "You are focused on results and finishing what you start." }
-      ],
-      "Technology & Systems": [
-        { name: "Systems Optimizer", desc: "You see how tools and processes can be tightened and improved." },
-        { name: "Technical Troubleshooter", desc: "You enjoy getting into the details to fix what’s broken." },
-        { name: "Logic-Driven Thinker", desc: "You lean on logic and clear reasoning to solve problems." },
-        { name: "Workflow Streamliner", desc: "You like removing friction and extra steps from how work gets done." },
-        { name: "Data Structure Builder", desc: "You’re drawn to organizing data, files, or systems in clear ways." },
-        { name: "Integration Orchestrator", desc: "You think about how different tools or systems connect together." },
-        { name: "Reliability Guardian", desc: "You care that systems stay up, stable, and dependable." },
-        { name: "Automation Designer", desc: "You look for ways to automate repetitive or manual work." }
-      ],
-      "Creative & Design": [
-        { name: "Imaginative Creator", desc: "You generate new ideas, concepts, and possibilities with ease." },
-        { name: "Visual Storycrafter", desc: "You like communicating through images, layouts, or visual themes." },
-        { name: "Concept Explorer", desc: "You enjoy exploring different creative angles and directions." },
-        { name: "Brand Stylist", desc: "You think in terms of look, feel, and consistent identity." },
-        { name: "Experience Shaper", desc: "You care about how people feel as they move through an experience." },
-        { name: "Idea Illustrator", desc: "You help bring abstract ideas into concrete, visual form." },
-        { name: "Narrative Designer", desc: "You enjoy shaping the story behind messages, products, or work." },
-        { name: "Aesthetic Curator", desc: "You’re sensitive to color, layout, and overall aesthetic harmony." }
-      ],
+    function makeIdFromText(text, prefix) {
+      if (!text) return prefix + '_unknown';
+      const slug = text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+      return prefix + '_' + slug;
+    }
+
+    const TRAITS_BY_CATEGORY = {
       "People & Community": [
-        { name: "Heart-Centered Encourager", desc: "You naturally build others up and help them not give up." },
-        { name: "Compassionate Listener", desc: "You make space for people to be heard and understood." },
-        { name: "Trust-Builder", desc: "People feel safe opening up or partnering with you." },
-        { name: "Group Uplifter", desc: "You help groups stay positive, hopeful, or energized." },
-        { name: "Conflict Bridge-Builder", desc: "You look for common ground when tensions rise." },
-        { name: "Support Advocate", desc: "You stand up for people who need help or protection." },
-        { name: "Growth Coach", desc: "You enjoy helping others grow, learn, or heal." },
-        { name: "Community Connector", desc: "You like introducing people and building networks." }
+        {
+          name: "Heart-Centered Encourager",
+          tag: "Build others up",
+          blurb: "You naturally build others up, offer hope, and help people not give up."
+        },
+        {
+          name: "Compassionate Listener",
+          tag: "Hold space",
+          blurb: "You make space for people to be heard, understood, and seen."
+        },
+        {
+          name: "Trust-Builder",
+          tag: "Safe presence",
+          blurb: "People feel safe opening up or partnering with you."
+        },
+        {
+          name: "Group Uplifter",
+          tag: "Lift the room",
+          blurb: "You help groups stay positive, hopeful, and energized."
+        },
+        {
+          name: "Support Advocate",
+          tag: "Stand with people",
+          blurb: "You stand up for people who need help, protection, or support."
+        },
+        {
+          name: "Growth Coach",
+          tag: "Grow people",
+          blurb: "You enjoy helping others grow, learn, or heal."
+        },
+        {
+          name: "Community Connector",
+          tag: "Connect people",
+          blurb: "You like introducing people and building relationships and networks."
+        },
+        {
+          name: "Conflict Bridge-Builder",
+          tag: "Bridge tension",
+          blurb: "You look for common ground and help people move through tension."
+        }
       ],
+
+      "Business & Leadership": [
+        {
+          name: "Strategic Thinker",
+          tag: "See the big picture",
+          blurb: "You see patterns, connections, and long-term implications others might miss."
+        },
+        {
+          name: "Process Optimizer",
+          tag: "Make things smoother",
+          blurb: "You spot waste and friction and love making processes flow better."
+        },
+        {
+          name: "People-Centered Leader",
+          tag: "Lead with care",
+          blurb: "You care about people’s wellbeing while still driving results."
+        },
+        {
+          name: "Outcome Driver",
+          tag: "Get to results",
+          blurb: "You naturally push projects and teams toward clear outcomes."
+        },
+        {
+          name: "Organizational Architect",
+          tag: "Design structure",
+          blurb: "You enjoy shaping how teams, roles, and workflows fit together."
+        }
+      ],
+
+      "Technology & Systems": [
+        {
+          name: "Systems Optimizer",
+          tag: "Improve the engine",
+          blurb: "You see how tools and processes work together and how to improve them."
+        },
+        {
+          name: "Logic-Driven Thinker",
+          tag: "Reason it out",
+          blurb: "You’re comfortable following complex logic and technical details."
+        },
+        {
+          name: "Workflow Streamliner",
+          tag: "Simplify steps",
+          blurb: "You like turning messy steps into smooth workflows."
+        },
+        {
+          name: "Reliability Guardian",
+          tag: "Protect uptime",
+          blurb: "You care about stability, reliability, and avoiding downtime."
+        },
+        {
+          name: "Data Structure Builder",
+          tag: "Organize information",
+          blurb: "You enjoy creating structure for data so it can be used and trusted."
+        }
+      ],
+
       "Analysis & Research": [
-        { name: "Insight Miner", desc: "You dig below the surface to find what’s really going on." },
-        { name: "Pattern Analyst", desc: "You notice trends, repetitions, and relationships in information." },
-        { name: "Evidence Evaluator", desc: "You like weighing proof, pros and cons, and data quality." },
-        { name: "Risk Mapper", desc: "You see where things could go wrong and how to prevent it." },
-        { name: "Detail Verifier", desc: "You care that facts, numbers, or statements are correct." },
-        { name: "Hypothesis Tester", desc: "You think in terms of testing ideas and seeing what holds up." },
-        { name: "Trend Watcher", desc: "You track how things are changing over time." },
-        { name: "Precision Planner", desc: "You like plans that are specific, documented, and clear." }
+        {
+          name: "Insight Miner",
+          tag: "Dig for truth",
+          blurb: "You dig beneath the surface to understand what’s really going on."
+        },
+        {
+          name: "Pattern Analyst",
+          tag: "Spot patterns",
+          blurb: "You notice patterns and trends and like making sense of them."
+        },
+        {
+          name: "Trend Watcher",
+          tag: "See what’s coming",
+          blurb: "You watch how things are changing and anticipate what’s next."
+        },
+        {
+          name: "Evidence Evaluator",
+          tag: "Weigh the data",
+          blurb: "You like weighing evidence and making grounded recommendations."
+        },
+        {
+          name: "Detail Verifier",
+          tag: "Check the fine print",
+          blurb: "You’re careful with details, numbers, and assumptions."
+        }
       ],
+
       "Hands-On & Field Work": [
-        { name: "On-Site Problem Solver", desc: "You prefer solving issues where the work actually happens." },
-        { name: "Practical Implementer", desc: "You like turning plans into real action and results." },
-        { name: "Safety Steward", desc: "You’re attentive to safety, risk, and real-world conditions." },
-        { name: "Reliable Operator", desc: "You can be counted on to keep things running day to day." },
-        { name: "Condition Observer", desc: "You notice what’s off in the environment or setup." },
-        { name: "Task Finisher", desc: "You take satisfaction in completing hands-on work." },
-        { name: "Field Adaptor", desc: "You adjust quickly when conditions or needs change." },
-        { name: "Tools & Tactics Expert", desc: "You’re comfortable working with tools, equipment, or gear." }
+        {
+          name: "On-Site Problem Solver",
+          tag: "Fix it live",
+          blurb: "You like solving problems right where the work is happening."
+        },
+        {
+          name: "Practical Implementer",
+          tag: "Make it real",
+          blurb: "You prefer getting things done in the real world, not just on paper."
+        },
+        {
+          name: "Field Adaptor",
+          tag: "Adapt in motion",
+          blurb: "You can adjust on the fly when conditions change."
+        },
+        {
+          name: "Reliable Operator",
+          tag: "Steady and solid",
+          blurb: "People count on you because you’re consistent and dependable."
+        },
+        {
+          name: "Task Finisher",
+          tag: "Close the loop",
+          blurb: "You like finishing what you start and seeing things through."
+        },
+        {
+          name: "Condition Observer",
+          tag: "Notice changes",
+          blurb: "You notice when conditions or environments shift and respond quickly."
+        },
+        {
+          name: "Safety Steward",
+          tag: "Protect people",
+          blurb: "You’re attentive to risk, safety, and keeping people out of harm’s way."
+        }
+      ],
+
+      "Creative & Design": [
+        {
+          name: "Imaginative Creator",
+          tag: "Generate ideas",
+          blurb: "You naturally imagine new concepts, visuals, or stories."
+        },
+        {
+          name: "Visual Storycrafter",
+          tag: "Tell it visually",
+          blurb: "You think in images and like turning ideas into visuals."
+        },
+        {
+          name: "Experience Shaper",
+          tag: "Design the feel",
+          blurb: "You care about how an experience feels from the user’s point of view."
+        },
+        {
+          name: "Brand Stylist",
+          tag: "Shape the brand",
+          blurb: "You like aligning colors, fonts, and messaging into a clear identity."
+        },
+        {
+          name: "Idea Illustrator",
+          tag: "Make it concrete",
+          blurb: "You help people see and understand ideas through creative expression."
+        }
       ]
     };
 
-    const MAX_SELECTED = 6;
-
     document.addEventListener("DOMContentLoaded", () => {
-      const category = localStorage.getItem("novaSelectedCategory") || "Business & Leadership";
-      const traitsForCategory = traitsByCategory[category] || traitsByCategory["Business & Leadership"];
+      const profile = typeof loadNovaProfile === "function"
+        ? loadNovaProfile()
+        : {
+            categoryIds: [],
+            traitIds: [],
+            roleId: null,
+            categories: [],
+            traits: [],
+            role: {},
+            purpose: { whyYou: "", whyThisRole: "", whyNow: "" }
+          };
 
-      const categoryLabelEl = document.getElementById("selectedCategoryLabel");
-      const traitsIntroEl = document.getElementById("traitsIntro");
-      const traitsGridEl = document.getElementById("traitsGrid");
-      const traitsCountEl = document.getElementById("traitsCount");
+      let categoryName = "Business & Leadership";
+      if (profile.categories && profile.categories.length && profile.categories[0].name) {
+        categoryName = profile.categories[0].name;
+      } else {
+        const legacyCat = localStorage.getItem("novaSelectedCategory");
+        if (legacyCat) categoryName = legacyCat;
+      }
+
+      const traitsForCategory =
+        TRAITS_BY_CATEGORY[categoryName] || TRAITS_BY_CATEGORY["Business & Leadership"];
+
+      const traitsCategoryLabel = document.getElementById("traitsCategoryLabel");
+      const traitsGrid = document.getElementById("traitsGrid");
       const continueBtn = document.getElementById("continueTraitsBtn");
 
-      categoryLabelEl.textContent = category;
-      traitsIntroEl.textContent =
-        `Based on your category “${category}”, pick the traits that sound most like how you already show up. ` +
-        `Nova will use these to highlight roles that fit the way you’re wired.`;
+      traitsCategoryLabel.textContent = categoryName;
 
-      // 🔹 Clean up any old/invalid saved traits so we don’t get “ghost” selections
-      const rawSaved = JSON.parse(localStorage.getItem("novaSelectedTraits") || "[]");
-      const validNames = new Set(traitsForCategory.map(t => t.name));
-      const cleanedSaved = rawSaved.filter(name => validNames.has(name));
-      let selectedNames = new Set(cleanedSaved.slice(0, MAX_SELECTED));
+      // initial selected set from profile
+      const selectedNames = new Set(profile.traits || []);
 
-      if (selectedNames.size !== rawSaved.length) {
-        localStorage.setItem("novaSelectedTraits", JSON.stringify(Array.from(selectedNames)));
-      }
+      function renderTraits() {
+        traitsGrid.innerHTML = "";
 
-      traitsGridEl.innerHTML = "";
+        traitsForCategory.forEach(trait => {
+          const card = document.createElement("article");
+          card.className = "trait-card";
 
-      function updateCountLabel() {
-        const count = selectedNames.size;
-        traitsCountEl.textContent =
-          count === 0
-            ? "You haven’t selected any traits yet."
-            : `You’ve selected ${count} trait${count === 1 ? "" : "s"} so far.`;
-      }
-
-      traitsForCategory.forEach(trait => {
-        const card = document.createElement("div");
-        card.className = "trait-card";
-
-        const checkbox = document.createElement("div");
-        checkbox.className = "trait-checkbox";
-
-        const textWrap = document.createElement("div");
-        textWrap.className = "trait-text";
-
-        const nameEl = document.createElement("div");
-        nameEl.className = "trait-name";
-        nameEl.textContent = trait.name;
-
-        const descEl = document.createElement("div");
-        descEl.className = "trait-desc";
-        descEl.textContent = trait.desc || "";
-
-        textWrap.appendChild(nameEl);
-        textWrap.appendChild(descEl);
-
-        card.appendChild(checkbox);
-        card.appendChild(textWrap);
-
-        if (selectedNames.has(trait.name)) {
-          card.classList.add("selected");
-        }
-
-        card.addEventListener("click", () => {
-          const isSelected = selectedNames.has(trait.name);
-
-          if (!isSelected && selectedNames.size >= MAX_SELECTED) {
-            alert(`You can select up to ${MAX_SELECTED} traits. Deselect one to choose another.`);
-            return;
-          }
-
-          if (isSelected) {
-            selectedNames.delete(trait.name);
-            card.classList.remove("selected");
-          } else {
-            selectedNames.add(trait.name);
+          if (selectedNames.has(trait.name)) {
             card.classList.add("selected");
           }
 
-          localStorage.setItem("novaSelectedTraits", JSON.stringify(Array.from(selectedNames)));
-          updateCountLabel();
+          const nameRow = document.createElement("div");
+          nameRow.className = "trait-name-row";
+
+          const nameEl = document.createElement("h2");
+          nameEl.className = "trait-name";
+          nameEl.textContent = trait.name;
+
+          const chip = document.createElement("span");
+          chip.className = "trait-chip";
+          chip.textContent = trait.tag;
+
+          nameRow.appendChild(nameEl);
+          nameRow.appendChild(chip);
+
+          const bodyEl = document.createElement("p");
+          bodyEl.className = "trait-body";
+          bodyEl.textContent = trait.blurb;
+
+          card.appendChild(nameRow);
+          card.appendChild(bodyEl);
+
+          card.addEventListener("click", () => {
+            const isSelected = selectedNames.has(trait.name);
+
+            if (isSelected) {
+              selectedNames.delete(trait.name);
+              card.classList.remove("selected");
+            } else {
+              if (selectedNames.size >= 6) {
+                alert("You can pick up to six traits. Deselect one to choose a different trait.");
+                return;
+              }
+              selectedNames.add(trait.name);
+              card.classList.add("selected");
+            }
+          });
+
+          traitsGrid.appendChild(card);
         });
+      }
 
-        traitsGridEl.appendChild(card);
-      });
-
-      updateCountLabel();
+      renderTraits();
 
       continueBtn.addEventListener("click", () => {
         if (selectedNames.size === 0) {
-          const goOn = confirm("You haven’t selected any traits. Do you still want to continue?");
-          if (!goOn) return;
+          const proceed = confirm(
+            "You haven’t selected any key traits yet. Do you still want to continue?"
+          );
+          if (!proceed) return;
         }
+
+        const updated = loadNovaProfile();
+
+        const selectedList = traitsForCategory.filter(t =>
+          selectedNames.has(t.name)
+        );
+
+        const traitIds = selectedList.map(t =>
+          makeIdFromText(t.name, "trait")
+        );
+        const traitNames = selectedList.map(t => t.name);
+
+        updated.traitIds = traitIds;
+        updated.traits = traitNames;
+
+        // keep a legacy store of traits (names) if needed
+        localStorage.setItem("novaSelectedTraits", JSON.stringify(traitNames));
+
+        // when traits change, clear any previously-selected role so roles re-align
+        updated.roleId = null;
+        updated.role = {};
+
+        saveNovaProfile(updated);
         window.location.href = "roles.html";
       });
     });
