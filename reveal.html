@@ -2,107 +2,198 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NOVA – Your Purpose Reveal</title>
+  <title>Your NOVA Purpose Reveal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7fafc;
-      color: #102a43;
+    :root {
+      --nova-bg: #f9fafb;
+      --nova-card-bg: #ffffff;
+      --nova-teal: #14b8a6;
+      --nova-teal-dark: #0f766e;
+      --nova-text-main: #111827;
+      --nova-text-muted: #6b7280;
+      --nova-border: #e5e7eb;
+      --nova-radius-lg: 22px;
+      --nova-radius-pill: 999px;
+      --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 24px;
+      padding: 0;
     }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px 28px 28px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #ecfeff 0%, #f9fafb 45%, #f9fafb 100%);
+      color: var(--nova-text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
     }
-    h1 {
-      margin-top: 0;
-      color: #044e54;
+
+    .page-wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 32px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    @media (min-width: 768px) {
+      .page-wrap {
+        margin-top: 48px;
+        padding-bottom: 60px;
+      }
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .top-bar h1 {
       font-size: 26px;
+      color: var(--nova-teal-dark);
     }
-    p {
-      line-height: 1.6;
+
+    .reveal-card {
+      background: var(--nova-card-bg);
+      border-radius: var(--nova-radius-lg);
+      box-shadow: var(--nova-shadow-soft);
+      padding: 28px 28px 30px;
     }
-    .meta {
-      font-size: 14px;
-      color: #7b8794;
+
+    .reveal-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--nova-teal-dark);
+      margin-bottom: 10px;
     }
+
+    .reveal-subtitle {
+      font-size: 15px;
+      color: var(--nova-text-muted);
+      margin-bottom: 20px;
+    }
+
     .section {
-      margin-top: 20px;
-      margin-bottom: 18px;
+      margin-top: 18px;
+      margin-bottom: 12px;
     }
+
     .section h2 {
       font-size: 18px;
-      margin: 0 0 6px;
-      color: #035c64;
+      margin-bottom: 6px;
+      color: var(--nova-text-main);
     }
+
     .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 6px;
+      margin-bottom: 8px;
     }
+
     .pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #e0f7f9;
-      color: #035c64;
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: var(--nova-radius-pill);
+      background: #e0f2fe;
+      color: #0f172a;
       font-size: 13px;
+      font-weight: 500;
     }
-    .role-title {
-      font-size: 19px;
+
+    .role-line {
+      font-size: 20px;
       font-weight: 600;
-      color: #102a43;
-    }
-    .role-meta {
-      font-size: 14px;
-      color: #52606d;
-      margin-top: 4px;
-    }
-    .purpose-block {
-      border-left: 4px solid #14b5d0;
-      padding-left: 12px;
-      margin-bottom: 12px;
-    }
-    .purpose-block strong {
-      display: block;
       margin-bottom: 4px;
-      color: #035c64;
+      color: var(--nova-teal-dark);
     }
+
+    .role-meta {
+      font-size: 13px;
+      color: var(--nova-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .role-summary {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .purpose-block {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--nova-border);
+      background: #f9fafb;
+    }
+
+    .purpose-heading {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--nova-teal-dark);
+    }
+
+    .purpose-line-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 8px;
+      margin-bottom: 2px;
+      color: var(--nova-teal-dark);
+    }
+
+    .purpose-line-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--nova-text-main);
+    }
+
     .btn-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 24px;
     }
-    .btn {
+
+    .btn-primary {
+      background: var(--nova-teal);
+      color: #ffffff;
       border: none;
-      border-radius: 999px;
-      padding: 10px 18px;
+      padding: 11px 20px;
+      border-radius: var(--nova-radius-pill);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #e5f3f7;
+      color: var(--nova-teal-dark);
+      border: none;
+      padding: 11px 18px;
+      border-radius: var(--nova-radius-pill);
       font-size: 15px;
       cursor: pointer;
     }
-    .btn-primary {
-      background: #14b5d0;
-      color: #ffffff;
-    }
-    .btn-secondary {
-      background: #e4f0f5;
-      color: #035c64;
-    }
+
     .note {
+      margin-top: 10px;
       font-size: 12px;
-      color: #7b8794;
-      margin-top: 4px;
+      color: var(--nova-text-muted);
     }
+
     @media (max-width: 640px) {
-      .container {
-        padding: 18px 16px 20px;
+      .reveal-card {
+        padding: 22px 18px 24px;
       }
       .btn-row {
         flex-direction: column;
@@ -111,149 +202,215 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Your NOVA Purpose Reveal</h1>
-    <p class="meta">
-      NOVA has identified the categories, traits, and role that fit how you are wired. This snapshot will be handed to NAVI to help build your resume and career strategy.
-    </p>
+  <div class="page-wrap">
+    <div class="top-bar">
+      <h1>NOVA</h1>
+    </div>
 
-    <!-- CATEGORIES -->
-    <div class="section">
-      <h2>Categories You Selected</h2>
-      <div id="categoriesPills" class="pill-row">
-        <!-- Example placeholders – your existing JS can overwrite these values -->
-        <span class="pill" data-category>Business &amp; Operations</span>
-        <span class="pill" data-category>Technology &amp; Systems</span>
+    <div class="reveal-card">
+      <div class="reveal-title">Your NOVA Purpose Reveal</div>
+      <div class="reveal-subtitle">
+        NOVA has identified the categories, traits, and role that fit how you are wired. This is your starting point for a purpose-aligned career strategy.
       </div>
-    </div>
 
-    <!-- TRAITS -->
-    <div class="section">
-      <h2>Your Top Traits</h2>
-      <div id="traitsPills" class="pill-row">
-        <!-- Example placeholders – your existing JS can overwrite these values -->
-        <span class="pill" data-trait>Strategic Thinker</span>
-        <span class="pill" data-trait>Process Optimizer</span>
-        <span class="pill" data-trait>People-Centered Leader</span>
+      <!-- Categories -->
+      <div class="section">
+        <h2>Categories You Selected</h2>
+        <div id="categoriesPills" class="pill-row"></div>
       </div>
-    </div>
 
-    <!-- ROLE -->
-    <div class="section">
-      <h2>Recommended Role</h2>
-      <p class="role-title" id="roleTitle" data-role-title>
-        Operations &amp; Process Improvement Lead
-      </p>
-      <p class="role-meta">
-        <span id="roleSoc" data-role-soc>SOC 11-3051</span> ·
-        <span id="roleSalary" data-role-salary>$95,000–$145,000</span> ·
-        <span id="roleOutlook" data-role-outlook>Faster than average growth</span>
-      </p>
-      <p id="roleSummary" data-role-summary>
-        You specialize in untangling complex workflows, reducing waste, and building systems that help people do their best work.
-      </p>
-    </div>
+      <!-- Traits -->
+      <div class="section">
+        <h2>Your Top Traits</h2>
+        <div id="traitsPills" class="pill-row"></div>
+      </div>
 
-    <!-- PURPOSE – 3 SECTIONS -->
-    <div class="section">
-      <h2>Your Purpose in Three Lenses</h2>
+      <!-- Role -->
+      <div class="section">
+        <h2>Recommended Role</h2>
+        <div id="roleTitle" class="role-line"></div>
+        <div id="roleMeta" class="role-meta"></div>
+        <div id="roleSummary" class="role-summary"></div>
+      </div>
 
+      <!-- Purpose lenses -->
       <div class="purpose-block">
-        <strong>Why You</strong>
-        <p id="purposeWhyYou" data-purpose-why-you>
-          You are wired to see patterns in the chaos, bring order, and protect people’s time and energy.
-        </p>
+        <div class="purpose-heading">Your Purpose in Three Lenses</div>
+
+        <div class="purpose-line-title">Why You</div>
+        <div id="whyYouLine" class="purpose-line-text"></div>
+
+        <div class="purpose-line-title">Why This Role</div>
+        <div id="whyRoleLine" class="purpose-line-text"></div>
+
+        <div class="purpose-line-title">Why Now</div>
+        <div id="whyNowLine" class="purpose-line-text"></div>
       </div>
 
-      <div class="purpose-block">
-        <strong>Why This Role</strong>
-        <p id="purposeWhyRole" data-purpose-why-role>
-          This role lets you steward operations, improve systems, and amplify impact for teams and organizations.
-        </p>
+      <div class="btn-row">
+        <button type="button" class="btn-primary" id="continueInvestBtn">
+          Continue – Invest in Yourself
+        </button>
+        <button type="button" class="btn-secondary" id="backToRolesBtn">
+          Back to Roles
+        </button>
       </div>
 
-      <div class="purpose-block">
-        <strong>Why Now</strong>
-        <p id="purposeWhyNow" data-purpose-why-now>
-          You are at an inflection point where your experience, hunger for purpose, and new opportunities are converging.
-        </p>
+      <div class="note">
+        When you continue, NOVA will send this profile into NAVI so you can build your resume, cover letters, and career strategy without re-entering your answers.
       </div>
-    </div>
-
-    <div class="section">
-      <p class="meta">
-        NOVA will save this snapshot securely in your browser so NAVI can use it to build your resume and job strategy.
-      </p>
-    </div>
-
-    <div class="btn-row">
-      <button id="investBtn" class="btn btn-primary">
-        Invest in Myself and Continue
-      </button>
-      <button id="backBtn" class="btn btn-secondary" type="button">
-        Back
-      </button>
     </div>
   </div>
 
   <script>
-    function buildNovaProfile() {
-      // 1) Categories
-      const categoryEls = document.querySelectorAll('[data-category]');
-      const categories = Array.from(categoryEls).map(el => el.textContent.trim());
+    // Helper to safely parse JSON and try multiple possible keys
+    function getFromStorage(possibleKeys, fallback) {
+      for (const key of possibleKeys) {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed !== null && parsed !== undefined) {
+            return parsed;
+          }
+        } catch (e) {
+          // If it was a plain string, treat it appropriately
+          if (typeof raw === 'string' && raw.trim() !== '') {
+            return raw;
+          }
+        }
+      }
+      return fallback;
+    }
 
-      // 2) Traits
-      const traitEls = document.querySelectorAll('[data-trait]');
-      const traits = Array.from(traitEls).map(el => el.textContent.trim());
+    function ensureArray(value) {
+      if (!value) return [];
+      if (Array.isArray(value)) return value;
+      if (typeof value === 'string') return [value];
+      return [];
+    }
 
-      // 3) Role
-      const role = {
-        title: document.querySelector('[data-role-title]')?.textContent?.trim() || '',
-        socCode: document.querySelector('[data-role-soc]')?.textContent?.trim() || '',
-        salaryRange: document.querySelector('[data-role-salary]')?.textContent?.trim() || '',
-        outlook: document.querySelector('[data-role-outlook]')?.textContent?.trim() || '',
-        summary: document.querySelector('[data-role-summary]')?.textContent?.trim() || ''
-      };
+    function renderPills(containerId, items) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      if (!items || !items.length) {
+        const span = document.createElement('span');
+        span.textContent = 'No data found. Try restarting NOVA.';
+        span.style.fontSize = '13px';
+        span.style.color = '#9ca3af';
+        container.appendChild(span);
+        return;
+      }
+      items.forEach(txt => {
+        const pill = document.createElement('div');
+        pill.className = 'pill';
+        pill.textContent = txt;
+        container.appendChild(pill);
+      });
+    }
 
-      // 4) Purpose
-      const purpose = {
-        whyYou: document.querySelector('[data-purpose-why-you]')?.textContent?.trim() || '',
-        whyThisRole: document.querySelector('[data-purpose-why-role]')?.textContent?.trim() || '',
-        whyNow: document.querySelector('[data-purpose-why-now]')?.textContent?.trim() || ''
-      };
+    function loadReveal() {
+      // Try to load categories, traits, role, and purpose from any of the keys we might be using
+      const categoriesRaw = getFromStorage(
+        ['novaSelectedCategories', 'selectedCategories', 'novaCategories'],
+        []
+      );
+      const traitsRaw = getFromStorage(
+        ['novaSelectedTraits', 'selectedTraits', 'novaTraits'],
+        []
+      );
+      const role = getFromStorage(
+        ['novaSelectedRole', 'selectedRole', 'novaRole'],
+        {}
+      );
+      const purpose = getFromStorage(
+        ['novaPurposeAnswers', 'purposeAnswers'],
+        {}
+      );
 
-      return {
-        version: "1.0",
-        createdAt: new Date().toISOString(),
+      const categories = ensureArray(categoriesRaw);
+      const traits = ensureArray(traitsRaw);
+
+      // Render categories and traits
+      renderPills('categoriesPills', categories);
+      renderPills('traitsPills', traits);
+
+      // Role
+      const roleTitleEl = document.getElementById('roleTitle');
+      const roleMetaEl = document.getElementById('roleMeta');
+      const roleSummaryEl = document.getElementById('roleSummary');
+
+      if (roleTitleEl) roleTitleEl.textContent = role.title || 'No role selected yet';
+      if (roleMetaEl) {
+        const parts = [];
+        if (role.socCode) parts.push(role.socCode);
+        if (role.salaryRange) parts.push(role.salaryRange);
+        if (role.outlook) parts.push(role.outlook);
+        roleMetaEl.textContent = parts.join(' · ');
+      }
+      if (roleSummaryEl) {
+        roleSummaryEl.textContent = role.summary || '';
+      }
+
+      // Purpose lines
+      const whyYouEl = document.getElementById('whyYouLine');
+      const whyRoleEl = document.getElementById('whyRoleLine');
+      const whyNowEl = document.getElementById('whyNowLine');
+
+      if (whyYouEl) {
+        whyYouEl.textContent = purpose.whyYou || '';
+      }
+      if (whyRoleEl) {
+        whyRoleEl.textContent = purpose.whyThisRole || '';
+      }
+      if (whyNowEl) {
+        whyNowEl.textContent = purpose.whyNow || '';
+      }
+
+      // Build unified novaProfile so NAVI gets a clean version
+      const novaProfile = {
         categories,
         traits,
-        role,
-        purpose
+        role: {
+          title: role.title || '',
+          socCode: role.socCode || '',
+          salaryRange: role.salaryRange || '',
+          outlook: role.outlook || '',
+          summary: role.summary || ''
+        },
+        purpose: {
+          whyYou: purpose.whyYou || '',
+          whyThisRole: purpose.whyThisRole || '',
+          whyNow: purpose.whyNow || ''
+        }
       };
-    }
 
-    function saveNovaProfileToStorage() {
-      const profile = buildNovaProfile();
       try {
-        localStorage.setItem('novaProfile', JSON.stringify(profile));
-        console.log('Nova profile saved for NAVI:', profile);
-        return true;
-      } catch (err) {
-        console.error('Error saving novaProfile to localStorage', err);
-        alert('There was a problem saving your NOVA snapshot on this browser.');
-        return false;
+        localStorage.setItem('novaProfile', JSON.stringify(novaProfile));
+      } catch (e) {
+        console.warn('Could not store novaProfile', e);
       }
     }
 
-    document.getElementById('investBtn').addEventListener('click', function () {
-      const ok = saveNovaProfileToStorage();
-      if (ok) {
-        window.location.href = 'invest.html';
-      }
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+      loadReveal();
 
-    document.getElementById('backBtn').addEventListener('click', function () {
-      window.history.back();
+      const contBtn = document.getElementById('continueInvestBtn');
+      const backBtn = document.getElementById('backToRolesBtn');
+
+      if (contBtn) {
+        contBtn.addEventListener('click', function () {
+          // novaProfile is already written in loadReveal; just go forward
+          window.location.href = 'invest.html';
+        });
+      }
+
+      if (backBtn) {
+        backBtn.addEventListener('click', function () {
+          window.location.href = 'roles.html';
+        });
+      }
     });
   </script>
 </body>
