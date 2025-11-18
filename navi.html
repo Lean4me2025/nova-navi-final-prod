@@ -134,17 +134,15 @@
 
       <div class="form-row">
         <label for="resumeSkills">Skills / Keywords</label>
-        <textarea id="resumeSkills" name="skills" placeholder="Skills and keywords employers search for."></textarea>
+        <textarea id="resumeSkills" name="skills" placeholder="Skills and keywords employers search for. Use your traits above to choose specific, job-matching keywords."></textarea>
         <div class="hint">
-          NAVI can turn traits into skills and keywords you can use in your resume and job search filters.
+          NAVI highlights your traits above so you can turn them into targeted keywords for each role. This field is left blank so you can customize it per job.
         </div>
       </div>
 
-      <!-- Additional sections can be added below (Experience, Education, etc.) -->
-
       <div class="btn-row">
         <button type="button" class="btn-primary" id="saveResumeBtn">Save Draft (Local)</button>
-        <button type="button" class="btn-secondary" id="backToLoginBtn">Back to Login</button>
+        <button type="button" class="btn-secondary" id="backToDashboardBtn">Back to Dashboard</button>
       </div>
     </form>
   </div>
@@ -185,9 +183,9 @@
         targetRoleInput.value = roleTitle;
       }
 
-      // 2) Professional Summary
+      // 2) Professional Summary (duplicate "You are" removed)
       if (summaryTextarea) {
-        const purposeLine1 = purpose.whyYou ? `You are: ${purpose.whyYou}` : '';
+        const purposeLine1 = purpose.whyYou ? purpose.whyYou : '';
         const purposeLine2 = purpose.whyThisRole ? `This role fits you because: ${purpose.whyThisRole}` : '';
         const purposeLine3 = purpose.whyNow ? `Now is the right time because: ${purpose.whyNow}` : '';
 
@@ -208,10 +206,9 @@
         traitsTextarea.value = traits.join(', ');
       }
 
-      // 4) Skills keywords – start by mirroring traits
+      // 4) Skills Keywords – leave blank (no duplication)
       if (skillsTextarea) {
-        const skillKeywords = traits.map(t => t.replace(/\s+/g, ' '));
-        skillsTextarea.value = skillKeywords.join(', ');
+        skillsTextarea.value = '';
       }
 
       // 5) Banner
@@ -224,7 +221,7 @@
         const traitText = traits && traits.length
           ? `Top traits: ${traits.slice(0, 5).join(', ')}.`
           : '';
-        bannerSummary.textContent = `${catText}${traitText}`;
+        bannerSummary.textContent = `${catText}${traitText}` || 'Your NOVA profile is ready to power NAVI.';
         banner.style.display = 'block';
       }
     }
@@ -256,10 +253,10 @@
         });
       }
 
-      const backBtn = document.getElementById('backToLoginBtn');
+      const backBtn = document.getElementById('backToDashboardBtn');
       if (backBtn) {
         backBtn.addEventListener('click', () => {
-          window.location.href = 'login.html';
+          window.location.href = 'dashboard.html';
         });
       }
     });
