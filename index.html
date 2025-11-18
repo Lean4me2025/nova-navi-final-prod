@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NOVA – Discover Your Purpose</title>
-<script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+
+  <!-- Payhip script (must load once in head) -->
+  <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
+
   <style>
     :root {
       --nova-bg: #f9fafb;
@@ -20,12 +23,16 @@
       --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       min-height: 100vh;
-      background: radial-gradient(circle at top left,#ecfeff 0,#f9fafb 45%,#f9fafb 100%);
+      background: radial-gradient(circle at top left, #ecfeff 0%, #f9fafb 45%, #f9fafb 100%);
       color: var(--nova-text-main);
       display: flex;
       justify-content: center;
@@ -40,7 +47,7 @@
 
     @media (min-width: 768px) {
       .page-wrap {
-        margin-top: 40px;
+        margin-top: 48px;
         padding-bottom: 60px;
       }
     }
@@ -52,485 +59,148 @@
       justify-content: space-between;
       margin-bottom: 26px;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .top-bar h1 {
+      font-size: 26px;
+      color: var(--nova-teal-dark);
+      margin: 0;
     }
 
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: linear-gradient(135deg,#a5f3fc,#14b8a6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 1.1rem;
-      box-shadow: 0 12px 28px rgba(20,184,166,0.35);
+    /* Welcome Card */
+    .welcome-card {
+      background: var(--nova-card-bg);
+      padding: 28px;
+      border-radius: var(--nova-radius-lg);
+      box-shadow: var(--nova-shadow-soft);
+      margin-bottom: 24px;
     }
 
-    .brand-title {
+    .welcome-title {
+      font-size: 30px;
       font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: var(--nova-teal-dark);
+      margin-bottom: 16px;
     }
 
-    .brand-sub {
-      font-size: 0.78rem;
-      color: var(--nova-text-muted);
+    .welcome-text {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: var(--nova-text-main);
     }
 
-    /* Hero layout */
-    .hero {
-      display: grid;
-      gap: 24px;
-    }
-
-    @media (min-width: 880px) {
-      .hero {
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
-        align-items: stretch;
-      }
-    }
-
-    .hero-left {
-      padding-right: 4px;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 3px 10px 3px 4px;
-      border-radius: var(--nova-radius-pill);
-      border: 1px solid rgba(20,184,166,0.25);
-      background: rgba(240,253,250,0.95);
-      margin-bottom: 12px;
-    }
-
-    .hero-kicker-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      background: #14b8a6;
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .hero-kicker-text {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+    .stats-box {
+      background: #ecfdf5;
+      border-left: 4px solid var(--nova-teal);
+      padding: 14px 18px;
+      border-radius: 10px;
+      color: var(--nova-teal-dark);
       font-weight: 600;
-      color: var(--nova-teal-dark);
-    }
-
-    .hero-title {
-      font-size: clamp(2.1rem, 4vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.12;
-      margin-bottom: 10px;
-    }
-
-    .hero-highlight {
-      background: linear-gradient(120deg,#14b8a6,#0ea5e9);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-89 {
-      margin: 10px 0 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: var(--nova-radius-pill);
-      padding: 6px 12px;
-      background: #ecfeff;
-      border: 1px solid rgba(20,184,166,0.35);
-      font-size: 0.86rem;
-      font-weight: 500;
-      color: var(--nova-teal-dark);
-    }
-
-    .hero-89 span.percent {
-      font-weight: 800;
-      font-size: 1.05rem;
-    }
-
-    .hero-body {
-      font-size: 0.98rem;
-      color: var(--nova-text-muted);
-      line-height: 1.7;
-      max-width: 540px;
-      margin-bottom: 18px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--nova-radius-pill);
-      padding: 10px 22px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      gap: 8px;
-      transition: background 0.18s ease, color 0.18s ease,
-                  transform 0.16s ease, box-shadow 0.16s ease;
+      margin-bottom: 16px;
     }
 
     .btn-primary {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: var(--nova-radius-pill);
       background: var(--nova-teal);
-      color: #ffffff;
-      box-shadow: 0 18px 34px rgba(20,184,166,0.5);
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 18px;
     }
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 20px 40px rgba(15,118,110,0.55);
-      transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--nova-teal-dark);
+    /* Purpose Book Section */
+    .book-section {
+      margin-top: 36px;
+      background: #f9fbff;
       border: 1px solid var(--nova-border);
+      padding: 18px 22px;
+      border-radius: 16px;
     }
 
-    .btn-secondary:hover {
-      background: #ffffff;
-      box-shadow: 0 10px 26px rgba(15,23,42,0.08);
-      transform: translateY(-1px);
-    }
-
-    .chevron-right {
-      font-size: 1.1rem;
-      line-height: 0;
-    }
-
-    .hero-note {
-      font-size: 0.8rem;
-      color: var(--nova-text-muted);
-    }
-
-    /* How it works */
-    .how {
-      margin-top: 26px;
-      max-width: 640px;
-    }
-
-    .how-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--nova-text-muted);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .how-steps {
-      display: grid;
-      gap: 10px;
-      font-size: 0.88rem;
-      color: var(--nova-text-muted);
-    }
-
-    .how-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .how-step-num {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: #ccfbf1;
+    .book-section h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 22px;
       color: var(--nova-teal-dark);
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 2px;
     }
 
-    .how-step-text {
-      line-height: 1.5;
-    }
-
-    /* Right panel (PIN) */
-    .hero-right {
-      display: flex;
-      align-items: stretch;
-    }
-
-    .pin-card {
-      width: 100%;
-      background: var(--nova-card-bg);
-      border-radius: var(--nova-radius-lg);
-      border: 1px solid var(--nova-border);
-      box-shadow: var(--nova-shadow-soft);
-      padding: 22px 18px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    @media (min-width: 880px) {
-      .pin-card {
-        padding: 26px 24px 26px;
-      }
-    }
-
-    .pin-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .pin-sub {
-      font-size: 0.86rem;
-      color: var(--nova-text-muted);
+    .book-section p {
+      font-size: 15px;
+      line-height: 1.6;
       margin-bottom: 16px;
-    }
-
-    .pin-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--nova-text-muted);
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    .pin-input-row {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .pin-input {
-      flex: 1;
-      padding: 9px 12px;
-      border-radius: var(--nova-radius-pill);
-      border: 1px solid var(--nova-border);
-      font-size: 0.95rem;
-      outline: none;
       color: var(--nova-text-main);
-      background: #f9fafb;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .pin-input:focus {
-      border-color: var(--nova-teal);
-      box-shadow: 0 0 0 1px rgba(20,184,166,0.3);
-      background: #ffffff;
-    }
-
-    .pin-btn {
-      white-space: nowrap;
-      font-size: 0.9rem;
-      padding: 9px 16px;
+    .payhip-buy-button {
+      display: inline-block;
+      padding: 10px 20px;
       border-radius: var(--nova-radius-pill);
-      border: none;
-      background: var(--nova-teal);
-      color: #ffffff;
+      font-size: 15px;
       font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 12px 26px rgba(20,184,166,0.45);
-      transition: background 0.18s ease, transform 0.16s ease,
-                  box-shadow 0.16s ease;
+      text-decoration: none;
+      text-align: center;
+      width: auto;
     }
 
-    .pin-btn:hover {
-      background: var(--nova-teal-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 16px 32px rgba(15,118,110,0.5);
-    }
-
-    .pin-help {
-      font-size: 0.78rem;
-      color: var(--nova-text-muted);
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-
-    .pin-footer {
-      font-size: 0.78rem;
-      color: var(--nova-text-muted);
-      line-height: 1.4;
-      border-top: 1px dashed var(--nova-border);
-      padding-top: 10px;
-      margin-top: 8px;
-    }
   </style>
 </head>
 
 <body>
   <div class="page-wrap">
-    <!-- Top brand row -->
-    <header class="top-bar">
-      <div class="brand">
-        <div class="brand-mark">N</div>
-        <div>
-          <div class="brand-title">Nova</div>
-          <div class="brand-sub">Purpose · Traits · Roles</div>
-        </div>
-      </div>
-    </header>
 
-    <!-- Hero layout -->
-    <section class="hero">
-      <!-- Left: main welcome -->
-      <div class="hero-left">
-        <div class="hero-kicker">
-          <div class="hero-kicker-pill">✦</div>
-          <div class="hero-kicker-text">Welcome to Nova</div>
-        </div>
+    <!-- HEADER -->
+    <div class="top-bar">
+      <h1>NOVA</h1>
+    </div>
 
-        <h1 class="hero-title">
-          Help for the <span class="hero-highlight">89%</span> who don’t know why they’re here.
-        </h1>
+    <!-- WELCOME CARD -->
+    <div class="welcome-card">
+      <div class="welcome-title">Discover Your Purpose</div>
 
-        <div class="hero-89">
-          <span class="percent">89%</span>
-          <span>of people say they do not know their true purpose.</span>
-        </div>
-
-        <p class="hero-body">
-          Nova is a guided experience that helps you discover how God actually designed you,
-          see work that fits your wiring, and map clear next steps. No fluff, no vague labels —
-          just traits, roles, and a path that makes sense.
-        </p>
-
-        <div class="hero-actions">
-          <button id="startJourneyBtn" class="btn btn-primary">
-            <span>Start My Journey</span>
-            <span class="chevron-right">›</span>
-          </button>
-
-          <button id="havePinScrollBtn" class="btn btn-secondary" type="button">
-            I already have a PIN
-          </button>
-        </div>
-
-        <div class="hero-note">
-          You can stop at any time. Your answers stay private and are used only to guide your journey.
-        </div>
-
-        <!-- How it works -->
-        <section class="how" aria-label="How Nova works">
-          <div class="how-title">How Nova Works</div>
-          <div class="how-steps">
-            <div class="how-step">
-              <div class="how-step-num">1</div>
-              <div class="how-step-text">
-                Choose your <strong>Category</strong> and focus areas that feel most like your world.
-              </div>
-            </div>
-            <div class="how-step">
-              <div class="how-step-num">2</div>
-              <div class="how-step-text">
-                Select your <strong>Traits</strong>, then review <strong>Roles</strong> that fit your design and see your <strong>Purpose Reveal</strong>.
-              </div>
-            </div>
-            <div class="how-step">
-              <div class="how-step-num">3</div>
-              <div class="how-step-text">
-                Decide how deeply you want to go and <strong>Invest in yourself</strong> with Nova + Navi tools and support.
-              </div>
-            </div>
-          </div>
-        </section>
+      <div class="stats-box">
+        89% of people do not know their purpose. You will not be one of them.
       </div>
 
-      <!-- Right: PIN card -->
-      <aside class="hero-right" aria-label="PIN access">
-        <div class="pin-card">
-          <div>
-            <h2 class="pin-title">Have a Nova PIN?</h2>
-            <p class="pin-sub">
-              If you’ve been given a PIN for a session, event, or coaching program,
-              enter it here to continue where you left off.
-            </p>
+      <p class="welcome-text">
+        NOVA is designed to help you understand who you are, how you are wired, and what roles best align with your design.  
+        In just a few minutes, you will walk through categories, traits, and purpose-signals that reveal your path.
+      </p>
 
-            <div class="pin-label">Enter PIN</div>
-            <div class="pin-input-row">
-              <input
-                id="pinInput"
-                class="pin-input"
-                type="text"
-                placeholder="e.g., NOVA-1234"
-                autocomplete="off"
-              />
-              <button id="pinSubmitBtn" class="pin-btn" type="button">
-                Enter
-              </button>
-            </div>
+      <p class="welcome-text">
+        When you finish, you will be guided to NAVI — where your NOVA results turn into a strong resume, powerful positioning, and 
+        opportunities that match your calling.
+      </p>
 
-            <p class="pin-help">
-              You can also start a new journey without a PIN. We’ll use your answers to guide
-              your traits, roles, and purpose reveal.
-            </p>
-          </div>
+      <a href="categories.html" class="btn-primary">Start My Journey</a>
+    </div>
 
-          <div class="pin-footer">
-            If something doesn’t feel accurate along the way, you can always go back, adjust
-            your choices, and watch your matches update.
-          </div>
-        </div>
-      </aside>
-    </section>
+    <!-- PURPOSE BOOK SECTION (Payhip button here) -->
+    <div class="book-section">
+      <h2>Go Deeper: How to Know Your Purpose</h2>
+      <p>
+        If you’d like a deeper, faith-centered walk through discovering, protecting, and walking out your purpose,
+        you can unlock the <strong>“How to Know Your Purpose”</strong> resource.  
+        This is a powerful companion for your NOVA journey.
+      </p>
+
+      <!-- Payhip button for Purpose Book (product N7Lvg) -->
+      <a
+        href="https://payhip.com/b/N7Lvg"
+        class="payhip-buy-button"
+        data-theme="green"
+        data-product="N7Lvg"
+      >
+        Get the Purpose Book
+      </a>
+    </div>
+
   </div>
-
-  <script>
-    // Start journey → go to categories
-    document.getElementById("startJourneyBtn")?.addEventListener("click", function () {
-      window.location.href = "categories.html";
-    });
-
-    // Scroll to PIN card if user clicks "I already have a PIN"
-    document.getElementById("havePinScrollBtn")?.addEventListener("click", function () {
-      const pinCard = document.querySelector(".pin-card");
-      if (pinCard && pinCard.scrollIntoView) {
-        pinCard.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
-
-    // Handle PIN entry
-    document.getElementById("pinSubmitBtn")?.addEventListener("click", function () {
-      const pinInput = document.getElementById("pinInput");
-      if (!pinInput) return;
-      const value = pinInput.value.trim();
-      if (value.length > 0) {
-        // Save for later use if needed
-        localStorage.setItem("novaPIN", value);
-      }
-      // For now, send them into the flow at Categories.
-      window.location.href = "categories.html";
-    });
-  </script>
 </body>
 </html>
