@@ -1,4 +1,3 @@
-<script>
 // --- NOVA profile helpers (used on all NOVA + NAVI pages) ---
 
 function loadNovaProfile() {
@@ -51,4 +50,3 @@ function saveNovaProfile(profile) {
   };
   localStorage.setItem('novaProfile', JSON.stringify(clean));
 }
-</script>
