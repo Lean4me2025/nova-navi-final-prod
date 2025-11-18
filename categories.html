@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Choose Your Category</title>
+  <title>NOVA – Choose Your Categories</title>
 
   <style>
     :root {
       --nova-bg: #f9fafb;
       --nova-card-bg: #ffffff;
       --nova-teal: #14b8a6;
-      --nova-teal-soft: #ecfeff;
       --nova-teal-dark: #0f766e;
       --nova-text-main: #111827;
       --nova-text-muted: #6b7280;
@@ -19,7 +18,7 @@
       --nova-shadow-soft: 0 24px 60px rgba(15,118,110,0.10);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -28,18 +27,24 @@
       color: var(--nova-text-main);
     }
 
-    main.cat-page {
+    main.categories-page {
       max-width: 1100px;
-      margin: 40px auto 60px;
-      padding: 0 16px;
+      margin: 36px auto 48px;
+      padding: 0 16px 56px;
     }
 
-    .cat-header {
+    @media (min-width: 768px) {
+      main.categories-page {
+        margin-top: 48px;
+      }
+    }
+
+    .categories-header {
       text-align: center;
       margin-bottom: 28px;
     }
 
-    .cat-step {
+    .categories-step {
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -48,71 +53,94 @@
       margin-bottom: 6px;
     }
 
-    .cat-title {
-      font-size: clamp(2rem, 3vw, 2.4rem);
-      font-weight: 800;
+    .categories-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
-    .cat-subtitle {
-      max-width: 620px;
+    .categories-subtitle {
+      max-width: 720px;
       margin: 0 auto;
       font-size: 0.98rem;
       color: var(--nova-text-muted);
       line-height: 1.5;
     }
 
-    .cat-grid {
-      margin-top: 32px;
+    .categories-subnote {
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+    }
+
+    .categories-grid {
       display: grid;
-      gap: 22px;
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 30px;
     }
 
-    @media (min-width: 640px) {
-      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) {
+      .categories-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
-    @media (min-width: 960px) {
-      .cat-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    .cat-card {
+    .category-card {
       background: var(--nova-card-bg);
       border-radius: var(--nova-radius-lg);
       border: 1px solid var(--nova-border);
-      padding: 22px 20px;
+      box-shadow: var(--nova-shadow-soft);
+      padding: 18px 18px 18px;
       cursor: pointer;
       transition: 0.18s ease;
-      box-shadow: var(--nova-shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .cat-card:hover {
+    .category-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 26px 55px rgba(15,118,110,0.16);
+      box-shadow: 0 26px 55px rgba(15,118,110,0.18);
     }
 
-    .cat-card.selected {
-      background: var(--nova-teal-soft);
-      border-color: rgba(20,184,166,0.7);
-      box-shadow: 0 26px 55px rgba(15,118,110,0.22);
+    .category-card.selected {
+      border-color: rgba(20,184,166,0.9);
+      box-shadow: 0 28px 60px rgba(15,118,110,0.28);
     }
 
-    .cat-name {
-      font-size: 1.15rem;
+    .category-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .category-name {
+      font-size: 1.02rem;
       font-weight: 700;
-      color: var(--nova-teal-dark);
-      margin-bottom: 6px;
     }
 
-    .cat-note {
-      font-size: 0.9rem;
+    .category-chip {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,184,166,0.35);
+      color: var(--nova-teal-dark);
+      background: rgba(240,253,250,0.9);
+      font-weight: 600;
+    }
+
+    .category-body {
+      font-size: 0.86rem;
       color: var(--nova-text-muted);
       line-height: 1.45;
     }
 
-    .cat-actions {
-      margin-top: 36px;
+    .categories-actions {
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -121,9 +149,9 @@
     }
 
     @media (min-width: 640px) {
-      .cat-actions {
+      .categories-actions {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-end;
       }
     }
 
@@ -138,20 +166,8 @@
       text-decoration: none;
       cursor: pointer;
       border: none;
+      transition: 0.18s ease;
       gap: 8px;
-      transition: 0.16s ease;
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--nova-text-main);
-      border: 1px solid var(--nova-border);
-    }
-
-    .btn-outline:hover {
-      background: #ffffff;
-      box-shadow: 0 10px 25px rgba(15,23,42,0.08);
-      transform: translateY(-1px);
     }
 
     .btn-primary {
@@ -162,120 +178,219 @@
 
     .btn-primary:hover {
       background: var(--nova-teal-dark);
-      box-shadow: 0 18px 38px rgba(15,118,110,0.5);
+      box-shadow: 0 18px 36px rgba(15,118,110,0.5);
       transform: translateY(-1px);
     }
 
-    .chevron-left,
     .chevron-right {
       font-size: 1.1rem;
       line-height: 0;
+    }
+
+    .categories-helper {
+      margin-top: 10px;
+      font-size: 0.86rem;
+      color: var(--nova-text-muted);
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <main class="cat-page">
-    <header class="cat-header">
-      <div class="cat-step">Step · Categories</div>
-      <h1 class="cat-title">Choose the Category That Fits You</h1>
-      <p class="cat-subtitle">
-        These categories help Nova understand your natural direction —
-        the type of world you're drawn to.
+  <main class="categories-page">
+    <header class="categories-header">
+      <div class="categories-step">Step 1 · Categories</div>
+      <h1 class="categories-title">Where Do You Naturally Gravitate?</h1>
+      <p class="categories-subtitle">
+        Choose the main types of work that feel most “like you.”
+        NOVA will use these categories to highlight traits and roles that match how you’re wired.
+      </p>
+      <p class="categories-subnote">
+        You can pick up to <strong>two</strong> categories. You can always refine this later.
       </p>
     </header>
 
-    <section id="categoriesGrid" class="cat-grid"></section>
+    <section id="categoriesGrid" class="categories-grid" aria-label="Work categories"></section>
 
-    <nav class="cat-actions">
-      <a href="index.html" class="btn btn-outline">
-        <span class="chevron-left">‹</span> Back to Welcome
-      </a>
+    <p class="categories-helper">
+      Think about the kind of problems you like to solve, the people you love to help,
+      and the environments where you feel most alive.
+    </p>
 
-      <button id="continueBtn" class="btn btn-primary" type="button">
-        Continue <span class="chevron-right">›</span>
+    <nav class="categories-actions" aria-label="Category navigation">
+      <button id="continueCategoriesBtn" class="btn btn-primary" type="button">
+        <span>Continue to Key Traits</span>
+        <span class="chevron-right">›</span>
       </button>
     </nav>
   </main>
 
+  <!-- shared helpers -->
+  <script src="nova-profile-helper.js"></script>
+
   <script>
-    const categories = [
+    // Helper to create stable IDs like "cat_business_leadership"
+    function makeIdFromText(text, prefix) {
+      if (!text) return prefix + '_unknown';
+      const slug = text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+      return prefix + '_' + slug;
+    }
+
+    const ALL_CATEGORIES = [
       {
         name: "Business & Leadership",
-        note: "People, operations, strategy, communication, and helping things grow."
+        label: "Lead & Orchestrate",
+        blurb: "You enjoy steering teams, improving operations, and connecting day-to-day work to a bigger mission."
       },
       {
         name: "Technology & Systems",
-        note: "Building tools, platforms, automations, and smarter systems."
+        label: "Design the Engine",
+        blurb: "You love building and improving the systems, tools, and automations that make work run smoothly."
       },
       {
         name: "Creative & Design",
-        note: "Art, visuals, design, imagination, expression, and shaping experiences."
+        label: "Shape the Experience",
+        blurb: "You enjoy crafting visuals, stories, and experiences that move people and bring ideas to life."
       },
       {
         name: "People & Community",
-        note: "Serving, coaching, developing, and supporting others."
+        label: "Develop People",
+        blurb: "You’re energized by coaching, supporting, and encouraging people as they grow and make decisions."
       },
       {
         name: "Analysis & Research",
-        note: "Digging deep, problem solving, uncovering patterns."
+        label: "Find the Signal",
+        blurb: "You like digging into data, patterns, and evidence to surface what’s really true and guide decisions."
       },
       {
         name: "Hands-On & Field Work",
-        note: "Practical, real-world work that solves immediate problems."
+        label: "Be on the Ground",
+        blurb: "You prefer being close to the action—solving problems, fixing issues, and keeping things moving in real spaces."
       }
     ];
 
     document.addEventListener("DOMContentLoaded", () => {
-      const grid = document.getElementById("categoriesGrid");
-      const continueBtn = document.getElementById("continueBtn");
-      let selectedCategory = localStorage.getItem("novaSelectedCategory") || null;
+      const profile = typeof loadNovaProfile === "function"
+        ? loadNovaProfile()
+        : {
+            categoryIds: [],
+            traitIds: [],
+            roleId: null,
+            categories: [],
+            traits: [],
+            role: {},
+            purpose: { whyYou: "", whyThisRole: "", whyNow: "" }
+          };
+
+      const categoriesGrid = document.getElementById("categoriesGrid");
+      const continueBtn = document.getElementById("continueCategoriesBtn");
+
+      // Build initial selected set from profile or legacy localStorage
+      let selectedNames = new Set(
+        (profile.categories || []).map(c => c.name)
+      );
+
+      if (selectedNames.size === 0) {
+        const legacy = localStorage.getItem("novaSelectedCategory");
+        if (legacy) selectedNames.add(legacy);
+      }
 
       function renderCategories() {
-        categories.forEach(cat => {
-          const card = document.createElement("div");
-          card.className = "cat-card";
+        categoriesGrid.innerHTML = "";
 
-          const title = document.createElement("div");
-          title.className = "cat-name";
-          title.textContent = cat.name;
-
-          const note = document.createElement("div");
-          note.className = "cat-note";
-          note.textContent = cat.note;
-
-          card.appendChild(title);
-          card.appendChild(note);
-
-          card.addEventListener("click", () => {
-            selectedCategory = cat.name;
-            localStorage.setItem("novaSelectedCategory", selectedCategory);
-
-            document
-              .querySelectorAll(".cat-card")
-              .forEach(el => el.classList.remove("selected"));
-
-            card.classList.add("selected");
-          });
-
-          if (selectedCategory === cat.name) {
+        ALL_CATEGORIES.forEach(cat => {
+          const card = document.createElement("article");
+          card.className = "category-card";
+          if (selectedNames.has(cat.name)) {
             card.classList.add("selected");
           }
 
-          grid.appendChild(card);
+          const nameRow = document.createElement("div");
+          nameRow.className = "category-name-row";
+
+          const nameEl = document.createElement("h2");
+          nameEl.className = "category-name";
+          nameEl.textContent = cat.name;
+
+          const chip = document.createElement("span");
+          chip.className = "category-chip";
+          chip.textContent = cat.label;
+
+          nameRow.appendChild(nameEl);
+          nameRow.appendChild(chip);
+
+          const bodyEl = document.createElement("p");
+          bodyEl.className = "category-body";
+          bodyEl.textContent = cat.blurb;
+
+          card.appendChild(nameRow);
+          card.appendChild(bodyEl);
+
+          card.addEventListener("click", () => {
+            const isSelected = selectedNames.has(cat.name);
+
+            if (isSelected) {
+              selectedNames.delete(cat.name);
+              card.classList.remove("selected");
+            } else {
+              if (selectedNames.size >= 2) {
+                alert("You can pick up to two categories. Deselect one to choose a different category.");
+                return;
+              }
+              selectedNames.add(cat.name);
+              card.classList.add("selected");
+            }
+          });
+
+          categoriesGrid.appendChild(card);
         });
       }
 
-      function goToSubcategories() {
-        if (!selectedCategory) {
-          alert("Please choose a category first.");
-          return;
-        }
-        window.location.href = "subcategories.html";
-      }
-
       renderCategories();
-      continueBtn.addEventListener("click", goToSubcategories);
+
+      continueBtn.addEventListener("click", () => {
+        if (selectedNames.size === 0) {
+          const proceed = confirm(
+            "You haven’t selected a category yet. Do you still want to continue?"
+          );
+          if (!proceed) return;
+        }
+
+        const updated = loadNovaProfile();
+
+        const selectedList = ALL_CATEGORIES.filter(cat =>
+          selectedNames.has(cat.name)
+        );
+
+        const categoryIds = selectedList.map(cat =>
+          makeIdFromText(cat.name, "cat")
+        );
+
+        updated.categoryIds = categoryIds;
+        updated.categories = selectedList.map((cat, index) => ({
+          id: categoryIds[index],
+          name: cat.name
+        }));
+
+        // Also keep a primary category in legacy storage for roles.html
+        if (selectedList.length > 0) {
+          localStorage.setItem("novaSelectedCategory", selectedList[0].name);
+        }
+
+        // When categories change, clear traits and role to keep story consistent
+        updated.traitIds = [];
+        updated.traits = [];
+        updated.roleId = null;
+        updated.role = updated.role || {};
+        updated.role = {};
+        // Purpose can stay; we may regenerate later based on new role
+
+        saveNovaProfile(updated);
+        window.location.href = "traits.html";
+      });
     });
   </script>
 </body>
