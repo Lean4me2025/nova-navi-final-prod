@@ -2,205 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA – Discover Your Purpose</title>
-
-  <!-- Payhip script (must load once in head) -->
-  <script type="text/javascript" src="https://payhip.com/payhip.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Discover the purpose roles that fit your interests, strengths, and everyday patterns with NOVA." />
+  <meta name="theme-color" content="#0f766e" />
+  <title>NOVA · Discover Your Purpose Roles</title>
   <style>
-    :root {
-      --nova-bg: #f9fafb;
-      --nova-card-bg: #ffffff;
-      --nova-teal: #14b8a6;
-      --nova-teal-soft: #99f6e4;
-      --nova-teal-dark: #0f766e;
-      --nova-text-main: #111827;
-      --nova-text-muted: #6b7280;
-      --nova-border: #e5e7eb;
-      --nova-radius-lg: 22px;
-      --nova-radius-pill: 999px;
-      --nova-shadow-soft: 0 22px 60px rgba(15, 118, 110, 0.12);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      background: radial-gradient(circle at top left, #ecfeff 0%, #f9fafb 45%, #f9fafb 100%);
-      color: var(--nova-text-main);
-      display: flex;
-      justify-content: center;
-    }
-
-    .page-wrap {
-      width: 100%;
-      max-width: 1120px;
-      margin: 32px auto 40px;
-      padding: 0 16px 40px;
-    }
-
-    @media (min-width: 768px) {
-      .page-wrap {
-        margin-top: 48px;
-        padding-bottom: 60px;
-      }
-    }
-
-    /* Header */
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 26px;
-    }
-    .top-bar h1 {
-      font-size: 26px;
-      color: var(--nova-teal-dark);
-      margin: 0;
-    }
-
-    /* Welcome Card */
-    .welcome-card {
-      background: var(--nova-card-bg);
-      padding: 28px;
-      border-radius: var(--nova-radius-lg);
-      box-shadow: var(--nova-shadow-soft);
-      margin-bottom: 24px;
-    }
-
-    .welcome-title {
-      font-size: 30px;
-      font-weight: 700;
-      color: var(--nova-teal-dark);
-      margin-bottom: 16px;
-    }
-
-    .welcome-text {
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 16px;
-      color: var(--nova-text-main);
-    }
-
-    .stats-box {
-      background: #ecfdf5;
-      border-left: 4px solid var(--nova-teal);
-      padding: 14px 18px;
-      border-radius: 10px;
-      color: var(--nova-teal-dark);
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: var(--nova-radius-pill);
-      background: var(--nova-teal);
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 18px;
-    }
-
-    .btn-primary:hover {
-      background: var(--nova-teal-dark);
-    }
-
-    /* Purpose Book Section */
-    .book-section {
-      margin-top: 36px;
-      background: #f9fbff;
-      border: 1px solid var(--nova-border);
-      padding: 18px 22px;
-      border-radius: 16px;
-    }
-
-    .book-section h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 22px;
-      color: var(--nova-teal-dark);
-    }
-
-    .book-section p {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 16px;
-      color: var(--nova-text-main);
-    }
-
-    .payhip-buy-button {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: var(--nova-radius-pill);
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      text-align: center;
-      width: auto;
-    }
-
+    :root { --ink:#183145; --muted:#586e7a; --teal:#0f766e; --teal2:#14b8a6; --mint:#e5f6f1; --gold:#f3b83f; --line:#dce9e5; --paper:#f7faf9; --white:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--paper); }
+    a { color:inherit; }
+    .wrap { width:min(1120px,100% - 36px); margin:auto; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
+    .brand { color:var(--teal); font-weight:900; font-size:1.55rem; letter-spacing:.08em; }
+    .header-note { color:var(--muted); font-size:.92rem; }
+    .hero { position:relative; overflow:hidden; padding:clamp(28px,6vw,66px); border-radius:30px; color:#fff; background:radial-gradient(circle at 90% 0,rgba(94,234,212,.45),transparent 32%),linear-gradient(135deg,#123f51,#0f766e 68%,#149c91); box-shadow:0 24px 55px rgba(10,73,72,.2); }
+    .hero:after { content:""; position:absolute; width:280px; height:280px; right:-80px; bottom:-170px; border:1px solid rgba(255,255,255,.25); border-radius:50%; box-shadow:0 0 0 24px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.035); }
+    .eyebrow { color:#bff8ec; font-size:.84rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { max-width:790px; margin:12px 0 16px; font-size:clamp(2.5rem,6vw,4.35rem); line-height:1.02; letter-spacing:-.055em; }
+    .hero p { position:relative; z-index:1; max-width:720px; margin:0; color:#e7fffa; font-size:clamp(1.05rem,2vw,1.24rem); line-height:1.65; }
+    .hero-cta { display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:26px; position:relative; z-index:1; }
+    .cta { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 22px; border-radius:999px; color:#153946; background:#fff; font-weight:850; text-decoration:none; box-shadow:0 8px 20px rgba(0,0,0,.14); }
+    .cta:hover { transform:translateY(-1px); }
+    .price-line { color:#e7fffa; font-size:.95rem; }
+    .price-line strong { color:#fff; font-size:1.08rem; }
+    section { padding:58px 0; }
+    .section-head { max-width:740px; margin-bottom:26px; }
+    .kicker { color:var(--teal); text-transform:uppercase; font-size:.78rem; font-weight:850; letter-spacing:.12em; }
+    h2 { margin:8px 0 11px; font-size:clamp(1.75rem,4vw,2.6rem); letter-spacing:-.035em; }
+    .section-head p { margin:0; color:var(--muted); font-size:1.06rem; line-height:1.65; }
+    .path { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:stretch; }
+    .step-card { position:relative; min-height:190px; padding:20px; border:1px solid var(--line); border-radius:20px; background:#fff; box-shadow:0 10px 28px rgba(25,71,66,.055); }
+    .step-card:not(:last-child):after { content:"+"; position:absolute; top:47%; right:-14px; z-index:2; display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#d4f1e9; color:var(--teal); font-weight:900; }
+    .step-no { display:grid; place-items:center; width:34px; height:34px; margin-bottom:13px; border-radius:50%; color:var(--teal); background:var(--mint); font-weight:900; }
+    .step-card h3 { margin:0 0 7px; font-size:1.03rem; }
+    .step-card p { margin:0; color:var(--muted); font-size:.93rem; line-height:1.5; }
+    .result { margin-top:18px; display:flex; gap:18px; align-items:center; padding:20px 24px; border-radius:20px; color:#fff; background:#173e52; }
+    .result .arrow { font-size:1.7rem; color:#8de4d5; font-weight:900; }
+    .result strong { display:block; font-size:1.14rem; margin-bottom:4px; }
+    .result p { margin:0; color:#d9f0ed; line-height:1.55; }
+    .data-note { margin-top:15px; color:var(--muted); font-size:.86rem; line-height:1.55; }
+    .stories { background:#edf6f3; }
+    .story-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .story { padding:22px; background:#fff; border:1px solid var(--line); border-radius:20px; }
+    .story-mark { color:#d89c1b; font-size:1.3rem; letter-spacing:.1em; }
+    .story h3 { margin:10px 0 8px; font-size:1.1rem; }
+    .story p { margin:0; color:var(--muted); line-height:1.6; }
+    .story small { display:block; margin-top:14px; color:#647984; font-weight:700; }
+    .offer { padding:32px; border-radius:24px; background:#fff; border:1px solid var(--line); box-shadow:0 16px 38px rgba(25,71,66,.08); display:flex; justify-content:space-between; align-items:center; gap:24px; }
+    .offer h2 { margin-top:0; }
+    .offer p { max-width:700px; margin:0; color:var(--muted); line-height:1.6; }
+    .offer-price { min-width:220px; text-align:center; }
+    .offer-price strong { display:block; color:var(--teal); font-size:2.4rem; line-height:1; }
+    .offer-price span { display:block; margin:8px 0 14px; color:var(--muted); }
+    .offer-price .cta { color:#fff; background:var(--teal); white-space:nowrap; }
+    .foot { padding:24px 0 38px; color:var(--muted); font-size:.85rem; line-height:1.6; border-top:1px solid var(--line); }
+    @media(max-width:850px) { .path { grid-template-columns:repeat(2,1fr); } .step-card:nth-child(2):after { display:none; } .story-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .wrap { width:min(100% - 24px,1120px); } header { padding:18px 0; } .header-note { max-width:180px; text-align:right; } .path { grid-template-columns:1fr; } .step-card { min-height:auto; } .step-card:after { display:none !important; } .result { align-items:flex-start; } .offer { align-items:stretch; flex-direction:column; padding:24px; } .offer-price { text-align:left; } .offer-price .cta { width:100%; } }
   </style>
 </head>
-
 <body>
-  <div class="page-wrap">
+  <div class="wrap">
+    <header><div class="brand" aria-label="NOVA">NOVA</div><div class="header-note">Your strengths have a story. Let’s read the clues.</div></header>
 
-    <!-- HEADER -->
-    <div class="top-bar">
-      <h1>NOVA</h1>
-    </div>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow">Purpose has clues in everyday life</div>
+        <h1 id="hero-title">We found our purpose. Let NOVA help you find yours.</h1>
+        <p>What you enjoy. What comes naturally. What people count on you for. NOVA brings those clues together and compares them with real occupations, so you can see purpose roles that may fit the way you are made to contribute.</p>
+        <div class="hero-cta"><a class="cta" href="signals.html">Preview My Purpose Clues <span aria-hidden="true">→</span></a><div class="price-line"><strong>$9.99 one time</strong><br />for full access to your NOVA purpose discovery</div></div>
+      </section>
 
-    <!-- WELCOME CARD -->
-    <div class="welcome-card">
-      <div class="welcome-title">Discover Your Purpose</div>
+      <section aria-labelledby="steps-title">
+        <div class="section-head"><div class="kicker">A clear process you can see</div><h2 id="steps-title">Here’s how NOVA puts your clues together.</h2><p>You don’t have to know the perfect answer. Start with the things you say in everyday life. Skip any question that doesn’t fit.</p></div>
+        <div class="path" role="list" aria-label="The information NOVA considers">
+          <article class="step-card" role="listitem"><div class="step-no">1</div><h3>What you enjoy</h3><p>“I enjoy cooking.” “I love reading.” “I could spend all day creating.”</p></article>
+          <article class="step-card" role="listitem"><div class="step-no">2</div><h3>What comes naturally</h3><p>Subjects and activities that felt comfortable, interesting, or easier for you.</p></article>
+          <article class="step-card" role="listitem"><div class="step-no">3</div><h3>What others rely on you for</h3><p>“People come to me to fix things, solve problems, give advice, or figure out what to do.”</p></article>
+          <article class="step-card" role="listitem"><div class="step-no">4</div><h3>Your traits and patterns</h3><p>The strengths and ways of working you recognize in yourself across those experiences.</p></article>
+        </div>
+        <div class="result"><div class="arrow" aria-hidden="true">↓</div><div><strong>Then NOVA compares those clues with occupational information.</strong><p>The Occupational Outlook Handbook describes hundreds of occupations, including their work, preparation, pay, and outlook. NOVA uses those profiles to help surface purpose roles and show why they may fit your answers.</p></div></div>
+        <p class="data-note">NOVA’s results are recommendations to help you explore. They are based on the answers you choose and the occupation information available; they don’t decide your life for you.</p>
+      </section>
 
-      <div class="stats-box">
-        89% of people do not know their purpose. You will not be one of them.
-      </div>
+      <section class="stories" aria-labelledby="stories-title">
+        <div class="section-head"><div class="kicker">Early NOVA experiences</div><h2 id="stories-title">Real people. Purpose clues they could recognize.</h2><p>These early examples show how NOVA can help someone confirm a direction, see a new possibility, or get curious about what comes next.</p></div>
+        <div class="story-grid">
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A purpose confirmed</h3><p>One participant was already living in a role that fit her purpose. NOVA helped her recognize and validate that direction.</p><small>Early participant · shared anonymously</small></article>
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A new direction came into view</h3><p>Another participant saw a purpose direction she had not clearly identified before taking the discovery.</p><small>Early participant · shared anonymously</small></article>
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>“I’m more of a creator.”</h3><p>A woman who described herself as a creator was a hairdresser—a practical example of how creative strengths can show up in someone’s work.</p><small>Early participant · shared anonymously</small></article>
+        </div>
+      </section>
 
-      <p class="welcome-text">
-        NOVA is designed to help you understand who you are, how you are wired, and what roles best align with your design.  
-        In just a few minutes, you will walk through categories, traits, and purpose-signals that reveal your path.
-      </p>
-
-      <p class="welcome-text">
-        When you finish, you will be guided to NAVI — where your NOVA results turn into a strong resume, powerful positioning, and 
-        opportunities that match your calling.
-      </p>
-
-      <a href="categories.html" class="btn-primary">Start My Journey</a>
-    </div>
-
-    <!-- PURPOSE BOOK SECTION (Payhip button here) -->
-    <div class="book-section">
-      <h2>Go Deeper: How to Know Your Purpose</h2>
-      <p>
-        If you’d like a deeper, faith-centered walk through discovering, protecting, and walking out your purpose,
-        you can unlock the <strong>“How to Know Your Purpose”</strong> resource.  
-        This is a powerful companion for your NOVA journey.
-      </p>
-
-      <!-- Payhip button for Purpose Book (product N7Lvg) -->
-      <a
-        href="https://payhip.com/b/N7Lvg"
-        class="payhip-buy-button"
-        data-theme="green"
-        data-product="N7Lvg"
-      >
-        Get the Purpose Book
-      </a>
-    </div>
-
+      <section aria-labelledby="offer-title">
+        <div class="offer"><div><div class="kicker">A one-time purchase</div><h2 id="offer-title">Find out what your purpose roles may be.</h2><p>For $9.99, get full access to NOVA’s purpose discovery and deeper explanation of your results. Preview the process here. At launch, the one-time $9.99 purchase will unlock the complete NOVA experience.</p></div><div class="offer-price"><strong>$9.99</strong><span>one-time access to NOVA</span><a class="cta" href="signals.html">Preview My Purpose Clues →</a></div></div>
+      </section>
+    </main>
+    <footer class="foot">Occupation information is drawn from the U.S. Bureau of Labor Statistics’ Occupational Outlook Handbook. Wage figures and projections are presented with their published reference years in the detailed results. Early participant examples are qualitative feedback, not a claim that every person will receive the same result.</footer>
   </div>
 </body>
 </html>

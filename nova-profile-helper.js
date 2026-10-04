@@ -10,6 +10,8 @@ function loadNovaProfile() {
       categories: [],
       traits: [],
       role: {},
+      signals: {},
+      matchEvidence: [],
       purpose: { whyYou: '', whyThisRole: '', whyNow: '' }
     };
   }
@@ -22,6 +24,8 @@ function loadNovaProfile() {
       categories: parsed.categories || [],
       traits: parsed.traits || [],
       role: parsed.role || {},
+      signals: parsed.signals || {},
+      matchEvidence: parsed.matchEvidence || [],
       purpose: parsed.purpose || { whyYou: '', whyThisRole: '', whyNow: '' }
     };
   } catch (e) {
@@ -33,6 +37,8 @@ function loadNovaProfile() {
       categories: [],
       traits: [],
       role: {},
+      signals: {},
+      matchEvidence: [],
       purpose: { whyYou: '', whyThisRole: '', whyNow: '' }
     };
   }
@@ -46,6 +52,8 @@ function saveNovaProfile(profile) {
     categories: profile.categories || [],
     traits: profile.traits || [],
     role: profile.role || {},
+    signals: profile.signals || {},
+    matchEvidence: profile.matchEvidence || [],
     purpose: profile.purpose || { whyYou: '', whyThisRole: '', whyNow: '' }
   };
   localStorage.setItem('novaProfile', JSON.stringify(clean));
