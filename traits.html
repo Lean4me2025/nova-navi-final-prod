@@ -221,14 +221,13 @@
 <body>
   <main class="traits-page">
     <header class="traits-header">
-      <div class="traits-step">Step 1 · Key Traits</div>
-      <h1 class="traits-title">Which Traits Sound Most Like You?</h1>
+      <div class="traits-step">Step 3 of 4 · Strengths</div>
+      <h1 class="traits-title">Which strengths sound like you?</h1>
       <p class="traits-subtitle">
-        Tap the traits that sound most like how you already show up.
-        NOVA will use these to highlight roles that fit the way you’re wired.
+        Choose up to six qualities that feel true in everyday life. These are clues, alongside your answers and work areas.
       </p>
       <div class="traits-category-pill">
-        <span>Based on your category:</span>
+        <span>Your work areas:</span>
         <span id="traitsCategoryLabel">Loading…</span>
       </div>
     </header>
@@ -246,7 +245,7 @@
       </a>
 
       <button id="continueTraitsBtn" class="btn btn-primary" type="button">
-        <span>Continue to Roles</span>
+        <span>See Purpose Roles</span>
         <span class="chevron-right">›</span>
       </button>
     </nav>
@@ -472,22 +471,15 @@
             purpose: { whyYou: "", whyThisRole: "", whyNow: "" }
           };
 
-      let categoryName = "Business & Leadership";
-      if (profile.categories && profile.categories.length && profile.categories[0].name) {
-        categoryName = profile.categories[0].name;
-      } else {
-        const legacyCat = localStorage.getItem("novaSelectedCategory");
-        if (legacyCat) categoryName = legacyCat;
-      }
-
-      const traitsForCategory =
-        TRAITS_BY_CATEGORY[categoryName] || TRAITS_BY_CATEGORY["Business & Leadership"];
+      const selectedCategories = (profile.categories || []).map(c => c.name).filter(Boolean);
+      const categoryNames = selectedCategories.length ? selectedCategories : [localStorage.getItem("novaSelectedCategory") || "Business & Leadership"];
+      const traitsForCategory = [...new Map(categoryNames.flatMap(name => TRAITS_BY_CATEGORY[name] || []).map(t => [t.name, t])).values()];
 
       const traitsCategoryLabel = document.getElementById("traitsCategoryLabel");
       const traitsGrid = document.getElementById("traitsGrid");
       const continueBtn = document.getElementById("continueTraitsBtn");
 
-      traitsCategoryLabel.textContent = categoryName;
+      traitsCategoryLabel.textContent = categoryNames.join(" + ");
 
       // initial selected set from profile
       const selectedNames = new Set(profile.traits || []);
