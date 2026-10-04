@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Your Everyday Clues · NOVA</title>
+  <style>
+    :root { color-scheme: light; --ink:#172b3a; --muted:#60717d; --teal:#0f766e; --mint:#e8f7f3; --line:#d9e7e4; --paper:#f5faf9; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:linear-gradient(160deg,#e8f7f3 0,#f7fafb 45%,#f7fafb 100%); }
+    main { width:min(900px,100% - 32px); margin:34px auto 56px; }
+    .step { color:var(--teal); font-size:.84rem; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+    h1 { margin:8px 0 10px; font-size:clamp(2rem,5vw,3rem); letter-spacing:-.04em; }
+    .intro { max-width:680px; color:var(--muted); font-size:1.08rem; line-height:1.6; }
+    .note { margin:20px 0; padding:15px 17px; border:1px solid #b9ded5; border-radius:14px; background:#fff; color:#28564f; line-height:1.5; }
+    .prompts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .prompt { padding:18px; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 10px 26px rgba(25,71,66,.06); }
+    .prompt label { display:block; font-weight:750; margin-bottom:6px; }
+    .prompt p { margin:0 0 11px; font-size:.9rem; color:var(--muted); line-height:1.45; }
+    textarea { display:block; width:100%; min-height:90px; resize:vertical; border:1px solid #c8d7d4; border-radius:11px; padding:11px 12px; color:var(--ink); font:inherit; line-height:1.45; }
+    textarea:focus { outline:3px solid #bce9df; border-color:var(--teal); }
+    .actions { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-top:20px; }
+    .button { border:0; border-radius:999px; padding:13px 20px; font:inherit; font-weight:750; text-decoration:none; cursor:pointer; }
+    .primary { color:#fff; background:var(--teal); }
+    .secondary { color:var(--teal); background:#e2f2ee; }
+    .actions p { color:var(--muted); font-size:.9rem; margin:0; }
+    @media(max-width:650px) { main { margin-top:22px; } .prompts { grid-template-columns:1fr; } .actions { align-items:stretch; flex-direction:column-reverse; } .button { text-align:center; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="step">Step 1 of 4 · Everyday clues</div>
+    <h1>Start with what you already know about yourself.</h1>
+    <p class="intro">These are ordinary things you may have said for years. They can reveal what you enjoy, what comes naturally, and what other people recognize in you.</p>
+    <div class="note"><strong>Answer only what feels true.</strong> You can leave any prompt blank. There are no right answers, and NOVA uses your answers on this device to shape your results.</div>
+    <form id="signalsForm">
+      <div class="prompts">
+        <div class="prompt"><label for="enjoys">“I enjoy…”</label><p>For example: helping people, cooking, reading, creating, fixing things.</p><textarea id="enjoys" maxlength="500" placeholder="I enjoy…"></textarea></div>
+        <div class="prompt"><label for="peopleAsk">“People often come to me to…”</label><p>For example: fix something, figure out a problem, cook, give practical advice, or plan what to do.</p><textarea id="peopleAsk" maxlength="500" placeholder="People often come to me to…"></textarea></div>
+        <div class="prompt"><label for="goodAt">“I was always good at…”</label><p>Think of school subjects, skills, or things that seemed easier for you.</p><textarea id="goodAt" maxlength="500" placeholder="I was always good at…"></textarea></div>
+        <div class="prompt"><label for="freeTime">“If I could spend my time doing anything, I would…”</label><p>What would you choose when nobody else is deciding for you?</p><textarea id="freeTime" maxlength="500" placeholder="If I could spend my time doing anything, I would…"></textarea></div>
+        <div class="prompt"><label for="comfortable">“I feel most comfortable when I’m…”</label><p>Describe the kind of activity or situation that feels natural to you.</p><textarea id="comfortable" maxlength="500" placeholder="I feel most comfortable when I’m…"></textarea></div>
+        <div class="prompt"><label for="likedClasses">“At school, I liked…”</label><p>Classes or subjects you enjoyed, such as art, English, mathematics, chemistry, or something else.</p><textarea id="likedClasses" maxlength="500" placeholder="At school, I liked…"></textarea></div>
+        <div class="prompt"><label for="dislikedClasses">“At school, I didn’t enjoy…”</label><p>This is optional too. A dislike can help add context; it does not rule out a whole field.</p><textarea id="dislikedClasses" maxlength="500" placeholder="At school, I didn’t enjoy…"></textarea></div>
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="index.html">Back</a>
+        <p>You can skip every prompt and continue.</p>
+        <button class="button primary" type="submit">Continue to Work Areas&nbsp; →</button>
+      </div>
+    </form>
+  </main>
+  <script src="nova-profile-helper.js"></script>
+  <script>
+    const fields = ["enjoys", "peopleAsk", "goodAt", "freeTime", "comfortable", "likedClasses", "dislikedClasses"];
+    const profile = loadNovaProfile();
+    fields.forEach(key => { document.getElementById(key).value = profile.signals?.[key] || ""; });
+    document.getElementById("signalsForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const updated = loadNovaProfile();
+      updated.signals = Object.fromEntries(fields.map(key => [key, document.getElementById(key).value.trim()]));
+      saveNovaProfile(updated);
+      window.location.href = "categories.html";
+    });
+  </script>
+</body>
+</html>
