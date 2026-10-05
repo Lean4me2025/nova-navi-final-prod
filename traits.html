@@ -221,18 +221,19 @@
 <body>
   <main class="traits-page">
     <header class="traits-header">
-      <div class="traits-step">Step 1 · Key Traits</div>
-      <h1 class="traits-title">Which Traits Sound Most Like You?</h1>
+      <div class="traits-step">Step 3 of 4 · Strengths</div>
+      <h1 class="traits-title">Which strengths sound like you?</h1>
       <p class="traits-subtitle">
-        Tap the traits that sound most like how you already show up.
-        NOVA will use these to highlight roles that fit the way you’re wired.
+        Choose up to six qualities that feel true in everyday life. These are clues, alongside your answers and work areas.
       </p>
       <div class="traits-category-pill">
-        <span>Based on your category:</span>
+        <span>Your work areas:</span>
         <span id="traitsCategoryLabel">Loading…</span>
       </div>
     </header>
 
+    <p id="foodStrengthsNote" class="traits-helper" hidden>Because you mentioned food or cooking, you can also choose food and kitchen strengths below.</p>
+    <p id="traitsSelectionMessage" class="traits-helper" role="status" aria-live="polite"></p>
     <section id="traitsGrid" class="traits-grid" aria-label="Key traits"></section>
 
     <p class="traits-helper">
@@ -246,7 +247,7 @@
       </a>
 
       <button id="continueTraitsBtn" class="btn btn-primary" type="button">
-        <span>Continue to Roles</span>
+        <span>See Purpose Roles</span>
         <span class="chevron-right">›</span>
       </button>
     </nav>
@@ -394,6 +395,26 @@
 
       "Hands-On & Field Work": [
         {
+          name: "Mechanical Troubleshooter",
+          tag: "Find what is wrong",
+          blurb: "You enjoy understanding how machines work and tracking down the cause of a problem."
+        },
+        {
+          name: "Skilled Hand",
+          tag: "Work with care",
+          blurb: "You use tools carefully and coordinate your hands and eyes to assemble, adjust, or repair things."
+        },
+        {
+          name: "Equipment Caretaker",
+          tag: "Keep it working",
+          blurb: "You like inspecting, maintaining, and repairing vehicles or equipment so they work safely."
+        },
+        {
+          name: "Steady Responder",
+          tag: "Stay calm in the moment",
+          blurb: "You keep your head and choose practical next steps when something unexpected happens."
+        },
+        {
           name: "On-Site Problem Solver",
           tag: "Fix it live",
           blurb: "You like solving problems right where the work is happening."
@@ -459,6 +480,58 @@
       ]
     };
 
+    const FOOD_AND_KITCHEN_TRAITS = [
+  {
+    "name": "Creating recipes and flavors",
+    "tag": "Try new combinations",
+    "blurb": "You enjoy experimenting with ingredients, recipes, taste, and smell."
+  },
+  {
+    "name": "Preparing food carefully",
+    "tag": "Pay attention to details",
+    "blurb": "You follow recipes and measurements carefully and check the quality of ingredients."
+  },
+  {
+    "name": "Presenting food attractively",
+    "tag": "Make meals appealing",
+    "blurb": "You enjoy arranging and garnishing food so it looks inviting."
+  },
+  {
+    "name": "Timing kitchen tasks",
+    "tag": "Keep meals on schedule",
+    "blurb": "You coordinate several preparation steps so food is ready at the right time."
+  },
+  {
+    "name": "Leading a kitchen team",
+    "tag": "Guide people clearly",
+    "blurb": "You explain tasks, coordinate kitchen staff, and help a team work together."
+  },
+  {
+    "name": "Using kitchen tools skillfully",
+    "tag": "Work with your hands",
+    "blurb": "You use knives, utensils, and cooking equipment with care and coordination."
+  },
+  {
+    "name": "Working through busy shifts",
+    "tag": "Keep going during service",
+    "blurb": "You stay focused and active while preparing meals during busy periods."
+  },
+  {
+    "name": "Managing food costs and supplies",
+    "tag": "Plan the resources",
+    "blurb": "You enjoy budgeting for ingredients, managing supplies, and planning menus."
+  },
+  {
+    "name": "Keeping food safe",
+    "tag": "Protect food quality",
+    "blurb": "You pay attention to cleanliness, safe storage, and careful food handling."
+  }
+];
+    function hasFoodClues(profile) {
+      const positiveClues = Object.entries(profile.signals || {}).filter(([key]) => key !== 'dislikedClasses').map(([,value]) => value).join(' ');
+      return /\b(?:cook(?:s|ing)?|chefs?|bak(?:e|es|er|ers|ing)|kitchen|recipes?|food|meals?|menus?|cater(?:ing)?|flavou?rs?)\b/i.test(positiveClues);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const profile = typeof loadNovaProfile === "function"
         ? loadNovaProfile()
@@ -472,22 +545,20 @@
             purpose: { whyYou: "", whyThisRole: "", whyNow: "" }
           };
 
-      let categoryName = "Business & Leadership";
-      if (profile.categories && profile.categories.length && profile.categories[0].name) {
-        categoryName = profile.categories[0].name;
-      } else {
-        const legacyCat = localStorage.getItem("novaSelectedCategory");
-        if (legacyCat) categoryName = legacyCat;
-      }
-
-      const traitsForCategory =
-        TRAITS_BY_CATEGORY[categoryName] || TRAITS_BY_CATEGORY["Business & Leadership"];
+      const selectedCategories = (profile.categories || []).map(c => c.name).filter(Boolean);
+      const categoryNames = selectedCategories.length ? selectedCategories : [localStorage.getItem("novaSelectedCategory") || "Business & Leadership"];
+      const foodClues = hasFoodClues(profile);
+      const traitsForCategory = [...new Map([
+        ...(foodClues ? FOOD_AND_KITCHEN_TRAITS : []),
+        ...categoryNames.flatMap(name => TRAITS_BY_CATEGORY[name] || [])
+      ].map(t => [t.name, t])).values()];
 
       const traitsCategoryLabel = document.getElementById("traitsCategoryLabel");
       const traitsGrid = document.getElementById("traitsGrid");
       const continueBtn = document.getElementById("continueTraitsBtn");
 
-      traitsCategoryLabel.textContent = categoryName;
+      traitsCategoryLabel.textContent = categoryNames.join(" + ");
+      document.getElementById("foodStrengthsNote").hidden = !foodClues;
 
       // initial selected set from profile
       const selectedNames = new Set(profile.traits || []);
@@ -525,6 +596,7 @@
           card.appendChild(bodyEl);
 
           card.addEventListener("click", () => {
+            document.getElementById("traitsSelectionMessage").textContent = "";
             const isSelected = selectedNames.has(trait.name);
 
             if (isSelected) {
@@ -532,7 +604,7 @@
               card.classList.remove("selected");
             } else {
               if (selectedNames.size >= 6) {
-                alert("You can pick up to six traits. Deselect one to choose a different trait.");
+                document.getElementById("traitsSelectionMessage").textContent = "Choose up to six strengths. Click a selected strength to remove it before choosing another.";
                 return;
               }
               selectedNames.add(trait.name);
