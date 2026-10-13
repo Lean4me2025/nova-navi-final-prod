@@ -14,7 +14,7 @@
     .wrap { width:min(1120px,100% - 36px); margin:auto; }
     header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
     .brand { color:var(--teal); font-weight:900; font-size:1.55rem; letter-spacing:.08em; }
-    .header-note { color:var(--muted); font-size:.92rem; }
+    .account-link { color:var(--teal);font-weight:800;text-decoration:underline;text-underline-offset:3px; }\n    .header-note { color:var(--muted); font-size:.92rem; }
     .hero { position:relative; overflow:hidden; padding:clamp(28px,6vw,66px); border-radius:30px; color:#fff; background:radial-gradient(circle at 90% 0,rgba(94,234,212,.45),transparent 32%),linear-gradient(135deg,#123f51,#0f766e 68%,#149c91); box-shadow:0 24px 55px rgba(10,73,72,.2); }
     .hero:after { content:""; position:absolute; width:280px; height:280px; right:-80px; bottom:-170px; border:1px solid rgba(255,255,255,.25); border-radius:50%; box-shadow:0 0 0 24px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.035); }
     .eyebrow { color:#bff8ec; font-size:.84rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
@@ -95,7 +95,7 @@
 </head>
 <body>
   <div class="wrap">
-    <header><div class="brand" aria-label="NOVA">NOVA</div><div class="header-note">Your strengths have a story. Let’s read the clues.</div></header>
+    <header><div class="brand" aria-label="NOVA">NOVA</div><a class="account-link" href="login.html">Sign In to My NOVA Journey →</a></header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
@@ -184,7 +184,7 @@
             <li>Occupational education, typical pay, and outlook information where available</li>
             <li>Your individual Purpose Reveal: “Why You,” “Why This Role,” and “Why Now”</li>
             <li>The ability to return to your purchased results once customer sign-in is ready</li>
-          </ul></div><div class="offer-price"><strong>$9.99</strong><span>one-time price · no subscription</span><a class="cta" href="signals.html">Try Everyday Clues →</a><div class="checkout-note">Secure checkout is being finalized. No payment is collected from NOVA yet.</div></div></div>
+          </ul></div><div class="offer-price"><strong>$9.99</strong><span>one-time price · no subscription</span><a class="cta" href="signals.html">Try Everyday Clues →</a><p style="margin:12px 0 0"><a class="account-link" href="login.html">Already have an account? Sign in →</a></p><div class="checkout-note">Secure checkout is being finalized. No payment is collected from NOVA yet.</div></div></div>
       </section>
     </main>
     <footer class="foot">Occupation information is drawn from the U.S. Bureau of Labor Statistics’ Occupational Outlook Handbook. Wage figures and projections are presented with their published reference years in the detailed results. Early participant experiences are summaries, not guarantees. The example Purpose Reveal comes from a test run using NOVA’s actual matching logic and BLS occupation data, not a real customer.</footer>
