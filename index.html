@@ -56,6 +56,39 @@
     .offer-price span { display:block; margin:8px 0 14px; color:var(--muted); }
     .offer-price .cta { color:#fff; background:var(--teal); white-space:nowrap; }
     .foot { padding:24px 0 38px; color:var(--muted); font-size:.85rem; line-height:1.6; border-top:1px solid var(--line); }
+
+    .hero-extra { color:#d9fff7; font-weight:750; font-size:.93rem; text-underline-offset:3px; }
+    .journey { scroll-margin-top:20px; }
+    .journey-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .journey-card { padding:21px; border:1px solid var(--line); border-radius:19px; background:#fff; }
+    .journey-card h3 { margin:0 0 10px; font-size:1.08rem; }
+    .journey-card p { margin:0; color:var(--muted); font-size:.94rem; line-height:1.6; }
+    .step-price { display:block; font-size:1.38rem; font-weight:900; margin:0 0 8px; color:var(--teal); }
+    .journey-note { margin:16px 0 0; font-size:.93rem; color:var(--muted); line-height:1.55; }
+    .journey-note a { color:var(--teal); font-weight:750; }
+    .sample-frame { border:1px solid #d1e9e3; background:#eaf6f2; border-radius:25px; padding:clamp(20px,4vw,36px); }
+    .sample-report { background:#fff; margin:24px 0 0; border:1px solid #d5e7e2; border-radius:20px; overflow:hidden; box-shadow:0 16px 40px rgba(12,81,72,.1); }
+    .sample-banner { background:linear-gradient(120deg,#153f52,#0f766e); color:#fff; padding:24px 28px; }
+    .sample-banner .sample-tag { color:#bff8ec; font-size:.77rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    .sample-banner h3 { font-size:clamp(1.3rem,2.9vw,1.8rem); margin:10px 0; line-height:1.25; }
+    .sample-banner p { color:#e7fffa; margin:0; line-height:1.6; }
+    .sample-content { padding:24px 28px; }
+    .sample-columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .sample-columns strong { display:block; margin-bottom:10px; color:var(--ink); }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { border-radius:999px; padding:8px 11px; background:#e6f5f1; color:#15594f; font-size:.85rem; font-weight:750; }
+    .sample-role { background:#f4faf8; padding:17px 19px; border:1px solid var(--line); border-radius:14px; margin:21px 0; }
+    .sample-role h4 { font-size:1.16rem; margin:4px 0 8px; }
+    .sample-role p { margin:0; color:var(--muted); line-height:1.6; }
+    .lens-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .lens-grid article { padding:16px; background:#f5faf8; border-radius:13px; }
+    .lens-grid h4 { margin:0 0 8px; font-size:.95rem; }
+    .lens-grid p { margin:0; font-size:.89rem; color:var(--muted); line-height:1.55; }
+    .sample-caution { color:var(--muted); font-size:.85rem; line-height:1.55; margin:15px 0 0; }
+    .included { color:var(--muted); line-height:1.8; margin:12px 0 0; padding-left:20px; }
+    .checkout-note { color:var(--muted); margin-top:12px; font-size:.86rem; line-height:1.45; }
+    @media(max-width:850px) { .journey-cards { grid-template-columns:repeat(2,1fr); } .lens-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .journey-cards,.sample-columns { grid-template-columns:1fr; } .sample-content,.sample-banner { padding:19px; } }
     @media(max-width:850px) { .path { grid-template-columns:repeat(2,1fr); } .step-card:nth-child(2):after { display:none; } .story-grid { grid-template-columns:1fr; } }
     @media(max-width:600px) { .wrap { width:min(100% - 24px,1120px); } header { padding:18px 0; } .header-note { max-width:180px; text-align:right; } .path { grid-template-columns:1fr; } .step-card { min-height:auto; } .step-card:after { display:none !important; } .result { align-items:flex-start; } .offer { align-items:stretch; flex-direction:column; padding:24px; } .offer-price { text-align:left; } .offer-price .cta { width:100%; } }
   </style>
@@ -69,11 +102,55 @@
         <div class="eyebrow">Purpose has clues in everyday life</div>
         <h1 id="hero-title">We found our purpose. Let NOVA help you find yours.</h1>
         <p>What you enjoy. What comes naturally. What people count on you for. NOVA brings those clues together and compares them with real occupations, so you can see purpose roles that may fit the way you are made to contribute.</p>
-        <div class="hero-cta"><a class="cta" href="signals.html">Select My Purpose Clues <span aria-hidden="true">→</span></a><div class="price-line"><strong>$9.99 one time</strong><br />for full access to your NOVA purpose discovery</div></div>
+        <div class="hero-cta"><a class="cta" href="#journey">See How NOVA Works <span aria-hidden="true">→</span></a><div class="price-line"><strong>$9.99 one time</strong><br />for the full NOVA purpose discovery</div><a class="hero-extra" href="signals.html">Try Everyday Clues free →</a></div>
+      </section>
+
+
+      <section id="journey" class="journey" aria-labelledby="journey-title">
+        <div class="section-head"><div class="kicker">Understand the process and the price before you begin</div><h2 id="journey-title">Four steps to explore your purpose.</h2><p>NOVA looks for patterns in your interests, natural abilities, everyday experiences, and strengths. It then compares your answers with occupational profiles from the U.S. Bureau of Labor Statistics.</p></div>
+        <div class="journey-cards" role="list" aria-label="Your NOVA discovery process">
+          <article class="journey-card" role="listitem"><div class="step-no">1</div><h3>Start with Everyday Clues</h3><p>Try questions about what you enjoy and what people count on you for. This introductory step is free.</p></article>
+          <article class="journey-card" role="listitem"><div class="step-no">2</div><h3>Unlock your full discovery</h3><span class="step-price">$9.99</span><p>At launch, pay once through secure checkout before receiving your full purpose findings. No subscription.</p></article>
+          <article class="journey-card" role="listitem"><div class="step-no">3</div><h3>Complete your assessment</h3><p>Identify work areas and choose up to six strengths. NOVA uses the clues together to find possible career matches.</p></article>
+          <article class="journey-card" role="listitem"><div class="step-no">4</div><h3>View your Purpose Reveal</h3><p>See the purpose roles, reasons they may fit you, and occupational information to guide your next steps.</p></article>
+        </div>
+        <p class="journey-note"><a href="signals.html">Explore the introductory Everyday Clues →</a> &nbsp; Secure paid checkout is being finalized.</p>
+      </section>
+
+      <section class="stories" aria-labelledby="stories-title">
+        <div class="section-head"><div class="kicker">Early participant experiences</div><h2 id="stories-title">What early NOVA testers experienced.</h2><p>These anonymized summaries come from early participant testing. They illustrate different ways people responded to the discovery—not guaranteed outcomes.</p></div>
+        <div class="story-grid">
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A purpose confirmed</h3><p>One participant was already living in a role that fit her purpose. NOVA helped her recognize and validate that direction.</p><small>Early participant · shared anonymously</small></article>
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A new direction came into view</h3><p>Another participant saw a purpose direction she had not clearly identified before taking the discovery.</p><small>Early participant · shared anonymously</small></article>
+          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>“I’m more of a creator.”</h3><p>A woman who described herself as a creator was a hairdresser—a practical example of how creative strengths can show up in someone’s work.</p><small>Early participant · shared anonymously</small></article>
+        </div>
+      </section>
+
+
+      <section aria-labelledby="sample-title">
+        <div class="sample-frame">
+          <div class="section-head"><div class="kicker">Preview the experience</div><h2 id="sample-title">Take a look at a sample Purpose Reveal.</h2><p>This illustration shows the kind of personalized explanation NOVA can provide. Your own findings will depend on your answers.</p></div>
+          <div class="sample-report">
+            <div class="sample-banner"><div class="sample-tag">Illustrative sample — not an actual customer report</div><h3>A creative and people-centered purpose direction</h3><p>Here's one example of how interests and strengths can come together in a potential career path.</p></div>
+            <div class="sample-content">
+              <div class="sample-columns">
+                <div><strong>Sample everyday clues</strong><div class="chips"><span class="chip">I love creating</span><span class="chip">I enjoy working with people</span></div></div>
+                <div><strong>Sample strengths</strong><div class="chips"><span class="chip">Creativity</span><span class="chip">Attention to detail</span><span class="chip">Helping people</span></div></div>
+              </div>
+              <div class="sample-role"><div class="kicker">Example recommended role</div><h4>Hairstyling and cosmetology</h4><p>A creative, hands-on field that can combine personal interaction, design choices, and practical skills. Full NOVA results can also show information about preparation, pay, and outlook.</p></div>
+              <div class="lens-grid">
+                <article><h4>Why You</h4><p>Creating something useful or beautiful for another person comes naturally to you.</p></article>
+                <article><h4>Why This Role</h4><p>The work can bring together creativity, hands-on ability, and helping people.</p></article>
+                <article><h4>Why Now</h4><p>Explore the kind of training and environment that best matches what you enjoy doing.</p></article>
+              </div>
+            </div>
+          </div>
+          <p class="sample-caution">This is an illustrative example, not a real person's report or a guarantee of any specific result. NOVA suggests roles for further exploration; it does not determine anyone's purpose with certainty.</p>
+        </div>
       </section>
 
       <section aria-labelledby="steps-title">
-        <div class="section-head"><div class="kicker">A clear process you can see</div><h2 id="steps-title">Here’s how NOVA puts your clues together.</h2><p>You don’t have to know the perfect answer. Start with the things you say in everyday life. Skip any question that doesn’t fit.</p></div>
+        <div class="section-head"><div class="kicker">What NOVA looks for</div><h2 id="steps-title">These are the clues NOVA considers.</h2><p>You don’t have to know the perfect answer. Start with the things you say in everyday life. Skip any question that doesn’t fit.</p></div>
         <div class="path" role="list" aria-label="The information NOVA considers">
           <article class="step-card" role="listitem"><div class="step-no">1</div><h3>What you enjoy</h3><p>“I enjoy cooking.” “I love reading.” “I could spend all day creating.”</p></article>
           <article class="step-card" role="listitem"><div class="step-no">2</div><h3>What comes naturally</h3><p>Subjects and activities that felt comfortable, interesting, or easier for you.</p></article>
@@ -84,20 +161,19 @@
         <p class="data-note">NOVA’s results are recommendations to help you explore. They are based on the answers you choose and the occupation information available; they don’t decide your life for you.</p>
       </section>
 
-      <section class="stories" aria-labelledby="stories-title">
-        <div class="section-head"><div class="kicker">Early NOVA experiences</div><h2 id="stories-title">Real people. Purpose clues they could recognize.</h2><p>These early examples show how NOVA can help someone confirm a direction, see a new possibility, or get curious about what comes next.</p></div>
-        <div class="story-grid">
-          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A purpose confirmed</h3><p>One participant was already living in a role that fit her purpose. NOVA helped her recognize and validate that direction.</p><small>Early participant · shared anonymously</small></article>
-          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>A new direction came into view</h3><p>Another participant saw a purpose direction she had not clearly identified before taking the discovery.</p><small>Early participant · shared anonymously</small></article>
-          <article class="story"><div class="story-mark" aria-hidden="true">✦</div><h3>“I’m more of a creator.”</h3><p>A woman who described herself as a creator was a hairdresser—a practical example of how creative strengths can show up in someone’s work.</p><small>Early participant · shared anonymously</small></article>
-        </div>
-      </section>
 
       <section aria-labelledby="offer-title">
-        <div class="offer"><div><div class="kicker">A one-time purchase</div><h2 id="offer-title">Find out what your purpose roles may be.</h2><p>For $9.99, get full access to NOVA’s purpose discovery and deeper explanation of your results. Start by selecting your everyday clues. At launch, the one-time $9.99 purchase will unlock the complete NOVA experience.</p></div><div class="offer-price"><strong>$9.99</strong><span>one-time access to NOVA</span><a class="cta" href="signals.html">Select My Purpose Clues →</a></div></div>
+        <div class="offer"><div><div class="kicker">Know what you're purchasing</div><h2 id="offer-title">Your full NOVA discovery. $9.99 once.</h2><p>One purchase, no recurring subscription. At launch, the complete discovery will include:</p>
+          <ul class="included">
+            <li>Everyday Clues, work-area interests, and personal strengths assessment</li>
+            <li>Personalized purpose-role suggestions and explanations of why they fit your clues</li>
+            <li>Occupational education, typical pay, and outlook information where available</li>
+            <li>Your individual Purpose Reveal: “Why You,” “Why This Role,” and “Why Now”</li>
+            <li>The ability to return to your purchased results once customer sign-in is ready</li>
+          </ul></div><div class="offer-price"><strong>$9.99</strong><span>one-time price · no subscription</span><a class="cta" href="signals.html">Try Everyday Clues →</a><div class="checkout-note">Secure checkout is being finalized. No payment is collected from NOVA yet.</div></div></div>
       </section>
     </main>
-    <footer class="foot">Occupation information is drawn from the U.S. Bureau of Labor Statistics’ Occupational Outlook Handbook. Wage figures and projections are presented with their published reference years in the detailed results. Early participant examples are qualitative feedback, not a claim that every person will receive the same result.</footer>
+    <footer class="foot">Occupation information is drawn from the U.S. Bureau of Labor Statistics’ Occupational Outlook Handbook. Wage figures and projections are presented with their published reference years in the detailed results. Early participant experiences are summaries, not guarantees. The sample Purpose Reveal is illustrative rather than an actual customer report.</footer>
   </div>
 </body>
 </html>
