@@ -1,139 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>NAVI Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f7fafc;
-      color: #102a43;
-      margin: 0;
-      padding: 24px;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px 24px 28px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-    }
-    h1 {
-      margin-top: 0;
-      color: #044e54;
-      font-size: 24px;
-    }
-    p {
-      line-height: 1.6;
-    }
-    .meta {
-      font-size: 14px;
-      color: #7b8794;
-      margin-bottom: 16px;
-    }
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 8px 10px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #cbd2d9;
-      margin-bottom: 10px;
-    }
-    .btn-row {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: #14b5d0;
-      color: #ffffff;
-      border: none;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-secondary {
-      background: #e4f0f5;
-      color: #035c64;
-      border: none;
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .helper-text {
-      font-size: 12px;
-      color: #7b8794;
-      margin-top: 8px;
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My NOVA Journey — Secure Sign In</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f4faf8;color:#17384a;margin:0;padding:28px 16px}
+main{max-width:520px;margin:6vh auto;background:white;padding:32px;border-radius:18px;box-shadow:0 16px 40px #0b54451a}
+h1{color:#0f766e;margin-top:0}p{line-height:1.6}label{display:block;font-weight:650;margin-bottom:8px}
+input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #aebfc3;border-radius:8px;font-size:16px}
+button{background:#0f766e;color:white;border:0;border-radius:30px;padding:13px 20px;font-size:16px;cursor:pointer;margin-top:16px}
+button:disabled{opacity:.6;cursor:wait}a{color:#0f766e}
+#message{min-height:24px;margin-top:18px}small{color:#536b75}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Login to NAVI</h1>
-    <p class="meta">
-      Use the email and PIN associated with your investment. After you sign in, you’ll land on your NAVI Dashboard, where you can build your resume, cover letters, and more.
-    </p>
-
-    <form id="loginForm">
-      <label for="emailInput">Email</label>
-      <input type="email" id="emailInput" required placeholder="you@example.com" />
-
-      <label for="pinInput">PIN</label>
-      <input type="password" id="pinInput" minlength="4" required placeholder="4–6 digit PIN" />
-
-      <div class="btn-row">
-        <button type="submit" class="btn-primary">Enter NAVI</button>
-        <button type="button" class="btn-secondary" id="backToInvestBtn">Back to Invest</button>
-      </div>
-
-      <p class="helper-text">
-        Authentication and membership verification can be expanded later. For now, this login grants access on this device and browser.
-      </p>
-    </form>
-  </div>
-
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const email = document.getElementById('emailInput').value.trim();
-      const pin = document.getElementById('pinInput').value.trim();
-
-      if (!email || !pin) {
-        alert('Please enter both email and PIN.');
-        return;
-      }
-
-      // For now, simply store locally. Later, you can integrate real validation.
-      try {
-        localStorage.setItem('naviUser', JSON.stringify({
-          email,
-          pin,
-          loggedInAt: new Date().toISOString()
-        }));
-      } catch (err) {
-        console.warn('Could not store naviUser', err);
-      }
-
-      // Go to NAVI Dashboard instead of directly to resume
-      window.location.href = 'dashboard.html';
-    });
-
-    document.getElementById('backToInvestBtn').addEventListener('click', function () {
-      window.location.href = 'invest.html';
-    });
-  </script>
-</body>
-</html>
+<main>
+<h1>My NOVA Journey</h1>
+<p>Sign in with your email to return to your purpose journey. We'll send a secure sign-in link—no password or PIN needed.</p>
+<form id="signInForm">
+<label for="email">Email address</label>
+<input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+<button id="sendButton" type="submit">Email me a sign-in link</button>
+</form>
+<p id="message" role="status" aria-live="polite"></p>
+<p><small>Your NOVA results and purchase access will be available here after account storage and payment verification are connected. Signing in does not itself verify a purchase.</small></p>
+<p><a href="index.html">Return to NOVA</a></p>
+</main>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const supabase=createClient('https://vlltvxepuzovbjiecson.supabase.co','sb_publishable_KVpYICzbwjjOjI_kjFtemg_SdKpriLv');
+const form=document.getElementById('signInForm');
+const button=document.getElementById('sendButton');
+const message=document.getElementById('message');
+async function checkSession(){
+  const {data,error}=await supabase.auth.getSession();
+  if(error){message.textContent='Unable to check your sign-in status. Please try again.';return;}
+  if(data.session){
+    form.hidden=true;
+    message.textContent='You are signed in. Your saved journey and purchase verification are still being connected.';
+    const out=document.createElement('button');out.textContent='Sign out';
+    out.addEventListener('click',async()=>{await supabase.auth.signOut();location.replace('login.html');});
+    message.after(out);
+  }
+}
+form.addEventListener('submit',async e=>{
+ e.preventDefault();button.disabled=true;message.textContent='Sending your sign-in link…';
+ try{
+  const {error}=await supabase.auth.signInWithOtp({
+   email:document.getElementById('email').value.trim(),
+   options:{emailRedirectTo:location.origin+'/login.html',shouldCreateUser:true}
+  });
+  message.textContent=error?'Unable to send link: '+error.message:'Check your inbox for your secure sign-in link. You can return to this page after confirming.';
+ }catch(err){message.textContent='Could not contact the sign-in service. Please try again.';}
+ finally{button.disabled=false;}
+});
+checkSession();
+</script>
+</body></html>
