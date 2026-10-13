@@ -34,7 +34,7 @@
     .primary { color:#fff; background:var(--teal); }
     .secondary { color:var(--teal); background:#e2f2ee; }
     .actions p { color:var(--muted); font-size:.9rem; margin:0; }
-    @media(max-width:650px) { main { margin-top:22px; } .prompts { grid-template-columns:1fr; } .actions { align-items:stretch; flex-direction:column-reverse; } .button { text-align:center; } }
+    @media(max-width:650px) { main { margin-top:22px; } .prompts { grid-template-columns:1fr; } .choice-list { grid-template-columns:1fr; max-height:320px; } .choice { min-height:43px; align-items:center; } .choice input { width:20px; height:20px; } summary { min-height:48px; } .actions { align-items:stretch; flex-direction:column-reverse; } .button { text-align:center; } }
     @media(max-width:390px) { .choice-list { grid-template-columns:1fr; } }
   </style>
 </head>
@@ -101,13 +101,15 @@
       dislikedClasses: ["Art or design","English or literature","Mathematics","Biology","Chemistry","Social studies or history","Psychology","Music","Physical education","Shop, automotive, or trades","Computers or technology","Business or accounting","Home economics or cooking","Foreign languages","Other science classes","Writing","Law, public safety, or criminal justice"]
     };
     const fields = Object.keys(options);
-    ensureNovaDiscoverySession();
-    const profile = loadNovaProfile();
+    if (typeof ensureNovaDiscoverySession === "function") ensureNovaDiscoverySession();
+    const profile = typeof loadNovaProfile === "function" ? loadNovaProfile() : { signals: {} };
     function normalize(value) { return value.trim().toLocaleLowerCase(); }
     function updateSummary(list) {
       const details = list.closest("details");
       const count = list.querySelectorAll("input:checked").length;
-      details.querySelector("summary").textContent = count ? `${count} selected · choose any that fit` : "Choose any that fit";
+      const summary = details.querySelector("summary");
+      summary.textContent = count ? `${count} selected · tap to add more` : "Tap to choose from the list";
+      details.dataset.ready = String(list.querySelectorAll("input").length > 0);
     }
     for (const key of fields) {
       const list = document.querySelector(`[data-options-for="${key}"]`);
@@ -136,15 +138,26 @@
       document.getElementById(key).value = customParts.join("; ");
       updateSummary(list);
     }
-    document.getElementById("signalsForm").addEventListener("submit", event => {
-      event.preventDefault();
-      const updated = loadNovaProfile();
-      updated.signals = Object.fromEntries(fields.map(key => {
+    function collectSignalAnswers() {
+      return Object.fromEntries(fields.map(key => {
         const selected = [...document.querySelectorAll(`[data-options-for="${key}"] input:checked`)].map(input => input.value);
         const custom = document.getElementById(key).value.trim();
         return [key, [...selected, custom].filter(Boolean).join("; ")];
       }));
+    }
+    function persistSignalAnswers() {
+      const updated = loadNovaProfile();
+      updated.signals = collectSignalAnswers();
       saveNovaProfile(updated);
+    }
+    // Save as choices change, so returning to this step restores each selection.
+    document.getElementById("signalsForm").addEventListener("change", persistSignalAnswers);
+    document.getElementById("signalsForm").addEventListener("input", event => {
+      if (event.target.matches("textarea")) persistSignalAnswers();
+    });
+    document.getElementById("signalsForm").addEventListener("submit", event => {
+      event.preventDefault();
+      persistSignalAnswers();
       window.location.href = "categories.html";
     });
   </script>
