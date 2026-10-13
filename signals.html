@@ -14,6 +14,13 @@
     h1 { margin:8px 0 10px; font-size:clamp(2rem,5vw,3rem); letter-spacing:-.04em; }
     .intro { max-width:720px; color:var(--muted); font-size:1.08rem; line-height:1.6; }
     .note { margin:20px 0; padding:15px 17px; border:1px solid #b9ded5; border-radius:14px; background:#fff; color:#28564f; line-height:1.5; }
+    .clue-group { margin:0 0 24px; padding:22px; background:#edf7f4; border:1px solid #cee4dd; border-left:5px solid var(--teal); border-radius:22px; }
+    .clue-group:nth-of-type(even) { background:#f0f6fa; border-color:#d3e4e9; border-left-color:#367d8c; }
+    .group-heading { display:flex; gap:13px; align-items:flex-start; margin:0 0 17px; }
+    .group-number { flex:0 0 38px; display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:#fff; color:var(--teal); font-size:.95rem; font-weight:850; }
+    .group-heading h2 { margin:0 0 4px; font-size:1.3rem; line-height:1.25; letter-spacing:-.02em; }
+    .group-heading p { margin:0; color:var(--muted); line-height:1.48; font-size:.96rem; }
+    .clue-group:has([data-key="peopleAsk"]) .prompts { grid-template-columns:1fr; }
     .prompts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
     .prompt { padding:18px; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 10px 26px rgba(25,71,66,.06); }
     .prompt > label:first-child { display:block; font-weight:750; margin-bottom:6px; }
@@ -35,6 +42,7 @@
     .secondary { color:var(--teal); background:#e2f2ee; }
     .actions p { color:var(--muted); font-size:.9rem; margin:0; }
     @media(max-width:650px) { main { margin-top:22px; } .prompts { grid-template-columns:1fr; } .choice-list { grid-template-columns:1fr; max-height:320px; } .choice { min-height:43px; align-items:center; } .choice input { width:20px; height:20px; } summary { min-height:48px; } .actions { align-items:stretch; flex-direction:column-reverse; } .button { text-align:center; } }
+    @media(max-width:650px) { .clue-group { padding:16px; margin-bottom:18px; } .group-heading h2 { font-size:1.18rem; } .group-heading p { font-size:.92rem; } }
     @media(max-width:390px) { .choice-list { grid-template-columns:1fr; } }
   </style>
 </head>
@@ -45,43 +53,85 @@
     <p class="intro">These are ordinary things you may have said for years. They can reveal what you enjoy, what comes naturally, and what other people recognize in you.</p>
     <div class="note"><strong>How many should I choose?</strong> Start with <strong>1–3 choices per question</strong> that describe you best. You do <strong>not</strong> have to select everything or answer every question. You can choose more if needed, add your own words, or skip a question and continue. A few meaningful clues will help NOVA make better suggestions.</div>
     <form id="signalsForm">
-      <div class="prompts">
-        <section class="prompt" data-key="enjoys">
-          <label for="enjoys">“I enjoy…”</label><p>Choose the activities you enjoy doing.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="enjoys"></div></details>
-          <label class="own-label" for="enjoys">Or add your own words</label><textarea id="enjoys" maxlength="500" placeholder="For example: helping people, cooking, reading, creating, fixing things"></textarea>
-        </section>
-        <section class="prompt" data-key="peopleAsk">
-          <label for="peopleAsk">“People often come to me to…”</label><p>Think about what others rely on you to do.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="peopleAsk"></div></details>
-          <label class="own-label" for="peopleAsk">Or add your own words</label><textarea id="peopleAsk" maxlength="500" placeholder="For example: fix things, give advice, cook, or solve problems"></textarea>
-        </section>
-        <section class="prompt" data-key="goodAt">
-          <label for="goodAt">“I was always good at…”</label><p>Think of school subjects, skills, or things that seemed easier for you.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="goodAt"></div></details>
-          <label class="own-label" for="goodAt">Or add your own words</label><textarea id="goodAt" maxlength="500" placeholder="For example: drawing, mathematics, listening, or organizing"></textarea>
-        </section>
-        <section class="prompt" data-key="freeTime">
-          <label for="freeTime">“If I could spend my time doing anything, I would…”</label><p>What would you choose when nobody else is deciding for you?</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="freeTime"></div></details>
-          <label class="own-label" for="freeTime">Or add your own words</label><textarea id="freeTime" maxlength="500" placeholder="Describe what you would choose to do"></textarea>
-        </section>
-        <section class="prompt" data-key="comfortable">
-          <label for="comfortable">“I feel most comfortable when I’m…”</label><p>Choose situations or activities that feel natural to you.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="comfortable"></div></details>
-          <label class="own-label" for="comfortable">Or add your own words</label><textarea id="comfortable" maxlength="500" placeholder="For example: helping one person, leading a group, or working with my hands"></textarea>
-        </section>
-        <section class="prompt" data-key="likedClasses">
-          <label for="likedClasses">“At school, I liked…”</label><p>Choose classes or subjects you enjoyed.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="likedClasses"></div></details>
-          <label class="own-label" for="likedClasses">Or add your own words</label><textarea id="likedClasses" maxlength="500" placeholder="For example: art, English, mathematics, or chemistry"></textarea>
-        </section>
-        <section class="prompt" data-key="dislikedClasses">
-          <label for="dislikedClasses">“At school, I didn’t enjoy…”</label><p>This is optional. A dislike adds context; it does not rule out a whole field.</p>
-          <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="dislikedClasses"></div></details>
-          <label class="own-label" for="dislikedClasses">Or add your own words</label><textarea id="dislikedClasses" maxlength="500" placeholder="Choose a subject or add your own words"></textarea>
-        </section>
-      </div>
+      <section class="clue-group" aria-labelledby="interests-heading">
+        <div class="group-heading">
+          <span class="group-number" aria-hidden="true">01</span>
+          <div>
+            <h2 id="interests-heading">What interests you</h2>
+            <p>What you genuinely enjoy and would choose to do with your time.</p>
+          </div>
+        </div>
+        <div class="prompts">
+          <section class="prompt" data-key="enjoys">
+                    <label for="enjoys">“I enjoy…”</label><p>Choose the activities you enjoy doing.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="enjoys"></div></details>
+                    <label class="own-label" for="enjoys">Or add your own words</label><textarea id="enjoys" maxlength="500" placeholder="For example: helping people, cooking, reading, creating, fixing things"></textarea>
+                  </section>
+          <section class="prompt" data-key="freeTime">
+                    <label for="freeTime">“If I could spend my time doing anything, I would…”</label><p>What would you choose when nobody else is deciding for you?</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="freeTime"></div></details>
+                    <label class="own-label" for="freeTime">Or add your own words</label><textarea id="freeTime" maxlength="500" placeholder="Describe what you would choose to do"></textarea>
+                  </section>
+        </div>
+      </section>
+      <section class="clue-group" aria-labelledby="strengths-heading">
+        <div class="group-heading">
+          <span class="group-number" aria-hidden="true">02</span>
+          <div>
+            <h2 id="strengths-heading">What comes naturally</h2>
+            <p>Abilities and situations that have always felt comfortable or easier for you.</p>
+          </div>
+        </div>
+        <div class="prompts">
+          <section class="prompt" data-key="goodAt">
+                    <label for="goodAt">“I was always good at…”</label><p>Think of school subjects, skills, or things that seemed easier for you.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="goodAt"></div></details>
+                    <label class="own-label" for="goodAt">Or add your own words</label><textarea id="goodAt" maxlength="500" placeholder="For example: drawing, mathematics, listening, or organizing"></textarea>
+                  </section>
+          <section class="prompt" data-key="comfortable">
+                    <label for="comfortable">“I feel most comfortable when I’m…”</label><p>Choose situations or activities that feel natural to you.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="comfortable"></div></details>
+                    <label class="own-label" for="comfortable">Or add your own words</label><textarea id="comfortable" maxlength="500" placeholder="For example: helping one person, leading a group, or working with my hands"></textarea>
+                  </section>
+        </div>
+      </section>
+      <section class="clue-group" aria-labelledby="others-heading">
+        <div class="group-heading">
+          <span class="group-number" aria-hidden="true">03</span>
+          <div>
+            <h2 id="others-heading">What people rely on you for</h2>
+            <p>The things others notice about you and ask for your help with.</p>
+          </div>
+        </div>
+        <div class="prompts">
+          <section class="prompt" data-key="peopleAsk">
+                    <label for="peopleAsk">“People often come to me to…”</label><p>Think about what others rely on you to do.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="peopleAsk"></div></details>
+                    <label class="own-label" for="peopleAsk">Or add your own words</label><textarea id="peopleAsk" maxlength="500" placeholder="For example: fix things, give advice, cook, or solve problems"></textarea>
+                  </section>
+        </div>
+      </section>
+      <section class="clue-group" aria-labelledby="school-heading">
+        <div class="group-heading">
+          <span class="group-number" aria-hidden="true">04</span>
+          <div>
+            <h2 id="school-heading">Your learning experiences</h2>
+            <p>Subjects you liked or disliked can add useful context—these are optional clues.</p>
+          </div>
+        </div>
+        <div class="prompts">
+          <section class="prompt" data-key="likedClasses">
+                    <label for="likedClasses">“At school, I liked…”</label><p>Choose classes or subjects you enjoyed.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="likedClasses"></div></details>
+                    <label class="own-label" for="likedClasses">Or add your own words</label><textarea id="likedClasses" maxlength="500" placeholder="For example: art, English, mathematics, or chemistry"></textarea>
+                  </section>
+          <section class="prompt" data-key="dislikedClasses">
+                    <label for="dislikedClasses">“At school, I didn’t enjoy…”</label><p>This is optional. A dislike adds context; it does not rule out a whole field.</p>
+                    <details><summary>Choose any that fit</summary><div class="choice-list" data-options-for="dislikedClasses"></div></details>
+                    <label class="own-label" for="dislikedClasses">Or add your own words</label><textarea id="dislikedClasses" maxlength="500" placeholder="Choose a subject or add your own words"></textarea>
+                  </section>
+        </div>
+      </section>
       <div class="actions">
         <a class="button secondary" href="index.html">Back</a>
         <p>Choose a few clues that fit; skipping is allowed.</p>
