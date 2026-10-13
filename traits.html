@@ -67,6 +67,24 @@
       line-height: 1.5;
     }
 
+    .traits-limit-guide {
+      max-width: 720px;
+      margin: 16px auto 4px;
+      font-size: 1.03rem;
+      line-height: 1.5;
+      color: var(--nova-text-main);
+    }
+    .traits-limit-guide strong {
+      font-weight: 850;
+      color: var(--nova-teal-dark);
+    }
+    .traits-counter {
+      display: block;
+      margin: 10px 0 0;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--nova-teal-dark);
+    }
     .traits-category-pill {
       display: inline-flex;
       align-items: center;
@@ -224,7 +242,10 @@
       <div class="traits-step">Step 3 of 4 · Strengths</div>
       <h1 class="traits-title">Which strengths sound like you?</h1>
       <p class="traits-subtitle">
-        Choose up to six qualities that feel true in everyday life. These are clues, alongside your answers and work areas.
+        Choose the qualities that feel true in everyday life. These are clues, alongside your answers and work areas.
+      </p>
+      <p class="traits-limit-guide"><strong>SELECT UP TO 6 STRENGTHS.</strong> You don't need all six; choose only those that fit you. You can skip this step if needed.
+        <span class="traits-counter" id="traitsSelectedCount" role="status" aria-live="polite">0 of 6 selected</span>
       </p>
       <div class="traits-category-pill">
         <span>Your work areas:</span>
@@ -237,7 +258,7 @@
     <section id="traitsGrid" class="traits-grid" aria-label="Key traits"></section>
 
     <p class="traits-helper">
-      You can choose up to six traits. Focus on what’s true most of the time, not just on your very best days.
+      Focus on what’s true most of the time, not just on your very best days.
     </p>
 
     <nav class="traits-actions" aria-label="Traits navigation">
@@ -560,8 +581,14 @@
       traitsCategoryLabel.textContent = categoryNames.join(" + ");
       document.getElementById("foodStrengthsNote").hidden = !foodClues;
 
-      // initial selected set from profile
-      const selectedNames = new Set(profile.traits || []);
+      // Initial selected set from profile.
+      const selectedNames = new Set((profile.traits || []).filter(name =>
+        traitsForCategory.some(trait => trait.name === name)
+      ).slice(0, 6));
+      const countEl = document.getElementById("traitsSelectedCount");
+      function updateSelectionCount() {
+        countEl.textContent = `${selectedNames.size} of 6 selected`;
+      }
 
       function renderTraits() {
         traitsGrid.innerHTML = "";
@@ -610,10 +637,12 @@
               selectedNames.add(trait.name);
               card.classList.add("selected");
             }
+            updateSelectionCount();
           });
 
           traitsGrid.appendChild(card);
         });
+        updateSelectionCount();
       }
 
       renderTraits();
