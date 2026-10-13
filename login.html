@@ -16,7 +16,7 @@ button:disabled{opacity:.6;cursor:wait}a{color:#0f766e}
 <body>
 <main>
 <h1>My NOVA Journey</h1>
-<p>Sign in with your email to return to your purpose journey. We'll send a secure sign-in link—no password or PIN needed.</p>
+<p>This sign-in is currently being tested with existing accounts. Enter your email to request a secure link—no password or PIN needed.</p>
 <form id="signInForm">
 <label for="email">Email address</label>
 <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
@@ -48,9 +48,9 @@ form.addEventListener('submit',async e=>{
  try{
   const {error}=await supabase.auth.signInWithOtp({
    email:document.getElementById('email').value.trim(),
-   options:{emailRedirectTo:location.origin+'/login.html',shouldCreateUser:true}
+   options:{emailRedirectTo:location.origin+'/login.html',shouldCreateUser:false}
   });
-  message.textContent=error?'Unable to send link: '+error.message:'Check your inbox for your secure sign-in link. You can return to this page after confirming.';
+  message.textContent=error?'Unable to send link: '+error.message:'If an account exists for this email, a sign-in link will arrive shortly. Check your inbox.';
  }catch(err){message.textContent='Could not contact the sign-in service. Please try again.';}
  finally{button.disabled=false;}
 });
