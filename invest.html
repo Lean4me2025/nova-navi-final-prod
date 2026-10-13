@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invest In Yourself – NOVA</title>
 
-  <script src="https://payhip.com/payhip.js"></script>
 
   <style>
     :root {
@@ -169,64 +168,48 @@
       </p>
     </section>
 
-    <section class="invest-options">
-
-      <!-- Starter Plan -->
-      <div class="invest-card">
-        <h3>Starter Plan</h3>
-        <p>Begin your purpose journey with the essentials.</p>
-        <a href="https://payhip.com/b/GdfU7"
-           class="payhip-buy-button"
-           data-theme="green"
-           data-product="GdfU7">Buy Now</a>
+    <section class="invest-options" aria-label="NOVA checkout">
+      <div class="invest-card" style="max-width:650px;margin:0 auto;width:100%">
+        <p style="font-weight:800;color:var(--nova-teal-dark);letter-spacing:.06em;text-transform:uppercase">One-time NOVA discovery access</p>
+        <h3>Meet NOVA Now — Full Purpose Discovery</h3>
+        <p style="font-size:2rem;font-weight:800;color:var(--nova-text-main)">$9.99 <span style="font-size:.95rem;font-weight:500">USD, one time</span></p>
+        <p>Continue from your purpose clues to a fuller explanation of your aligned strengths and possible next steps.</p>
+        <a id="stripeCheckoutLink" class="btn-primary"
+           style="display:none;text-decoration:none" rel="noopener noreferrer">Secure checkout with Stripe →</a>
+        <p id="checkoutStatus" role="status" aria-live="polite" style="margin:18px auto 0">Checking secure checkout availability…</p>
+        <p style="font-size:.85rem;color:var(--nova-text-muted)">Stripe processes the payment. We will not send customers to checkout until payment verification and access are configured.</p>
       </div>
-
-      <!-- Pro Plan -->
-      <div class="invest-card">
-        <h3>Pro Plan</h3>
-        <p>Unlock resumes, cover letters, intel, job targeting, and more.</p>
-        <a href="https://payhip.com/b/knC1Z"
-           class="payhip-buy-button"
-           data-theme="green"
-           data-product="knC1Z">Buy Now</a>
-      </div>
-
-      <!-- Purpose Book -->
-      <div class="invest-card">
-        <h3>Purpose Book</h3>
-        <p>A deep guide to understanding and applying your purpose.</p>
-        <a href="https://payhip.com/b/N7Lvg"
-           class="payhip-buy-button"
-           data-theme="green"
-           data-product="N7Lvg">Buy Now</a>
-      </div>
-
     </section>
 
-    <div class="continue-box">
-      <button id="continueInvestBtn" class="btn-primary">Continue to NAVI Login</button>
-    </div>
+    <div class="continue-box"><a href="reveal.html" style="color:var(--nova-teal-dark)">← Back to my NOVA preview</a></div>
   </main>
 
   <script src="nova-profile-helper.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       const profile = loadNovaProfile();
+      const reminder = document.getElementById("roleReminder");
+      reminder.textContent = profile.role?.title
+        ? "Your purpose-role exploration includes: " + profile.role.title
+        : "Review your discovery and choose whether to continue.";
 
-      const roleReminder = document.getElementById("roleReminder");
-
-      if (profile.role && profile.role.title) {
-        roleReminder.textContent =
-          "You're investing into your future as a " + profile.role.title + ".";
-      } else {
-        roleReminder.textContent = "Invest in the future you're building.";
+      const status = document.getElementById("checkoutStatus");
+      const checkout = document.getElementById("stripeCheckoutLink");
+      try {
+        const response = await fetch("/api/checkout-ready", { cache: "no-store" });
+        if (!response.ok) throw new Error("Checkout configuration is not available");
+        const config = await response.json();
+        if (config.ready === true && typeof config.checkoutUrl === "string" && /^https:\/\/buy\.stripe\.com\//.test(config.checkoutUrl)) {
+          checkout.href = config.checkoutUrl;
+          checkout.style.display = "inline-flex";
+          status.textContent = "Secure $9.99 one-time checkout is available.";
+        } else {
+          status.textContent = "Checkout is being finalized. You can return to your NOVA preview.";
+        }
+      } catch (error) {
+        status.textContent = "Checkout is being finalized. You can return to your NOVA preview.";
       }
-
-      document.getElementById("continueInvestBtn").addEventListener("click", () => {
-        saveNovaProfile(profile);
-        window.location.href = "login.html";
-      });
     });
   </script>
 </body>
