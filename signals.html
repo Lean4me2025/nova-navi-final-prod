@@ -43,7 +43,7 @@
     <div class="step">Step 1 of 4 · Everyday clues</div>
     <h1>Start with what you already know about yourself.</h1>
     <p class="intro">These are ordinary things you may have said for years. They can reveal what you enjoy, what comes naturally, and what other people recognize in you.</p>
-    <div class="note"><strong>Choose any examples that feel true.</strong> You can select more than one, add your own words, or leave a prompt blank. There are no right answers.</div>
+    <div class="note"><strong>How many should I choose?</strong> Start with <strong>1–3 choices per question</strong> that describe you best. You do <strong>not</strong> have to select everything or answer every question. You can choose more if needed, add your own words, or skip a question and continue. A few meaningful clues will help NOVA make better suggestions.</div>
     <form id="signalsForm">
       <div class="prompts">
         <section class="prompt" data-key="enjoys">
@@ -84,7 +84,7 @@
       </div>
       <div class="actions">
         <a class="button secondary" href="index.html">Back</a>
-        <p>You can skip every prompt and continue.</p>
+        <p>Choose a few clues that fit; skipping is allowed.</p>
         <button class="button primary" type="submit">Continue to Work Areas&nbsp; →</button>
       </div>
     </form>
@@ -108,7 +108,7 @@
       const details = list.closest("details");
       const count = list.querySelectorAll("input:checked").length;
       const summary = details.querySelector("summary");
-      summary.textContent = count ? `${count} selected · tap to add more` : "Tap to choose from the list";
+      summary.textContent = count ? `${count} selected · tap to change choices` : "Tap to choose (1–3 suggested)";
       details.dataset.ready = String(list.querySelectorAll("input").length > 0);
     }
     for (const key of fields) {
