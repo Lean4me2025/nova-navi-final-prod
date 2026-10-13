@@ -1,66 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My NOVA Journey — Secure Sign In</title>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My NOVA Journey — Account</title>
 <style>
-body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f4faf8;color:#17384a;margin:0;padding:28px 16px}
-main{max-width:520px;margin:6vh auto;background:white;padding:32px;border-radius:18px;box-shadow:0 16px 40px #0b54451a}
-h1{color:#0f766e;margin-top:0}p{line-height:1.6}label{display:block;font-weight:650;margin-bottom:8px}
-input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #aebfc3;border-radius:8px;font-size:16px}
-button{background:#0f766e;color:white;border:0;border-radius:30px;padding:13px 20px;font-size:16px;cursor:pointer;margin-top:16px}
-button:disabled{opacity:.6;cursor:wait}a{color:#0f766e}
-#message{min-height:24px;margin-top:18px}small{color:#536b75}
-</style>
-</head>
-<body>
-<main>
+*{box-sizing:border-box}body{margin:0;padding:24px 16px;background:#f4faf8;color:#17384a;font:16px system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:530px;margin:5vh auto;padding:32px;background:white;border-radius:18px;box-shadow:0 16px 40px #0b54451a}
+h1{color:#0f766e;margin-top:0}p{line-height:1.55}label{display:block;font-weight:650;margin:14px 0 7px}
+input{width:100%;padding:12px;border:1px solid #aebfc3;border-radius:8px;font-size:16px}
+button{background:#0f766e;color:white;border:0;border-radius:25px;padding:12px 18px;font-size:16px;cursor:pointer;margin:12px 8px 0 0}
+button:disabled{opacity:.6}button.secondary{background:#e7f5f0;color:#0b5d55}a{color:#0f766e}
+small{color:#536b75}#message{min-height:28px} [hidden]{display:none!important}
+</style></head><body><main>
 <h1>My NOVA Journey</h1>
-<p>This sign-in is currently being tested with existing accounts. Enter your email to request a secure link—no password or PIN needed.</p>
-<form id="signInForm">
-<label for="email">Email address</label>
-<input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-<button id="sendButton" type="submit">Email me a sign-in link</button>
+<p id="intro">Create an account once, then sign in with your email and password whenever you return.</p>
+<section id="authPanel">
+<button class="secondary" id="showLogin" type="button">Sign in</button><button class="secondary" id="showRegister" type="button">Create account</button>
+<form id="authForm">
+<label for="email">Email address</label><input id="email" type="email" autocomplete="email" required>
+<label for="password">Password</label><input id="password" type="password" minlength="8" autocomplete="current-password" required>
+<button id="submit" type="submit">Sign in</button>
 </form>
+<button class="secondary" id="forgot" type="button">Forgot password?</button>
+</section>
+<section id="resetPanel" hidden><h2>Choose a new password</h2><form id="resetForm">
+<label for="newPassword">New password (at least 8 characters)</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required>
+<button type="submit">Save new password</button></form></section>
+<section id="accountPanel" hidden><p>You are signed in.</p>
+<form id="changeEmailForm"><label for="changeEmail">Change account email address</label><input id="changeEmail" type="email" autocomplete="email" required>
+<button type="submit">Request email change</button></form>
+<p><small>For your protection, Supabase may require confirmation at your old and new email addresses.</small></p>
+<button class="secondary" id="signOut" type="button">Sign out</button></section>
 <p id="message" role="status" aria-live="polite"></p>
-<p><small>Your NOVA results and purchase access will be available here after account storage and payment verification are connected. Signing in does not itself verify a purchase.</small></p>
+<p><small>Assessment storage and verified purchase access are not yet connected. Signing in does not confirm a purchase.</small></p>
 <p><a href="index.html">Return to NOVA</a></p>
 </main>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-const supabase=createClient('https://vlltvxepuzovbjiecson.supabase.co','sb_publishable_KVpYICzbwjjOjI_kjFtemg_SdKpriLv');
-const form=document.getElementById('signInForm');
-const button=document.getElementById('sendButton');
-const message=document.getElementById('message');
-async function checkSession(){
-  const {data,error}=await supabase.auth.getSession();
-  if(error){message.textContent='Unable to check your sign-in status. Please try again.';return;}
-  if(data.session){
-    form.hidden=true;
-    message.textContent='You are signed in. Your saved journey and purchase verification are still being connected.';
-    const out=document.createElement('button');out.textContent='Sign out';
-    out.addEventListener('click',async()=>{await supabase.auth.signOut();location.replace('login.html');});
-    message.after(out);
-  }
-}
-form.addEventListener('submit',async e=>{
- e.preventDefault();button.disabled=true;message.textContent='Sending your sign-in link…';
- try{
-  const {error}=await supabase.auth.signInWithOtp({
-   email:document.getElementById('email').value.trim(),
-   options:{emailRedirectTo:location.origin+'/login.html',shouldCreateUser:false}
-  });
-  if(error){
-    const rateLimited=error.status===429 || /rate limit|only request this after|too many requests/i.test(error.message||'');
-    message.textContent=rateLimited
-      ? 'Our email service has temporarily reached its sending limit. Please do not keep requesting links. Try again later; we are improving email delivery before launch.'
-      : 'We could not send a sign-in link right now. Please try again later.';
-  }else{
-    message.textContent='If an account exists for this email, a sign-in link will arrive shortly. Check your inbox and spam folder.';
-  }
- }catch(err){message.textContent='Could not contact the sign-in service. Please try again.';}
- finally{button.disabled=false;}
-});
-checkSession();
-</script>
-</body></html>
+const db=createClient('https://vlltvxepuzovbjiecson.supabase.co','sb_publishable_KVpYICzbwjjOjI_kjFtemg_SdKpriLv');
+const el=id=>document.getElementById(id);let mode='login',recovering=false;
+const say=s=>el('message').textContent=s;
+function errorText(e){const m=(e?.message||'').toLowerCase();
+if(e?.status===429||/rate limit|too many requests/.test(m))return 'Email sending is temporarily limited. Please try again later.';
+if(/invalid login credentials/.test(m))return 'Email or password not recognized.';
+if(/email not confirmed/.test(m))return 'Please confirm your email using the message sent to you.';
+return 'Unable to complete this request. Please check your information and try again.';}
+function view(which){['authPanel','resetPanel','accountPanel'].forEach(id=>el(id).hidden=id!==which);}
+function setMode(m){mode=m;el('password').autocomplete=m==='register'?'new-password':'current-password';el('submit').textContent=m==='register'?'Create account':'Sign in';el('forgot').hidden=m==='register';say('');}
+el('showLogin').onclick=()=>setMode('login');el('showRegister').onclick=()=>setMode('register');
+el('authForm').onsubmit=async e=>{e.preventDefault();const b=el('submit');b.disabled=true;say('Please wait…');
+try{const email=el('email').value.trim(),password=el('password').value;
+const {data,error}=mode==='register'?await db.auth.signUp({email,password,options:{emailRedirectTo:location.origin+'/login.html'}}):await db.auth.signInWithPassword({email,password});
+if(error){say(errorText(error));return;}
+if(data.session){view('accountPanel');say('Signed in successfully.');}
+else say('If your account can be created, please check your email for a confirmation link before signing in.');
+}catch(e){say('Could not reach the account service. Please try again.');}finally{b.disabled=false;}};
+el('forgot').onclick=async()=>{const email=el('email').value.trim();if(!email){say('Enter your email address first.');return;}
+el('forgot').disabled=true;
+try{const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin+'/login.html'});
+say(error?errorText(error):'If an account exists, a password reset link will be emailed to you.');}
+catch(e){say('Password reset is unavailable right now.');}finally{el('forgot').disabled=false;}};
+el('resetForm').onsubmit=async e=>{e.preventDefault();const {error}=await db.auth.updateUser({password:el('newPassword').value});
+if(error){say(errorText(error));return;}recovering=false;el('resetForm').reset();view('accountPanel');say('Password updated. You can use it for future sign-ins.');};
+el('changeEmailForm').onsubmit=async e=>{e.preventDefault();const {error}=await db.auth.updateUser({email:el('changeEmail').value.trim()});
+say(error?errorText(error):'Email change requested. Check your email for confirmation instructions.');};
+el('signOut').onclick=async()=>{const {error}=await db.auth.signOut();if(error){say(errorText(error));return;}view('authPanel');setMode('login');say('Signed out.');};
+db.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'){recovering=true;view('resetPanel');say('Enter your new password.');}
+else if(event==='SIGNED_OUT'){recovering=false;view('authPanel');}
+else if(event==='SIGNED_IN'&&session&&!recovering){view('accountPanel');}});
+(async()=>{const {data,error}=await db.auth.getSession();if(error){say('Unable to check your sign-in status.');return;}
+if(!recovering)view(data.session?'accountPanel':'authPanel');})();
+</script></body></html>
