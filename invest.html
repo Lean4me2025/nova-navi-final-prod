@@ -174,7 +174,7 @@
         <h3>Meet NOVA Now — Full Purpose Discovery</h3>
         <p style="font-size:2rem;font-weight:800;color:var(--nova-text-main)">$9.99 <span style="font-size:.95rem;font-weight:500">USD, one time</span></p>
         <p>Continue from your purpose clues to a fuller explanation of your aligned strengths and possible next steps.</p>
-        <a id="stripeCheckoutLink" href="https://buy.stripe.com/6oUbJ39gy2kD4YzeAa6J206" class="btn-primary"
+        <a id="stripeCheckoutLink" class="btn-primary"
            style="display:none;text-decoration:none" rel="noopener noreferrer">Secure checkout with Stripe →</a>
         <p id="checkoutStatus" role="status" aria-live="polite" style="margin:18px auto 0">Checking secure checkout availability…</p>
         <p style="font-size:.85rem;color:var(--nova-text-muted)">Stripe processes the payment. We will not send customers to checkout until payment verification and access are configured.</p>
@@ -200,7 +200,8 @@
         const response = await fetch("/api/checkout-ready", { cache: "no-store" });
         if (!response.ok) throw new Error("Checkout configuration is not available");
         const config = await response.json();
-        if (config.ready === true) {
+        if (config.ready === true && typeof config.checkoutUrl === "string" && /^https:\/\/buy\.stripe\.com\//.test(config.checkoutUrl)) {
+          checkout.href = config.checkoutUrl;
           checkout.style.display = "inline-flex";
           status.textContent = "Secure $9.99 one-time checkout is available.";
         } else {
