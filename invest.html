@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invest In Yourself – NOVA</title>
+  <title>Invest in Your Future – NOVA</title>
 
 
   <style>
@@ -139,77 +139,45 @@
 <body>
   <main class="invest-page">
     <header>
-      <div class="invest-step">Final Step</div>
-      <h1 class="invest-title">Invest In Yourself</h1>
+      <div class="invest-step">Your Next Steps</div>
+      <h1 class="invest-title">Invest in Your Future</h1>
       <p id="roleReminder" class="invest-role-reminder"></p>
     </header>
 
     <section class="psychology-box">
-      <p>
-        You’ve seen who you are — now it’s time to build where you’re going.
-      </p>
-      <p>
-        Purpose is not revealed to tease you. It’s revealed to <strong>invite you</strong> into the next season of your life.
-      </p>
-      <p>
-        You’ve already discovered your strengths, your wiring, and the role where you thrive. The only difference between people who stay stuck and people who step into purpose is that one group decides:
-      </p>
-      <p style="font-weight:600; color:var(--nova-teal-dark); text-align:center; margin:14px 0;">
-        “I’m going to invest in my future.”
-      </p>
-      <p>
-        NAVI is where your purpose becomes a career strategy — a resume, cover letters, company intel, aligned job leads, and a clear roadmap.  
-      </p>
-      <p>
-        This isn’t paying for a tool. This is paying for <strong>momentum</strong>. For clarity. For elevation.
-      </p>
-      <p style="margin-top:12px;">
-        You’ve done the discovery step. Now take the ownership step.
-      </p>
+      <h2 style="margin-bottom:14px">NOVA Purpose Transition Pathways</h2>
+      <p>Discovering your purpose is the beginning. Walking in it does not always require leaving your current job. Choose a transition pathway that fits your skills, financial responsibilities, and readiness.</p>
     </section>
-
-    <section class="invest-options" aria-label="NOVA checkout">
-      <div class="invest-card" style="max-width:650px;margin:0 auto;width:100%">
-        <p style="font-weight:800;color:var(--nova-teal-dark);letter-spacing:.06em;text-transform:uppercase">One-time NOVA discovery access</p>
-        <h3>Meet NOVA Now — Full Purpose Discovery</h3>
-        <p style="font-size:2rem;font-weight:800;color:var(--nova-text-main)">$9.99 <span style="font-size:.95rem;font-weight:500">USD, one time</span></p>
-        <p>Continue from your purpose clues to a fuller explanation of your aligned strengths and possible next steps.</p>
-        <a id="stripeCheckoutLink" class="btn-primary"
-           style="display:none;text-decoration:none" rel="noopener noreferrer">Secure checkout with Stripe →</a>
-        <p id="checkoutStatus" role="status" aria-live="polite" style="margin:18px auto 0">Checking secure checkout availability…</p>
-        <p style="font-size:.85rem;color:var(--nova-text-muted)">Stripe processes the payment. We will not send customers to checkout until payment verification and access are configured.</p>
-      </div>
+    <section class="invest-options" aria-label="Four purpose transition pathways" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+      <div class="invest-card"><h3>Direct Transition</h3><p>Move into a new field when your transferable skills and qualifications already meet its entry requirements.</p></div>
+      <div class="invest-card"><h3>Preparation-First Transition</h3><p>Complete needed schooling, technical training, certification, or licensing before changing fields.</p></div>
+      <div class="invest-card"><h3>Parallel Career Transition</h3><p>Keep your current career while building and practicing a second career aligned with your purpose.</p></div>
+      <div class="invest-card"><h3>Progressive Transition</h3><p>Make a series of smaller changes through courses, projects, experience, and intermediate roles.</p></div>
     </section>
-
-    <div class="continue-box"><a href="reveal.html" style="color:var(--nova-teal-dark)">← Back to my NOVA preview</a></div>
+    <section class="psychology-box" style="margin-top:30px">
+      <h2 style="margin-bottom:12px">Make your transition plan</h2>
+      <ol style="padding-left:22px;line-height:1.8">
+        <li><strong>Identify your destination:</strong> Choose one field or contribution you want to explore.</li>
+        <li><strong>Check requirements:</strong> Compare your existing experience with the education, credentials, and licensing the field requires.</li>
+        <li><strong>Select your pathway:</strong> Decide whether direct, preparation-first, parallel, or progressive change fits your situation.</li>
+        <li><strong>Protect your stability:</strong> Estimate training costs, time commitments, and how you will maintain income during any transition.</li>
+        <li><strong>Start small:</strong> Within seven days, research a program, talk to someone in the field, or try a relevant project.</li>
+        <li><strong>Review your progress:</strong> At 30 and 90 days, reassess your learning, experience, and next step.</li>
+      </ol>
+      <p style="margin-top:14px">For regulated professions, verify requirements with the appropriate licensing authority before changing jobs or paying for training.</p>
+    </section>
+    <section class="psychology-box"><h2 style="margin-bottom:12px">Explore NAVI later</h2><p>NAVI is an optional career-planning experience. Any additional services will be introduced separately when available.</p></section>
+    <div class="continue-box"><a href="reveal.html" style="color:var(--nova-teal-dark)">← Return to my purpose profile</a></div>
   </main>
 
   <script src="nova-profile-helper.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", async () => {
+    document.addEventListener("DOMContentLoaded", () => {
       const profile = loadNovaProfile();
-      const reminder = document.getElementById("roleReminder");
-      reminder.textContent = profile.role?.title
-        ? "Your purpose-role exploration includes: " + profile.role.title
-        : "Review your discovery and choose whether to continue.";
-
-      const status = document.getElementById("checkoutStatus");
-      const checkout = document.getElementById("stripeCheckoutLink");
-      try {
-        const response = await fetch("/api/checkout-ready", { cache: "no-store" });
-        if (!response.ok) throw new Error("Checkout configuration is not available");
-        const config = await response.json();
-        if (config.ready === true && typeof config.checkoutUrl === "string" && /^https:\/\/buy\.stripe\.com\//.test(config.checkoutUrl)) {
-          checkout.href = config.checkoutUrl;
-          checkout.style.display = "inline-flex";
-          status.textContent = "Secure $9.99 one-time checkout is available.";
-        } else {
-          status.textContent = "Checkout is being finalized. You can return to your NOVA preview.";
-        }
-      } catch (error) {
-        status.textContent = "Checkout is being finalized. You can return to your NOVA preview.";
-      }
+      document.getElementById("roleReminder").textContent = profile.role?.title
+        ? "One career direction you explored: " + profile.role.title
+        : "Your discovery is a starting point for exploring your possibilities.";
     });
   </script>
 </body>
