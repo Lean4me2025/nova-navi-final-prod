@@ -24,10 +24,12 @@ small{color:#536b75}#message{min-height:28px} [hidden]{display:none!important}
 <section id="resetPanel" hidden><h2>Choose a new password</h2><form id="resetForm">
 <label for="newPassword">New password (at least 8 characters)</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required>
 <button type="submit">Save new password</button></form></section>
-<section id="accountPanel" hidden><p>You are signed in.</p>
-<form id="changeEmailForm"><label for="changeEmail">Change account email address</label><input id="changeEmail" type="email" autocomplete="email" required>
-<button type="submit">Request email change</button></form>
-<p><small>For your protection, Supabase may require confirmation at your old and new email addresses.</small></p>
+<section id="accountPanel" hidden><p>You are signed in. When you return, use your email and password to sign in.</p>
+<button class="secondary" id="showEmailChange" type="button" aria-expanded="false" aria-controls="changeEmailForm">Change email address</button>
+<form id="changeEmailForm" hidden><label for="changeEmail">New email address</label><input id="changeEmail" type="email" autocomplete="email" required>
+<button type="submit">Request email change</button>
+<button class="secondary" id="cancelEmailChange" type="button">Cancel</button>
+<p><small>For your protection, Supabase may require confirmation at your old and new email addresses.</small></p></form>
 <button class="secondary" id="signOut" type="button">Sign out</button></section>
 <p id="message" role="status" aria-live="polite"></p>
 <p><small>Assessment storage and verified purchase access are not yet connected. Signing in does not confirm a purchase.</small></p>
@@ -60,8 +62,12 @@ say(error?errorText(error):'If an account exists, a password reset link will be 
 catch(e){say('Password reset is unavailable right now.');}finally{el('forgot').disabled=false;}};
 el('resetForm').onsubmit=async e=>{e.preventDefault();const {error}=await db.auth.updateUser({password:el('newPassword').value});
 if(error){say(errorText(error));return;}recovering=false;el('resetForm').reset();view('accountPanel');say('Password updated. You can use it for future sign-ins.');};
+function toggleEmailChange(show){el('changeEmailForm').hidden=!show;el('showEmailChange').setAttribute('aria-expanded',String(show));el('showEmailChange').textContent=show?'Hide email change':'Change email address';if(!show)el('changeEmailForm').reset();}
+el('showEmailChange').onclick=()=>toggleEmailChange(el('changeEmailForm').hidden);
+el('cancelEmailChange').onclick=()=>{toggleEmailChange(false);say('');};
 el('changeEmailForm').onsubmit=async e=>{e.preventDefault();const {error}=await db.auth.updateUser({email:el('changeEmail').value.trim()});
-say(error?errorText(error):'Email change requested. Check your email for confirmation instructions.');};
+say(error?errorText(error):'Email change requested. Check your email for confirmation instructions.');
+if(!error)toggleEmailChange(false);};
 el('signOut').onclick=async()=>{const {error}=await db.auth.signOut();if(error){say(errorText(error));return;}view('authPanel');setMode('login');say('Signed out.');};
 db.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'){recovering=true;view('resetPanel');say('Enter your new password.');}
 else if(event==='SIGNED_OUT'){recovering=false;view('authPanel');}
